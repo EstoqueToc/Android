@@ -7,6 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -15,9 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.estoquetoc.ui.theme.EstoqueTocTheme
@@ -47,15 +53,18 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             .fillMaxSize()
             .background(color = Color(0xFFEAAC47))
             .padding(16.dp),
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
     )
     {
         Box(
             modifier = Modifier
                 .size(100.dp)
                 .align(Alignment.CenterHorizontally)
-                .background(Color.Transparent,
-                    shape = RoundedCornerShape(16.dp)),
+                .background(
+                    Color.Transparent,
+                    shape = RoundedCornerShape(16.dp)
+                ),
         ) {
             Image(
                 painter = painterResource(id = R.drawable.logo),
@@ -66,7 +75,8 @@ fun LoginScreen(modifier: Modifier = Modifier) {
         }
         Spacer(modifier = Modifier.height(16.dp))
         Box(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .border(
                     width = 1.dp,
                     color = Color.LightGray,
@@ -84,7 +94,8 @@ fun LoginScreen(modifier: Modifier = Modifier) {
                 label = {
                     Text("Digite seu e-mail")
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .background(
                         color = Color.White
                     )
@@ -92,7 +103,8 @@ fun LoginScreen(modifier: Modifier = Modifier) {
         }
         Spacer(modifier = Modifier.height(8.dp))
         Box(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .border(
                     width = 1.dp,
                     color = Color.LightGray,
@@ -105,7 +117,8 @@ fun LoginScreen(modifier: Modifier = Modifier) {
                 value = password,
                 onValueChange = { password = it },
                 label = { Text("Digite sua senha") },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .background(
                         color = Color.White
                     ),
@@ -115,20 +128,53 @@ fun LoginScreen(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = {
-                if (username == "admin" && password == "admin") {
+                if (username == "admin" && password == "1234") {
                     loginMessage = "Login realizado"
                 } else {
                     loginMessage = "E-mail ou senha inválido(s)"
                 }
             },
-            modifier = Modifier.width(150.dp)
+            modifier = Modifier
+                .width(150.dp)
                 .align(Alignment.CenterHorizontally)
         ) {
-            Text("Login")
+            Text("Entrar")
         }
+
+        Spacer(modifier = Modifier.height(4.dp))
+        ForgotPasswordLink()
+
         Spacer(modifier = Modifier.height(8.dp))
         Text(text = loginMessage)
     }
+}
+
+@Composable
+fun ForgotPasswordLink() {
+    var isHovered by remember { mutableStateOf(false) }
+
+    Text(
+        text = "Esqueci a senha",
+        color = Color.Blue,
+        style = TextStyle(
+            fontWeight = FontWeight.Light,
+            textDecoration = if (isHovered) TextDecoration.Underline else TextDecoration.None
+        ),
+        modifier = Modifier
+            .clickable {
+                // redireciona para tela de cadastro
+            }
+            .padding(8.dp)
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onPress = {
+                        isHovered = true
+                        tryAwaitRelease()
+                        isHovered = false
+                    }
+                )
+            }
+    )
 }
 
 @Preview(showBackground = true)
