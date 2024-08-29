@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun AppNavHost(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "login") {
+    NavHost(navController = navController, startDestination = "cadastro_produto") {
         composable("login") { LoginScreen(navController) }
         composable("cadastro_usuario") { CadastroUsuarioScreen(navController) }
         composable("dashboard") { DashboardScreen(navController) }
