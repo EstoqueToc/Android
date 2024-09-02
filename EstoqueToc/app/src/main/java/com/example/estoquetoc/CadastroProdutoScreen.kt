@@ -45,13 +45,14 @@ import java.util.Locale
 @Composable
 fun CadastroProdutoScreen() {
     Column {
-//        TopBarApp()
-//        FormFuncionario()
-//        BottomBarApp()
-        test()
+        TopBarApp()
+        FormFuncionario()
+        BottomBarApp()
+//        test()
     }
 }
 
+//@Preview(showBackground = true)
 @Composable
 fun FormFuncionario() {
 
@@ -205,7 +206,7 @@ fun Input(value: String, onValueChange: (String) -> Unit, label: String, text: S
     )
 }
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
 fun test(modifier: Modifier = Modifier) {
 
