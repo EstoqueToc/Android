@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+<!--    <font-->
+<!--        app:fontStyle="normal"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/poppins_regular" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/poppins_italic" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/poppins_blackItalic" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/poppins_bold" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/poppins_boldItalic" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/poppins_extraBold" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/poppins_extraBoldItalic" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/poppins_extraLight" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/poppins_extraLightItalic" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/poppins_ligh" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/poppins_lighItalic" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/poppins_medium" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/poppins_mediumItalic" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/poppins_semiBold" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/poppins_semiBoldItalic" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/poppins_thin" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/poppins_thinItalic" />-->
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/poppins_black" />
+</font-family>
+

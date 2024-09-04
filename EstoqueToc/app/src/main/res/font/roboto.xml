@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/roboto_black" />
+</font-family>
+<!--    <font-->
+<!--        app:fontStyle="normal"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/roboto_Regular" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/roboto_Italic" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/roboto_BlackItalic" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/roboto_Bold" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/roboto_BoldItalic" />-->
+<!--      <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/roboto_Ligh" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/roboto_LighItalic" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/roboto_Medium" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/roboto_MediumItalic" />-->
+<!--     <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/roboto_Thin" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/roboto_ThinItalic" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/roboto_Black" />-->
+<!--    <font-->
+<!--        app:fontStyle="italic"-->
+<!--        app:fontWeight="400"-->
+<!--        app:font="@font/roboto_BlackItalic" />-->
+<!--</font-family>-->
