@@ -29,6 +29,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.withStyle
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavHostController? = null) { // Tornando navController opcional para pré-visualização
     var email by remember { mutableStateOf("") }
@@ -39,7 +40,7 @@ fun LoginScreen(navController: NavHostController? = null) { // Tornando navContr
             .fillMaxSize()
     ) {
         Image(
-            painter = painterResource(id = R.drawable.background),
+            painter = painterResource(id = R.drawable.background2),
             contentDescription = "Imagem de Fundo com círculos",
             modifier = Modifier
                 .fillMaxSize(),
@@ -98,8 +99,15 @@ fun LoginScreen(navController: NavHostController? = null) { // Tornando navContr
                 value = email,
                 onValueChange = { email = it },
                 label = { Text("Email") },
-                modifier = Modifier.fillMaxWidth(),
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp),
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    containerColor = Color.LightGray, // Define a cor de fundo aqui
+                    focusedBorderColor = Color.Transparent, // Remove a borda ao focar
+                    unfocusedBorderColor = Color.Transparent // Remove a borda quando não focado
+                )
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -111,16 +119,21 @@ fun LoginScreen(navController: NavHostController? = null) { // Tornando navContr
                 modifier = Modifier.fillMaxWidth(),
                 visualTransformation = if (senhaVisivel) VisualTransformation.None else PasswordVisualTransformation(),
                 trailingIcon = {
-                    val icon =
-                        if (senhaVisivel) Icons.Default.Visibility else Icons.Default.VisibilityOff
+                    val icon = if (senhaVisivel) Icons.Default.Visibility else Icons.Default.VisibilityOff
                     IconButton(onClick = { senhaVisivel = !senhaVisivel }) {
                         Icon(
                             imageVector = icon,
                             contentDescription = "Toggle password visibility"
                         )
                     }
-                }
+                },
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    containerColor = Color.LightGray, // Define o fundo aqui
+                    focusedBorderColor = Color.Transparent, // Remove a borda ao focar
+                    unfocusedBorderColor = Color.Transparent // Remove a borda quando não focado
+                )
             )
+
 
             Spacer(modifier = Modifier.height(10.dp))
 
