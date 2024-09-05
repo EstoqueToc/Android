@@ -20,9 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.estoquetoc.ui.theme.Orange
-import com.example.estoquetoc.ui.theme.StrongOrange
-import com.example.estoquetoc.ui.theme.Yellow
+
 
 @Composable
 fun TopBarApp() {
@@ -31,9 +29,7 @@ fun TopBarApp() {
             .fillMaxWidth()
             .background(
                 brush = Brush.horizontalGradient(
-                    colors = listOf(
-                        StrongOrange, Orange, Orange, Yellow, Yellow, Yellow, Yellow
-                    )
+
                 )
             )
             .padding(start = 6.dp, top = 9.dp, end = 14.dp, bottom = 9.dp),
@@ -42,7 +38,7 @@ fun TopBarApp() {
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Image(
-                painter = painterResource(id = R.drawable.back_icon),
+                painter = painterResource(id = R.drawable.voltar),
                 contentDescription = "Back",
                 Modifier.size(16.dp)
             )
@@ -59,7 +55,7 @@ fun TopBarApp() {
             fontSize = 18.sp
         )
         Image(
-            painter = painterResource(id = R.drawable.edit_icon),
+            painter = painterResource(id = R.drawable.editar),
             contentDescription = "Editar",
             modifier = Modifier.size(22.dp)
         )
@@ -79,7 +75,7 @@ fun BottomBarApp(modifier: Modifier = Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = R.drawable.home_icon),
+                painter = painterResource(id = R.drawable.home),
                 contentDescription = "Home",
                 Modifier
                     .size(20.dp)
@@ -94,7 +90,7 @@ fun BottomBarApp(modifier: Modifier = Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = R.drawable.add_icon),
+                painter = painterResource(id = R.drawable.mais),
                 contentDescription = "Cadastro",
                 Modifier
                     .size(20.dp)
@@ -110,7 +106,7 @@ fun BottomBarApp(modifier: Modifier = Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = R.drawable.gestao_icon),
+                painter = painterResource(id = R.drawable.gestao),
                 contentDescription = "Gestão",
                 Modifier.size(20.dp)
             )
@@ -123,7 +119,7 @@ fun BottomBarApp(modifier: Modifier = Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ajuste_icon),
+                painter = painterResource(id = R.drawable.configuracao),
                 contentDescription = "Ajustes",
                 Modifier.size(20.dp)
             )
