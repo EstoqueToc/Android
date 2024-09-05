@@ -32,7 +32,7 @@ import androidx.navigation.NavController
                     .padding(16.dp)
             ) {
                 Text(
-                    text = "Cadastros",
+                    text = "Gestão",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White,
