@@ -64,7 +64,7 @@ fun FaturamentoScreen(navController: NavController? = null) {
                         colorFilter = ColorFilter.tint(Color(0xFFFFFFFF))
                     )
                     Spacer(
-                        modifier = Modifier.width(320.dp)) // Espaço entre as imagens
+                        modifier = Modifier.width(300.dp)) // Espaço entre as imagens
                     Image(
                         painter = painterResource(id = R.drawable.notificacao),
                         contentDescription = "Imagem de um sino",
@@ -116,12 +116,12 @@ fun FaturamentoScreen(navController: NavController? = null) {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Column (modifier = Modifier
-                    .padding(start = 20.dp)) {
+                    .padding(start = 10.dp)) {
                     Text(
                         text = "Com o EE Gold, você tem acesso a",
                         fontWeight = FontWeight.SemiBold,
                         color = Color(0xFFB37C00),
-                        fontSize = 14.sp,
+                        fontSize = 12.sp,
                         textAlign = TextAlign.Justify
                     )
                     Spacer(modifier = Modifier.height(2.dp))
@@ -129,14 +129,14 @@ fun FaturamentoScreen(navController: NavController? = null) {
                         text = "ferramentas exclusivas que fazem",
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFFB37C00),
-                        fontSize = 14.sp,
+                        fontSize = 12.sp,
                     )
                     Spacer(modifier = Modifier.height(2.dp))
                     Text(
                         text = "a diferença.",
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFFB37C00),
-                        fontSize = 14.sp,
+                        fontSize = 12.sp,
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     Text(
