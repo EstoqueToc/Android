@@ -10,6 +10,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -68,13 +71,13 @@ fun TopBarApp() {
 
 @Composable
 fun BottomBarApp(modifier: Modifier = Modifier) {
-    Row (
+    Row(
         Modifier
             .fillMaxWidth()
             .background(color = Color.Black),
         horizontalArrangement = Arrangement.SpaceAround
 
-    ){
+    ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -85,7 +88,8 @@ fun BottomBarApp(modifier: Modifier = Modifier) {
                     .size(20.dp)
             )
             Spacer(modifier = Modifier.size(4.dp))
-            Text(text = "Inicio",
+            Text(
+                text = "Inicio",
                 color = Color.White,
                 fontWeight = FontWeight.Bold
             )
@@ -115,9 +119,11 @@ fun BottomBarApp(modifier: Modifier = Modifier) {
                 Modifier.size(20.dp)
             )
             Spacer(modifier = Modifier.size(4.dp))
-            Text(text = "Gestão",
+            Text(
+                text = "Gestão",
                 color = Color.White,
-                fontWeight = FontWeight.Bold)
+                fontWeight = FontWeight.Bold
+            )
         }
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
@@ -131,7 +137,28 @@ fun BottomBarApp(modifier: Modifier = Modifier) {
             Text(
                 text = "Ajustes",
                 color = Color.White,
-                fontWeight = FontWeight.Bold)
+                fontWeight = FontWeight.Bold
+            )
         }
+    }
+}
+
+@Composable
+fun CompButton(
+    onClickAction: () -> Unit,
+    text: String
+) {
+    Button(
+        onClick = onClickAction,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        shape = RoundedCornerShape(0.dp),
+        colors = ButtonDefaults.buttonColors(
+            StrongOrange
+        )
+
+    ) {
+        Text(text = text, fontWeight = FontWeight.Bold, fontSize = 20.sp)
     }
 }
