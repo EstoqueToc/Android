@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">EstoqueToc</string>
+    <string name="meu_primeiro_texto">
+        Este é o meu primeiro texto
+    </string>
 </resources>

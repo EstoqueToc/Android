@@ -19,6 +19,7 @@ import com.example.estoquetoc.R
 
 class CadastroDeFuncionario4 {
 
+    @Preview(showBackground = true)
     @Composable
     fun EmployeeSearch() {
         Column(
