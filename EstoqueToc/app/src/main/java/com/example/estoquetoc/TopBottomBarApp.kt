@@ -166,7 +166,7 @@ fun CompButton(
 }
 
 
-@Preview
+//@Preview
 @Composable
  fun Testando(navController: NavController) {
 
@@ -247,5 +247,6 @@ fun Produtos(
                 }
             }
         }
+        Spacer(modifier = Modifier.size(10.dp))
     }
 }

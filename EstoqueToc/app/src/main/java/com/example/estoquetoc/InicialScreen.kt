@@ -139,9 +139,9 @@ fun WelcomeScreen(
 }
 
 //@Preview(showBackground = true)
-@Composable
-fun InicialScreen() {
-    EstoqueTocTheme {
-        WelcomeScreen(navController = rememberNavController())
-    }
-}
+//@Composable
+//fun InicialScreen() {
+//    EstoqueTocTheme {
+//        WelcomeScreen(navController = )
+//    }
+//}

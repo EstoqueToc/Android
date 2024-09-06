@@ -25,9 +25,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    Scaffold(
-                        bottomBar = { BottomBarApp(navController = navController) }
-                    ) { innerPadding ->
+                    Scaffold() {
+                        innerPadding ->
                         AppNavHost(
                             navController = navController,
                             modifier = Modifier.padding(innerPadding)

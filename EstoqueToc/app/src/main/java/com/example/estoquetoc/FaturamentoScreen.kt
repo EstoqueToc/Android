@@ -176,7 +176,7 @@ fun FaturamentoScreen(navController: NavController? = null) {
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(180.dp)
+                    .height(150.dp)
             )
             Spacer(modifier = Modifier.height(24.dp))
             Row(
@@ -209,6 +209,7 @@ fun FaturamentoScreen(navController: NavController? = null) {
         }
         BottomBarApp(navController = navController!!)
     }
+
 }
 
 @Preview(showBackground = true)
