@@ -19,13 +19,15 @@ import androidx.compose.ui.unit.sp
 import com.example.estoquetoc.ui.theme.EstoqueTocTheme
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 val poppins_black = FontFamily(
     Font(R.font.poppins_black)
 )
 
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(navController: NavHostController? = null) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -70,7 +72,6 @@ fun WelcomeScreen() {
                     text = "Bem Vindo!",
                     fontSize = 42.sp,
                     //fontFamily = poppins_black,
-                    fontFamily = FontFamily.Serif,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black
                 )
@@ -98,7 +99,8 @@ fun WelcomeScreen() {
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Button(
-                                onClick = { /* TODO: Handle login */ },
+                                onClick = { navController?.navigate("login") },
+                                shape = RoundedCornerShape(6.dp),
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = Color.Black,
                                     contentColor = Color.White
@@ -110,7 +112,8 @@ fun WelcomeScreen() {
                                 Text(text = "Entrar")
                             }
                             Button(
-                                onClick = { /* TODO: Handle register */ },
+                                onClick = { navController?.navigate("cadastroUsuario") },
+                                shape = RoundedCornerShape(6.dp),
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = Color.White,
                                     contentColor = Color.Black

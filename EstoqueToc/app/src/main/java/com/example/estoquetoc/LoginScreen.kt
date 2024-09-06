@@ -99,16 +99,10 @@ fun LoginScreen(navController: NavHostController? = null) { // Tornando navContr
                 value = email,
                 onValueChange = { email = it },
                 label = { Text("Email") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp),
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.LightGray, // Define a cor de fundo aqui
-                    focusedBorderColor = Color.Transparent, // Remove a borda ao focar
-                    unfocusedBorderColor = Color.Transparent // Remove a borda quando não focado
-                )
+                modifier = Modifier.fillMaxWidth(),
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
             )
+
 
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -126,12 +120,7 @@ fun LoginScreen(navController: NavHostController? = null) { // Tornando navContr
                             contentDescription = "Toggle password visibility"
                         )
                     }
-                },
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color.LightGray, // Define o fundo aqui
-                    focusedBorderColor = Color.Transparent, // Remove a borda ao focar
-                    unfocusedBorderColor = Color.Transparent // Remove a borda quando não focado
-                )
+                }
             )
 
 

@@ -198,6 +198,7 @@ fun FaturamentoScreen(navController: NavController? = null) {
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = { /* Navegar para a tela de suporte */ },
+                shape = RoundedCornerShape(6.dp),
                 modifier = Modifier.fillMaxWidth(0.9f),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF7D00))
             ) {
@@ -208,7 +209,7 @@ fun FaturamentoScreen(navController: NavController? = null) {
                     fontSize = 16.sp
                 )
             }
-          //  TopBarApp()
+          //TopBarApp()
         }
     }
 }

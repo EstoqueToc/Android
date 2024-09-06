@@ -40,7 +40,7 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) { // Tornand
             .fillMaxSize()
     ) {
         Image(
-            painter = painterResource(id = R.drawable.background),
+            painter = painterResource(id = R.drawable.background2),
             contentDescription = "Imagem de Fundo com círculos",
             modifier = Modifier
                 .fillMaxSize(),

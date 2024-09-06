@@ -19,29 +19,24 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             EstoqueTocTheme {
-                val navController = rememberNavController()
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    AppNavHost(navController = navController)
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    AppNavHost()
                 }
             }
         }
     }
 }
 
-
 @Composable
-fun NavigationComponent(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "cadastro") {
-        composable("cadastro") { CadastroUsuarioScreen(navController = navController) }
-        composable("login") { LoginScreen(navController = navController) }
-    }
-}
-
-@Composable
-fun AppNavHost(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "login") {
+fun AppNavHost() {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "inicial") {
         composable("login") { LoginScreen(navController) }
-        composable("cadastro_usuario") { CadastroUsuarioScreen(navController) }
+        composable("inicial") { WelcomeScreen(navController) }
+        composable("cadastroUsuario") { CadastroUsuarioScreen(navController) }
         composable("dashboard") { DashboardScreen(navController) }
         composable("cadastro_produto") { CadastroProdutoScreen(navController) }
         composable("cadastro_fornecedor") { CadastroFornecedorScreen(navController) }
@@ -53,6 +48,6 @@ fun AppNavHost(navController: NavHostController) {
 @Composable
 fun DefaultPreview() {
     EstoqueTocTheme {
-        AppNavHost(navController = rememberNavController())
+        AppNavHost()
     }
 }
