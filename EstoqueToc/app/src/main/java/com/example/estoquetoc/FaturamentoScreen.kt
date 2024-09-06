@@ -22,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -37,10 +36,11 @@ fun FaturamentoScreen(navController: NavController? = null) {
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFF3F3F3)),
-            //.padding(16.dp),
+            //.padding(16.dp) ,
         horizontalAlignment = Alignment.CenterHorizontally,
-       // verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
+
         // Faturamento do Mês
         Box(
             modifier = Modifier
@@ -94,8 +94,6 @@ fun FaturamentoScreen(navController: NavController? = null) {
             }
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
-
         // Ferramentas Exclusivas
         Box(
             modifier = Modifier
@@ -111,7 +109,8 @@ fun FaturamentoScreen(navController: NavController? = null) {
                Image(
                     painter = painterResource(id = R.drawable.maoestrelas),
                     contentDescription = "Imagem de uma mão segurando estrelas",
-                    modifier = Modifier.size(40.dp)
+                    modifier = Modifier
+                        .size(40.dp)
                         .align(Alignment.CenterVertically)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
@@ -149,7 +148,7 @@ fun FaturamentoScreen(navController: NavController? = null) {
                 }
                 Spacer(modifier = Modifier.weight(1f))
                 Image(
-                    painter = painterResource(id = R.drawable.setadireita),
+                    painter = painterResource(id = R.drawable.seta_direita),
                     contentDescription = null,
                     colorFilter = ColorFilter.tint(Color(0xFFFFFFFF)),
                     modifier = Modifier
@@ -158,8 +157,6 @@ fun FaturamentoScreen(navController: NavController? = null) {
                 )
             }
         }
-
-        Spacer(modifier = Modifier.height(24.dp))
 
         // Precisa de Ajuda?
         Column(
@@ -208,8 +205,8 @@ fun FaturamentoScreen(navController: NavController? = null) {
                     fontSize = 16.sp
                 )
             }
-          //  TopBarApp()
         }
+        BottomBarApp(navController = navController!!)
     }
 }
 

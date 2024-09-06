@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -19,13 +18,17 @@ import androidx.compose.ui.unit.sp
 import com.example.estoquetoc.ui.theme.EstoqueTocTheme
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 val poppins_black = FontFamily(
     Font(R.font.poppins_black)
 )
 
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(
+    navController: NavHostController
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -45,7 +48,7 @@ fun WelcomeScreen() {
                 modifier = Modifier
                     .size(150.dp)
                     .background(color = Color.Transparent),
-            contentScale = ContentScale.Fit // Ajusta a escala da imagem
+                contentScale = ContentScale.Fit // Ajusta a escala da imagem
             )
             Text(
                 text = "EstoqueToc",
@@ -59,7 +62,7 @@ fun WelcomeScreen() {
             modifier = Modifier
                 .weight(0.8f)
                 .fillMaxSize()
-          ) {
+        ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize(),
@@ -77,7 +80,7 @@ fun WelcomeScreen() {
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier.padding(top = 8.dp, bottom = 24.dp)
-                    ) {
+                ) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
@@ -98,7 +101,9 @@ fun WelcomeScreen() {
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Button(
-                                onClick = { /* TODO: Handle login */ },
+                                onClick = {
+                                    navController.navigate("login")
+                                },
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = Color.Black,
                                     contentColor = Color.White
@@ -110,7 +115,9 @@ fun WelcomeScreen() {
                                 Text(text = "Entrar")
                             }
                             Button(
-                                onClick = { /* TODO: Handle register */ },
+                                onClick = {
+                                    navController.navigate("cadastro_usuario")
+                                },
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = Color.White,
                                     contentColor = Color.Black
@@ -125,14 +132,15 @@ fun WelcomeScreen() {
                     }
                 }
             }
+
         }
     }
 }
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
-fun WelcomeScreenPreview() {
+fun InicialScreen() {
     EstoqueTocTheme {
-        WelcomeScreen()
+        WelcomeScreen(navController = rememberNavController())
     }
 }

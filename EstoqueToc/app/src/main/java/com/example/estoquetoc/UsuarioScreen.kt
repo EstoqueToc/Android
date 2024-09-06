@@ -29,7 +29,11 @@ import coil.compose.rememberAsyncImagePainter
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UsuarioScreen(navController: NavController? = null, userName: String, functionName: String) {
+fun UsuarioScreen(
+//    navController: NavController? = null,
+    userName: String,
+    functionName: String
+) {
     var profileImageUri by remember { mutableStateOf<Uri?>(null) }
     var email by remember { mutableStateOf("") }
     var nome by remember { mutableStateOf("") }
@@ -66,8 +70,8 @@ fun UsuarioScreen(navController: NavController? = null, userName: String, functi
                         painter = painterResource(id = R.drawable.voltar),
                         contentDescription = "seta de voltar",
                         modifier = Modifier
-                            .size(80.dp)
-                            .clickable { navController?.navigate("AjusteScreen") },
+//                            .clickable { navController?.navigate("AjusteScreen") }
+                            .size(80.dp),
                         colorFilter = ColorFilter.tint(Color.White)
                     )
                     Text(
@@ -85,7 +89,7 @@ fun UsuarioScreen(navController: NavController? = null, userName: String, functi
                         color = Color.White,
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
-                            .clickable { navController?.navigate("LoginScreen") }
+//                            .clickable { navController?.navigate("LoginScreen") }
                     )
                 }
             }
@@ -233,7 +237,7 @@ fun UsuarioScreen(navController: NavController? = null, userName: String, functi
                 Text("Deletar Conta", color = Color.White, fontSize = 16.sp)
                 Spacer(modifier = Modifier.width(16.dp))
                 Image(
-                    painter = painterResource(id = R.drawable.lixeira),
+                    painter = painterResource(id = R.drawable.lixeira_icon),
                     contentDescription = "Ícone de lixeira",
                     modifier = Modifier.size(24.dp),
                     colorFilter = ColorFilter.tint(Color(0xFFFFFFFF))

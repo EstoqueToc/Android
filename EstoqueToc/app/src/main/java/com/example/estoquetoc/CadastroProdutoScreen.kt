@@ -8,18 +8,25 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,7 +34,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -42,7 +48,7 @@ fun CadastroProdutoScreen(
     Column {
         TopBarApp()
         FormFuncionario()
-        BottomBarApp()
+        BottomBarApp(navController = navController)
     }
 }
 
@@ -148,7 +154,7 @@ fun FormFuncionario() {
         )
         Spacer(modifier = Modifier.size(16.dp))
 
-        // Seção para categoria
+//         Seção para categoria
         Box(
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -178,22 +184,20 @@ fun FormFuncionario() {
                 )
             }
         }
-
         AnimatedVisibility(
             visible = listaVisible,
             enter = fadeIn(tween(500)),
             exit = fadeOut(tween(500))
         ) {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+                Modifier.padding(16.dp)
             ) {
-                LazyColumn {
-                    items(itemsList) { item ->
+                    itemsList.forEach { item ->
                         Button(
                             onClick = { categoria = item },
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(4.dp) // Adiciona um pouco de espaço entre os botões
                         ) {
                             Text(
                                 text = item,
@@ -202,9 +206,8 @@ fun FormFuncionario() {
                             )
                         }
                     }
-                }
-                Spacer(modifier = Modifier.height(16.dp))
 
+                Spacer(modifier = Modifier.size(16.dp))
                 Button(onClick = {
                     popUpVisible = !popUpVisible
                 }) {
@@ -212,6 +215,7 @@ fun FormFuncionario() {
                 }
             }
         }
+
 
         AnimatedVisibility(
             visible = popUpVisible,
@@ -252,52 +256,6 @@ fun FormFuncionario() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-//        Button(
-//            onClick = {
-//                if (nomeProduto.isNotBlank() && descricaoProduto.isNotBlank() && dataValidade.isNotBlank()
-//                    && unidadeMedida.isNotBlank() && qtdEntrada.isNotBlank() && precoCompra.isNotBlank()
-//                    && precoVenda.isNotBlank() && categoria.isNotBlank()
-//                ) {
-//                    Toast.makeText(
-//                        context,
-//                        "Produto '$nomeProduto' salvo com sucesso!",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//
-//                    // Limpar campos após o salvamento
-//                    nomeProduto = ""
-//                    descricaoProduto = ""
-//                    dataValidade = ""
-//                    unidadeMedida = ""
-//                    qtdEntrada = ""
-//                    precoCompra = ""
-//                    precoVenda = ""
-//                    categoria = ""
-//
-//                } else {
-//                    Toast.makeText(
-//                        context,
-//                        "Por favor, preencha todos os campos.",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//            },
-//            modifier = Modifier
-//                .fillMaxWidth() // Define a largura e altura do botão para 100.dp, tornando-o quadrado
-//                .padding(top = 16.dp),
-//            shape = RoundedCornerShape(0.dp) // Mantém as bordas quadradas, sem arredondamento
-//        ) {
-//            Text(
-//                text = "Salvar Produto",
-//                fontSize = 16.sp,
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(8.dp), // Adiciona um pouco de padding ao texto
-//                textAlign = TextAlign.Center
-//            )
-//        }
-
-
         CompButton(onClickAction = {
             if (nomeProduto.isNotBlank() && descricaoProduto.isNotBlank() && dataValidade.isNotBlank()
                 && unidadeMedida.isNotBlank() && qtdEntrada.isNotBlank() && precoCompra.isNotBlank()
@@ -333,25 +291,6 @@ fun FormFuncionario() {
 
 
 @Composable
-fun ItemList(
-    items: List<String>,
-    modifier: Modifier = Modifier
-) {
-    LazyColumn(
-        modifier = modifier
-    ) {
-        items(items) { item ->
-            Text(
-                text = item,
-                modifier = Modifier.padding(8.dp),
-                fontSize = 16.sp
-            )
-        }
-    }
-}
-
-
-@Composable
 fun Input(
     value: String,
     onValueChange: (String) -> Unit,
@@ -372,99 +311,3 @@ fun Input(
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun Test() {
-    var novoItem by remember { mutableStateOf("") }
-    var popUpVisible by remember { mutableStateOf(false) }
-    var listaVisible by remember { mutableStateOf(false) }
-    var itemsList by remember { mutableStateOf(listOf<String>()) }
-
-    var categoria by remember { mutableStateOf("") }
-
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Box(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Input(
-                value = categoria,
-                onValueChange = { categoria = it },
-                labelText = "Categoria"
-            )
-            Button(
-                shape = CircleShape,
-                onClick = { listaVisible = !listaVisible }, // Toggle listaVisible
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Transparent
-                ),
-                modifier = Modifier.align(Alignment.CenterEnd)
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = if (listaVisible) R.drawable.show_arrow_icon else R.drawable.hide_arrow_icon
-                    ),
-                    contentDescription = if (listaVisible) "Mostrar" else "Esconder",
-                    modifier = Modifier
-                        .size(20.dp)
-                        .background(Color.Transparent)
-                )
-            }
-        }
-
-        AnimatedVisibility(
-            visible = listaVisible,
-            enter = fadeIn(tween(500)),
-            exit = fadeOut(tween(500))
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                LazyColumn {
-                    items(itemsList) { item ->
-                        Text(
-                            text = item,
-                            modifier = Modifier.padding(8.dp),
-                            fontSize = 16.sp
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Button(onClick = {
-                    popUpVisible = !popUpVisible
-                }) {
-                    Text("Adicionar Nova Categoria")
-                }
-            }
-        }
-
-        AnimatedVisibility(
-            visible = popUpVisible,
-            enter = fadeIn(tween(500)),
-            exit = fadeOut(tween(500))
-        ) {
-            Column {
-                Input(
-                    value = novoItem,
-                    onValueChange = { novoItem = it },
-                    labelText = "Nova Categoria"
-                )
-                Button(
-                    modifier = Modifier
-                        .size(100.dp)
-                        .clip(RoundedCornerShape(16.dp))
-                        .aspectRatio(1f),
-                    onClick = {
-                        itemsList = itemsList + novoItem
-                        popUpVisible = false
-                        categoria = novoItem
-                        novoItem = ""
-                    }) {
-                    Text(text = "Salvar")
-                }
-            }
-        }
-    }
-}

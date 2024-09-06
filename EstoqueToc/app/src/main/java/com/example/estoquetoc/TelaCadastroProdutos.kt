@@ -25,13 +25,13 @@ class TelaCadastroProdutos {
             // ProductForm(productName, productPrice, onProductNameChange, onProductPriceChange, onSaveClick)
         }
     }
-
-    @Preview(showBackground = true)
-    @Composable
-    fun CadastroProdutoScreenPreview() {
-        EstoqueTocTheme {
-            CadastroProdutoScreen()
-        }
-    }
+//
+//    @Preview(showBackground = true)
+//    @Composable
+//    fun CadastroProdutoScreenPreview() {
+//        EstoqueTocTheme {
+//            CadastroProdutoScreen()
+//        }
+//    }
 
 }
