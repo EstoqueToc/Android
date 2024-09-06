@@ -44,7 +44,7 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
             .verticalScroll(rememberScrollState())
     ) {
         Image(
-            painter = painterResource(id = R.drawable.background),
+            painter = painterResource(id = R.drawable.background2),
             contentDescription = "Imagem de Fundo com círculos",
             modifier = Modifier
                 .fillMaxSize(),
