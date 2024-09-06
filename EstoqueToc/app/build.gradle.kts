@@ -76,6 +76,9 @@ dependencies {
     // Coil for image loading in Compose
     implementation(libs.coil.kt.coil.compose)
 
+    // WebView
+    implementation (libs.androidx.webkit.v140)
+
     // Testing dependencies
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

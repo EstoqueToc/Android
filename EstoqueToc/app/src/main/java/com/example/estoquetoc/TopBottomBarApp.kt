@@ -150,9 +150,9 @@ fun CompButton(
             .fillMaxWidth()
             .padding(16.dp),
         shape = RoundedCornerShape(0.dp),
-        colors = ButtonDefaults.buttonColors(
-            StrongOrange
-        )
+       // colors = ButtonDefaults.buttonColors(
+         //   StrongOrange
+        //)
 
     ) {
         Text(text = text, fontWeight = FontWeight.Bold, fontSize = 20.sp)

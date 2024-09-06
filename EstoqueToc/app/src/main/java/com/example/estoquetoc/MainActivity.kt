@@ -38,10 +38,10 @@ fun AppNavHost() {
         composable("inicial") { WelcomeScreen(navController) }
         composable("cadastroUsuario") { CadastroUsuarioScreen(navController) }
         composable("faturamento") { FaturamentoScreen(navController) }
-       // composable("dashboard") { DashboardScreen(navController) }
-        //composable("cadastro_produto") { CadastroProdutoScreen(navController) }
-        //composable("cadastro_fornecedor") { CadastroFornecedorScreen(navController) }
-        //composable("cadastro_funcionario") { CadastroFuncionarioScreen(navController) }
+        composable("dashboard") { DashboardScreen(navController) }
+        composable("cadastro_produto") { CadastroProdutoScreen(navController) }
+        composable("cadastro_fornecedor") { CadastroFornecedorScreen(navController) }
+        composable("cadastro_funcionario") { CadastroFuncionarioScreen(navController) }
     }
 }
 

@@ -2,6 +2,7 @@
 accompanistCoil = "<versão>"
 activityComposeVersion = "1.7.2"
 agp = "8.5.0"
+androidxWebkit = "1.4.0"
 coilComposeVersion = "2.1.0"
 coreKtxVersion = "1.12.0"
 kotlin = "1.9.0"
@@ -19,6 +20,7 @@ navigationCompose = "2.7.7"
 runtimeLivedata = "1.6.8"
 uiTextGoogleFonts = "compose-ui"
 uiToolingPreview = "1.6.8"
+webkit = "1.11.0"
 
 [libraries]
 accompanist-coil = { module = "com.google.accompanist:accompanist-coil", version.ref = "accompanistCoil" }
@@ -30,6 +32,8 @@ androidx-material-icons-extended = { module = "androidx.compose.material:materia
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "runtimeLivedata" }
 androidx-ui-text-google-fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
+androidx-webkit = { module = "androidx.webkit:webkit", version.ref = "webkit" }
+androidx-webkit-v140 = { module = "androidx.webkit:webkit", version.ref = "androidxWebkit" }
 coil-kt-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilComposeVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
