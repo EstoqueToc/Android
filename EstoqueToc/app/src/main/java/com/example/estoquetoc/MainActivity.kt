@@ -57,6 +57,8 @@ fun AppNavHost(
         composable("cadastro_produto") { CadastroProdutoScreen(navController) }
         composable("cadastro_fornecedor") { CadastroFornecedorScreen(navController) }
         composable("cadastro_funcionario") { CadastroFuncionarioScreen(navController) }
+        composable("relatorios") { RelatorioScreen(navController) }
+        composable("menu_cadastros") {MenuCadastros(navController)}
     }
 }
 

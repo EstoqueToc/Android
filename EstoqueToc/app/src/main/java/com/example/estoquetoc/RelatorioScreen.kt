@@ -14,10 +14,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 
 @Composable
-fun RelatorioScreen() {
+fun RelatorioScreen(navController: NavController? = null) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -67,6 +68,7 @@ fun RelatorioScreen() {
                 }
             }
         }
+        BottomBarApp(navController = navController!!)
     }
 }
 
@@ -103,6 +105,7 @@ fun RowInfo(title: String, value: String, description: String) {
             Text(value, fontWeight = FontWeight.Bold)
         }
         Text(description, fontSize = 12.sp, color = Color.Gray)
+
     }
 }
 

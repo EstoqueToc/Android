@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun MenuCadastro(navController: NavController? = null) {
+fun MenuCadastros(navController: NavController? = null) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -120,11 +120,12 @@ fun CadastroItem(iconId: Int, title: String, description: String) {
                 )
             }
         }
+      //  BottomBarApp(navController = navController!!)
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun MenuCadastroPreview() {
-    MenuCadastro()
+    MenuCadastros()
 }
