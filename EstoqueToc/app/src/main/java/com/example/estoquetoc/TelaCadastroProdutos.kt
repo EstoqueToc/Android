@@ -10,28 +10,4 @@ import com.example.estoquetoc.ui.theme.EstoqueTocTheme
 
 class TelaCadastroProdutos {
 
-    @Composable
-    fun CadastroProdutoScreen() {
-        var productName by remember { mutableStateOf("") }
-        var productPrice by remember { mutableStateOf("") }
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.Center
-        ) {
-            // UI Components here
-            // ProductForm(productName, productPrice, onProductNameChange, onProductPriceChange, onSaveClick)
-        }
-    }
-//
-//    @Preview(showBackground = true)
-//    @Composable
-//    fun CadastroProdutoScreenPreview() {
-//        EstoqueTocTheme {
-//            CadastroProdutoScreen()
-//        }
-//    }
-
 }

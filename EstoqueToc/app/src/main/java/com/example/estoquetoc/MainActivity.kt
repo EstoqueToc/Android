@@ -9,10 +9,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
+import com.example.estoquetoc.componentes.Produto
+import com.example.estoquetoc.componentes.ProdutoViewModel
 import com.example.estoquetoc.ui.theme.EstoqueTocTheme
 
 class MainActivity : ComponentActivity() {
@@ -39,11 +42,15 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) {
+fun AppNavHost(
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+) {
+    val produtoViewModel:ProdutoViewModel = viewModel()
     NavHost(navController = navController, startDestination = "inicial_screen", modifier = modifier) {
         composable("inicial_screen") { WelcomeScreen(navController) }
         composable("login") { LoginScreen(navController) }
-        composable("produtos_screen") { ProdutoScreen(navController)}
+        composable("produtos_screen") { ProdutoScreen(navController, produtoViewModel)}
         composable("cadastro_usuario") { CadastroUsuarioScreen(navController) }
         composable("faturamento") { FaturamentoScreen(navController) }
         composable("dashboard") { DashboardScreen(navController) }

@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -43,9 +42,16 @@ import com.example.estoquetoc.ui.theme.StrongOrange
 import com.example.estoquetoc.ui.theme.StrongYellow
 import com.example.estoquetoc.ui.theme.Yellow
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
-fun TopBarApp() {
+fun TopBarApp(
+    FirstImage: Int,
+    FirstImageDescription: String,
+    SecondImage: Int,
+    SecondImageDescription: String,
+    Titulo: String,
+    onClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -59,26 +65,28 @@ fun TopBarApp() {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Image(
-                painter = painterResource(id = R.drawable.back_icon),
-                contentDescription = "Back",
-                Modifier.size(16.dp)
-            )
-            Spacer(modifier = Modifier.width(9.dp))
-            Text(
-                text = "Voltar",
-                fontSize = 14.sp,
-                fontWeight = FontWeight.SemiBold,
-            )
+            Button(onClick = onClick) {
+                Image(
+                    painter = painterResource(id = FirstImage),
+                    contentDescription = FirstImageDescription,
+                    Modifier.size(16.dp)
+                )
+                Spacer(modifier = Modifier.width(9.dp))
+                Text(
+                    text = FirstImageDescription,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.SemiBold,
+                )
+            }
         }
         Text(
-            text = "Novo Produto",
+            text = Titulo,
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp
         )
         Image(
-            painter = painterResource(id = R.drawable.edit_icon),
-            contentDescription = "Editar",
+            painter = painterResource(id = SecondImage),
+            contentDescription = SecondImageDescription,
             modifier = Modifier.size(22.dp)
         )
     }

@@ -36,29 +36,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.estoquetoc.componentes.Produto
+import com.example.estoquetoc.componentes.ProdutoViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 //@Preview(showBackground = true)
 @Composable
 fun CadastroProdutoScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    produtoViewModel: ProdutoViewModel = viewModel()
 ) {
-    Column {
-        TopBarApp()
-        FormFuncionario()
-        BottomBarApp(navController = navController)
-    }
-}
-
-@Composable
-fun FormFuncionario() {
-    var novoItem by remember { mutableStateOf("") }
-    var popUpVisible by remember { mutableStateOf(false) }
-    var listaVisible by remember { mutableStateOf(false) }
-    var itemsList by remember { mutableStateOf(listOf<String>()) }
-
     var nomeProduto by remember { mutableStateOf("") }
     var descricaoProduto by remember { mutableStateOf("") }
     var dataValidade by remember { mutableStateOf("") }
@@ -67,131 +58,145 @@ fun FormFuncionario() {
     var precoCompra by remember { mutableStateOf("") }
     var precoVenda by remember { mutableStateOf("") }
     var categoria by remember { mutableStateOf("") }
+    var novoItem by remember { mutableStateOf("") }
+    var popUpVisible by remember { mutableStateOf(false) }
+    var listaVisible by remember { mutableStateOf(false) }
+    var itemsList by remember { mutableStateOf(listOf<String>()) }
+
+    val produtos = produtoViewModel.listaProduto
 
     val context = LocalContext.current
-
-    Column(
-        Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .verticalScroll(rememberScrollState())
-    ) {
-        Input(
-            value = nomeProduto,
-            onValueChange = { nomeProduto = it },
-            labelText = "Nome"
+    Column {
+        TopBarApp(
+            FirstImage = R.drawable.back_icon,
+            "Voltar",
+            SecondImage = R.drawable.lixeira_icon,
+            "lixeira",
+            Titulo = "Produtos",
+            onClick = { navController.navigate("produtos_screen")}
         )
-        Spacer(modifier = Modifier.size(16.dp))
-
-        Input(
-            value = descricaoProduto,
-            onValueChange = { descricaoProduto = it },
-            labelText = "Descrção"
-        )
-        Spacer(modifier = Modifier.size(16.dp))
-
-        Box(
-            modifier = Modifier.fillMaxWidth()
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState())
         ) {
-            OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = dataValidade,
-                onValueChange = { input ->
-                    dataValidade = input
-                    // Verificar se a data é válida e mostrar um Toast se não for
-                    if (input.isNotEmpty()) {
-                        try {
-                            val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                            format.isLenient = false
-                            format.parse(input)
-                        } catch (e: Exception) {
-                            Toast.makeText(
-                                context,
-                                "Por favor, insira uma data válida no formato dd/MM/yyyy",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                },
-                label = { Text(text = "Data de Validade") }
+            Input(
+                value = nomeProduto,
+                onValueChange = { nomeProduto = it },
+                labelText = "Nome"
             )
-            Image(
-                painter = painterResource(id = R.drawable.calendar_icon),
-                contentDescription = "Data de Validade",
-                modifier = Modifier
-                    .padding(end = 10.dp)
-                    .size(30.dp)
-                    .align(Alignment.CenterEnd)
+            Spacer(modifier = Modifier.size(16.dp))
+
+            Input(
+                value = descricaoProduto,
+                onValueChange = { descricaoProduto = it },
+                labelText = "Descrção"
             )
-        }
-        Spacer(modifier = Modifier.size(16.dp))
+            Spacer(modifier = Modifier.size(16.dp))
 
-        Input(
-            value = unidadeMedida,
-            onValueChange = { unidadeMedida = it },
-            labelText = "Unidade de Medida"
-        )
-        Spacer(modifier = Modifier.size(16.dp))
-
-        Input(
-            value = qtdEntrada,
-            onValueChange = { qtdEntrada = it },
-            labelText = "Quantidade de Entrada"
-        )
-        Spacer(modifier = Modifier.size(16.dp))
-
-        Input(
-            value = precoCompra,
-            onValueChange = { precoCompra = it },
-            labelText = "Preço de Compra"
-        )
-        Spacer(modifier = Modifier.size(16.dp))
-
-        Input(
-            value = precoVenda,
-            onValueChange = { precoVenda = it },
-            labelText = "Preço de Venda"
-        )
-        Spacer(modifier = Modifier.size(16.dp))
-
-//         Seção para categoria
-        Box(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            OutlinedTextField(
-                value = categoria,
-                onValueChange = { categoria = it },
-                label = { Text("Categoria") },
+            Box(
                 modifier = Modifier.fillMaxWidth()
-            )
-            Button(
-                onClick = { listaVisible = !listaVisible }, // Alterna a visibilidade da lista
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Transparent
-                ),
-                modifier = Modifier
-                    .align(Alignment.CenterEnd)
-                    .clip(RoundedCornerShape(16.dp))
             ) {
+                OutlinedTextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    value = dataValidade,
+                    onValueChange = { input ->
+                        dataValidade = input
+                        // Verificar se a data é válida e mostrar um Toast se não for
+                        if (input.isNotEmpty()) {
+                            try {
+                                val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                                format.isLenient = false
+                                format.parse(input)
+                            } catch (e: Exception) {
+                                Toast.makeText(
+                                    context,
+                                    "Por favor, insira uma data válida no formato dd/MM/yyyy",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    },
+                    label = { Text(text = "Data de Validade") }
+                )
                 Image(
-                    painter = painterResource(
-                        id = if (listaVisible) R.drawable.show_arrow_icon else R.drawable.hide_arrow_icon
-                    ),
-                    contentDescription = if (listaVisible) "Mostrar" else "Esconder",
+                    painter = painterResource(id = R.drawable.calendar_icon),
+                    contentDescription = "Data de Validade",
                     modifier = Modifier
-                        .size(20.dp)
-                        .background(Color.Transparent)
+                        .padding(end = 10.dp)
+                        .size(30.dp)
+                        .align(Alignment.CenterEnd)
                 )
             }
-        }
-        AnimatedVisibility(
-            visible = listaVisible,
-            enter = fadeIn(tween(500)),
-            exit = fadeOut(tween(500))
-        ) {
-            Column(
-                Modifier.padding(16.dp)
+            Spacer(modifier = Modifier.size(16.dp))
+
+            Input(
+                value = unidadeMedida,
+                onValueChange = { unidadeMedida = it },
+                labelText = "Unidade de Medida"
+            )
+            Spacer(modifier = Modifier.size(16.dp))
+
+            Input(
+                value = qtdEntrada,
+                onValueChange = { qtdEntrada = it },
+                labelText = "Quantidade de Entrada"
+            )
+            Spacer(modifier = Modifier.size(16.dp))
+
+            Input(
+                value = precoCompra,
+                onValueChange = { precoCompra = it },
+                labelText = "Preço de Compra"
+            )
+            Spacer(modifier = Modifier.size(16.dp))
+
+            Input(
+                value = precoVenda,
+                onValueChange = { precoVenda = it },
+                labelText = "Preço de Venda"
+            )
+            Spacer(modifier = Modifier.size(16.dp))
+
+//         Seção para categoria
+            Box(
+                modifier = Modifier.fillMaxWidth()
             ) {
+                OutlinedTextField(
+                    value = categoria,
+                    onValueChange = { categoria = it },
+                    label = { Text("Categoria") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Button(
+                    onClick = { listaVisible = !listaVisible }, // Alterna a visibilidade da lista
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Transparent
+                    ),
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .clip(RoundedCornerShape(16.dp))
+                ) {
+                    Image(
+                        painter = painterResource(
+                            id = if (listaVisible) R.drawable.show_arrow_icon else R.drawable.hide_arrow_icon
+                        ),
+                        contentDescription = if (listaVisible) "Mostrar" else "Esconder",
+                        modifier = Modifier
+                            .size(20.dp)
+                            .background(Color.Transparent)
+                    )
+                }
+            }
+            AnimatedVisibility(
+                visible = listaVisible,
+                enter = fadeIn(tween(500)),
+                exit = fadeOut(tween(500))
+            ) {
+                Column(
+                    Modifier.padding(16.dp)
+                ) {
                     itemsList.forEach { item ->
                         Button(
                             onClick = { categoria = item },
@@ -207,88 +212,96 @@ fun FormFuncionario() {
                         }
                     }
 
-                Spacer(modifier = Modifier.size(16.dp))
-                Button(onClick = {
-                    popUpVisible = !popUpVisible
-                }) {
-                    Text("Adicionar Nova Categoria")
-                }
-            }
-        }
-
-
-        AnimatedVisibility(
-            visible = popUpVisible,
-            enter = fadeIn(tween(500)),
-            exit = fadeOut(tween(500))
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                OutlinedTextField(
-                    value = novoItem,
-                    onValueChange = { novoItem = it },
-                    label = { Text("Nova Categoria") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Button(
-                    modifier = Modifier.clip(RoundedCornerShape(16.dp)),
-                    onClick = {
-                        if (novoItem.isNotBlank()) {
-                            itemsList = itemsList + novoItem
-                            categoria = novoItem // Atualiza a categoria selecionada
-                            novoItem = ""
-                            popUpVisible = false
-                        } else {
-                            Toast.makeText(
-                                context,
-                                "Categoria não pode ser vazia",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+                    Spacer(modifier = Modifier.size(16.dp))
+                    Button(onClick = {
+                        popUpVisible = !popUpVisible
                     }) {
-                    Text(text = "Salvar")
+                        Text("Adicionar Nova Categoria")
+                    }
                 }
             }
-        }
 
-        Spacer(modifier = Modifier.height(16.dp))
 
-        CompButton(onClickAction = {
-            if (nomeProduto.isNotBlank() && descricaoProduto.isNotBlank() && dataValidade.isNotBlank()
-                && unidadeMedida.isNotBlank() && qtdEntrada.isNotBlank() && precoCompra.isNotBlank()
-                && precoVenda.isNotBlank() && categoria.isNotBlank()
+            AnimatedVisibility(
+                visible = popUpVisible,
+                enter = fadeIn(tween(500)),
+                exit = fadeOut(tween(500))
             ) {
-                Toast.makeText(
-                    context,
-                    "Produto '$nomeProduto' salvo com sucesso!",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                // Limpar campos após o salvamento
-                nomeProduto = ""
-                descricaoProduto = ""
-                dataValidade = ""
-                unidadeMedida = ""
-                qtdEntrada = ""
-                precoCompra = ""
-                precoVenda = ""
-                categoria = ""
-
-            } else {
-                Toast.makeText(
-                    context,
-                    "Por favor, preencha todos os campos.",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    OutlinedTextField(
+                        value = novoItem,
+                        onValueChange = { novoItem = it },
+                        label = { Text("Nova Categoria") },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Button(
+                        modifier = Modifier.clip(RoundedCornerShape(16.dp)),
+                        onClick = {
+                            if (novoItem.isNotBlank()) {
+                                itemsList = itemsList + novoItem
+                                categoria = novoItem // Atualiza a categoria selecionada
+                                novoItem = ""
+                                popUpVisible = false
+                            } else {
+                                Toast.makeText(
+                                    context,
+                                    "Categoria não pode ser vazia",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }) {
+                        Text(text = "Salvar")
+                    }
+                }
             }
-        }, text = "Salvar")
 
+            Spacer(modifier = Modifier.height(16.dp))
+
+            CompButton(onClickAction = {
+                if (nomeProduto.isNotBlank() && descricaoProduto.isNotBlank()) {
+                    Toast.makeText(
+                        context,
+                        "Produto '$nomeProduto' salvo com sucesso!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val novoProduto = Produto(
+                        nomeProduto = nomeProduto,
+                        descricaoProduto = descricaoProduto,
+                        dataValidade = dataValidade,
+                        unidadeMedida = unidadeMedida,
+                        qtdEntrada = qtdEntrada,
+                        precoCompra = precoCompra,
+                        precoVenda = precoVenda,
+                        categoria = categoria
+                    )
+                    produtoViewModel.addProduto(novoProduto)
+                    navController.navigate("produtos_screen")
+                    // Limpar campos após o salvamento
+                    nomeProduto = ""
+                    descricaoProduto = ""
+                    dataValidade = ""
+                    unidadeMedida = ""
+                    qtdEntrada = ""
+                    precoCompra = ""
+                    precoVenda = ""
+                    categoria = ""
+                } else {
+                    Toast.makeText(
+                        context,
+                        "Por favor, preencha todos os campos.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }, text = "Salvar")
+
+        }
+        BottomBarApp(navController = navController)
     }
 }
-
 
 @Composable
 fun Input(
@@ -309,5 +322,3 @@ fun Input(
         }
     )
 }
-
-

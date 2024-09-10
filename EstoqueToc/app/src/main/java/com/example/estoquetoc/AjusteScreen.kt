@@ -40,6 +40,7 @@ fun AjusteScreen(navController: NavController? = null, userName: String, functio
             .fillMaxSize()
             .background(color = Color(0xFFF5F5F5))
     ) {
+
         // Header
         Box(
             modifier = Modifier
@@ -147,6 +148,7 @@ fun AjusteScreen(navController: NavController? = null, userName: String, functio
                 colorFilter = ColorFilter.tint(Color(0xFFFFFFFF))
             )
         }
+        BottomBarApp(navController = navController!!)
     }
 }
 
