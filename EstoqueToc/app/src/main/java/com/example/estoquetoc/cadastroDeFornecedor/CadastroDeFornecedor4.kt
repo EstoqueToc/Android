@@ -8,14 +8,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.estoquetoc.R
+import com.example.estoquetoc.ui.theme.Orange
+import com.example.estoquetoc.ui.theme.StrongOrange
+import com.example.estoquetoc.ui.theme.Yellow
 
 class CadastroDeFornecedor4 {
 
@@ -26,7 +31,8 @@ class CadastroDeFornecedor4 {
                 .fillMaxSize()
                 .background(Color.White)
         ) {
-            Header()
+            TopBarFornecedores()
+            Spacer(modifier = Modifier.height(16.dp))
             Content()
             Spacer(modifier = Modifier.weight(1f))
             BottomNavigation()
@@ -34,38 +40,57 @@ class CadastroDeFornecedor4 {
     }
 
     @Composable
-    fun Header() {
+    fun TopBarFornecedores() {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color(0xFFFD974C))
+                .background(
+                    brush = Brush.horizontalGradient(
+                        colors = listOf(
+                            StrongOrange, Orange, Orange, Yellow, Yellow, Yellow, Yellow
+                        )
+                    )
+                )
                 .padding(horizontal = 16.dp, vertical = 10.dp)
         ) {
-            Row(
+            Box(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                contentAlignment = Alignment.Center
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    modifier = Modifier.align(Alignment.CenterStart),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Image(
                         painter = painterResource(id = R.drawable.back_icon),
                         contentDescription = "Back",
                         modifier = Modifier.size(24.dp)
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(9.dp))
                     Text(
-                        text = "Fornecedores",
-                        color = Color.White,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Medium
+                        text = "Voltar",
+                        color = Color.Black,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold
                     )
                 }
+
+                Text(
+                    text = "Fornecedores",
+                    color = Color.Black,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold
+                )
+
                 Image(
-                    painter = painterResource(id = R.drawable.adicionar_icon),
-                    contentDescription = "Menu",
-                    modifier = Modifier.size(24.dp)
+                    painter = painterResource(id = R.drawable.circle_black_icon),
+                    contentDescription = "Add",
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .size(24.dp)
                 )
             }
+            Spacer(modifier = Modifier.height(12.dp))
             SearchBar()
         }
     }
@@ -75,9 +100,8 @@ class CadastroDeFornecedor4 {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp)
-                .background(Color(0xADF1F5F4), RoundedCornerShape(4.dp))
-                .padding(10.dp),
+                .background(Color(0xFFFFE0CC), RoundedCornerShape(8.dp))
+                .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
@@ -88,8 +112,9 @@ class CadastroDeFornecedor4 {
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = "Buscar Fornecedor",
-                color = Color(0x57000000),
-                fontSize = 14.sp
+                color = Color(0x66A35C5C),
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Normal
             )
         }
     }
@@ -123,45 +148,28 @@ class CadastroDeFornecedor4 {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color(0xFF262626))
-                .padding(7.dp, 16.dp),
+                .padding(horizontal = 30.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            BottomNavigationItem(
-                icon = R.drawable.home_icon,
-                text = "Início",
-                isSelected = false
-            )
-            BottomNavigationItem(
-                icon = R.drawable.add_icon,
-                text = "Cadastros",
-                isSelected = true
-            )
-            BottomNavigationItem(
-                icon = R.drawable.gestao_icon,
-                text = "Gestão",
-                isSelected = false
-            )
-            BottomNavigationItem(
-                icon = R.drawable.ajuste_icon,
-                text = "Ajustes",
-                isSelected = false
-            )
+            BottomNavigationItem("Início", R.drawable.home_icon)
+            BottomNavigationItem("Cadastros", R.drawable.add_icon)
+            BottomNavigationItem("Gestão", R.drawable.gestao_icon)
+            BottomNavigationItem("Ajustes", R.drawable.ajuste_icon)
         }
     }
 
     @Composable
-    fun BottomNavigationItem(icon: Int, text: String, isSelected: Boolean) {
+    fun BottomNavigationItem(label: String, iconResId: Int) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Image(
-                painter = painterResource(id = icon),
-                contentDescription = text,
-                modifier = Modifier.size(30.dp)
+                painter = painterResource(id = iconResId),
+                contentDescription = label,
+                modifier = Modifier.size(33.dp)
             )
             Text(
-                text = text,
-                color = if (isSelected) Color(0xFFFFA726) else Color.White,
-                fontSize = 14.sp,
-                fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal
+                text = label,
+                color = Color.White,
+                fontSize = 16.sp
             )
         }
     }

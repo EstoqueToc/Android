@@ -9,14 +9,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.estoquetoc.R
+import com.example.estoquetoc.ui.theme.Orange
+import com.example.estoquetoc.ui.theme.StrongOrange
+import com.example.estoquetoc.ui.theme.Yellow
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewEmployeeScreen() {
     Column(
@@ -30,17 +35,25 @@ fun NewEmployeeScreen() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBarNovoFuncionario() {
-    Row(
+    Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color(0xFFFD974C))
-            .padding(horizontal = 16.dp, vertical = 10.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+            .background(
+                brush = Brush.horizontalGradient(
+                    colors = listOf(
+                        StrongOrange, Orange, Orange, Yellow, Yellow, Yellow, Yellow
+                    )
+                )
+            )
+            .padding(horizontal = 16.dp, vertical = 10.dp)
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier.align(Alignment.CenterStart),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.back_icon),
                 contentDescription = "Back",
@@ -49,61 +62,91 @@ fun TopBarNovoFuncionario() {
             Spacer(modifier = Modifier.width(9.dp))
             Text(
                 text = "Voltar",
-                color = Color.White,
+                color = Color.Black,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold
             )
         }
+
         Text(
             text = "Novo Funcionário",
-            color = Color.White,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.SemiBold
+            color = Color.Black,
+            fontSize = 17.sp,
+            fontWeight = FontWeight.Medium,
+            modifier = Modifier.align(Alignment.Center)
         )
+
         Text(
             text = "Salvar",
-            color = Color.White,
+            color = Color.Black,
             fontSize = 16.sp,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.align(Alignment.CenterEnd)
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EmployeeFormNovoFuncionario(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 22.dp)
+            .padding(vertical = 22.dp, horizontal = 16.dp)
     ) {
         FormFieldNovoFuncionario(label = "Nome")
         Spacer(modifier = Modifier.height(32.dp))
         FormFieldNovoFuncionario(label = "CPF")
         Spacer(modifier = Modifier.height(32.dp))
-        FormFieldNovoFuncionario(label = "Data de Nascimento")
+        FormFieldNovoFuncionario(label = "Data de Nascimento", isDatePicker = true)
         Spacer(modifier = Modifier.height(32.dp))
         FormFieldNovoFuncionario(label = "Email")
         Spacer(modifier = Modifier.height(32.dp))
-        FormFieldNovoFuncionario(label = "Senha")
+        FormFieldNovoFuncionario(label = "Senha", isPassword = true)
         Spacer(modifier = Modifier.height(32.dp))
         FormFieldNovoFuncionario(label = "Função")
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FormFieldNovoFuncionario(label: String) {
-    Text(
-        text = label,
-        color = Color.Black,
-        fontSize = 18.sp
-    )
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp)
-            .clip(RoundedCornerShape(3.dp))
-            .background(Color(0xFFF1F5F4))
-    )
+fun FormFieldNovoFuncionario(label: String, isDatePicker: Boolean = false, isPassword: Boolean = false) {
+    Column(modifier = Modifier.padding(bottom = 8.dp)) {
+        Text(
+            text = label,
+            color = Color.Black,
+            fontSize = 18.sp,
+            modifier = Modifier.padding(bottom = 4.dp)
+        )
+        OutlinedTextField(
+            value = "",
+            onValueChange = { /* TODO: Handle input change */ },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(60.dp),
+            shape = RoundedCornerShape(3.dp),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                containerColor = Color(0xFFF1F5F4),
+                unfocusedBorderColor = Color.Transparent,
+                focusedBorderColor = Color.Transparent
+            ),
+            trailingIcon = {
+                if (isDatePicker) {
+                    Image(
+                        painter = painterResource(id = R.drawable.calendario_icon),
+                        contentDescription = "Selecionar Data",
+                        modifier = Modifier.size(24.dp)
+                    )
+                } else if (isPassword) {
+                    Image(
+                        painter = painterResource(id = R.drawable.eye_transp_icon),
+                        contentDescription = "Mostrar/Ocultar Senha",
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+            }
+        )
+    }
 }
 
 @Composable
@@ -115,18 +158,18 @@ fun BottomNavigationNovoFuncionario() {
             .padding(horizontal = 30.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        BottomNavigationItem(icon = R.drawable.home_icon, label = "Início")
-        BottomNavigationItem(icon = R.drawable.add_icon, label = "Cadastros")
-        BottomNavigationItem(icon = R.drawable.gestao_icon, label = "Gestão")
-        BottomNavigationItem(icon = R.drawable.ajuste_icon, label = "Ajustes")
+        BottomNavigationItemNovoFuncionario("Início", R.drawable.home_icon)
+        BottomNavigationItemNovoFuncionario("Cadastros", R.drawable.add_icon)
+        BottomNavigationItemNovoFuncionario("Gestão", R.drawable.gestao_icon)
+        BottomNavigationItemNovoFuncionario("Ajustes", R.drawable.ajuste_icon)
     }
 }
 
 @Composable
-fun BottomNavigationItemNovoFuncionario(icon: Int, label: String) {
+fun BottomNavigationItemNovoFuncionario(label: String, iconResId: Int) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Image(
-            painter = painterResource(id = icon),
+            painter = painterResource(id = iconResId),
             contentDescription = label,
             modifier = Modifier.size(33.dp)
         )

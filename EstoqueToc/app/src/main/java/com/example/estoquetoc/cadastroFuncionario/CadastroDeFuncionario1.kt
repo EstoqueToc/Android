@@ -9,13 +9,17 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.estoquetoc.R
+import com.example.estoquetoc.ui.theme.Orange
+import com.example.estoquetoc.ui.theme.StrongOrange
+import com.example.estoquetoc.ui.theme.Yellow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,15 +38,22 @@ fun EditEmployeeScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar() {
-    Row(
+    Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color(0xFFFD974C))
-            .padding(horizontal = 16.dp, vertical = 10.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+            .background(
+                brush = Brush.horizontalGradient(
+                    colors = listOf(
+                        StrongOrange, Orange, Orange, Yellow, Yellow, Yellow, Yellow
+                    )
+                )
+            )
+            .padding(horizontal = 16.dp, vertical = 10.dp)
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier.align(Alignment.CenterStart),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.back_icon),
                 contentDescription = "Back",
@@ -51,21 +62,26 @@ fun TopBar() {
             Spacer(modifier = Modifier.width(9.dp))
             Text(
                 text = "Voltar",
-                color = Color.White,
+                color = Color.Black,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold
             )
         }
+
         Text(
             text = "Editar Funcionário",
-            color = Color.White,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.SemiBold
+            color = Color.Black,
+            fontSize = 17.sp,
+            fontWeight = FontWeight.Medium,
+            modifier = Modifier.align(Alignment.Center)
         )
+
         Image(
-            painter = painterResource(id = R.drawable.edit_icon),
-            contentDescription = "Edit",
-            modifier = Modifier.size(24.dp)
+            painter = painterResource(id = R.drawable.remove_black_icon),
+            contentDescription = "Delete",
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+                .size(24.dp)
         )
     }
 }
@@ -88,21 +104,8 @@ fun EditForm(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(30.dp))
         FormField(label = "Senha", isPassword = true)
         Spacer(modifier = Modifier.height(32.dp))
-        Button(
-            onClick = { /* TODO: Handle save */ },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(50.dp)
-                .clip(RoundedCornerShape(8.dp)),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE7670A))
-        ) {
-            Text(
-                text = "Salvar",
-                color = Color.White,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
+
+        SaveButtonLarger()
     }
 }
 
@@ -112,29 +115,30 @@ fun FormField(label: String, isDatePicker: Boolean = false, isPassword: Boolean 
     Text(
         text = label,
         color = Color.Black,
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Medium
+        fontSize = 18.sp,
     )
     OutlinedTextField(
         value = "",
         onValueChange = { /* TODO: Handle input change */ },
         modifier = Modifier
             .fillMaxWidth()
-            .height(50.dp),
-        shape = RoundedCornerShape(8.dp),
+            .height(60.dp),
+        shape = RoundedCornerShape(3.dp),
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            containerColor = Color(0xFFF1F5F4)
+            containerColor = Color(0xFFF1F5F4),
+            unfocusedBorderColor = Color.Transparent,
+            focusedBorderColor = Color.Transparent
         ),
         trailingIcon = {
             if (isDatePicker) {
                 Image(
-                    painter = painterResource(id = R.drawable.calendar_icon),
+                    painter = painterResource(id = R.drawable.calendario_icon),
                     contentDescription = "Select date",
                     modifier = Modifier.size(19.dp)
                 )
             } else if (isPassword) {
                 Image(
-                    painter = painterResource(id = R.drawable.eye_icon),
+                    painter = painterResource(id = R.drawable.eye_transp_icon),
                     contentDescription = "Toggle password visibility",
                     modifier = Modifier.size(19.dp)
                 )
@@ -143,36 +147,56 @@ fun FormField(label: String, isDatePicker: Boolean = false, isPassword: Boolean 
     )
 }
 
+@Composable
+fun SaveButtonLarger() {
+    Button(
+        onClick = { /* Handle button click */ },
+        shape = RoundedCornerShape(3.dp),
+        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE7670A)),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(55.dp)
+            .padding(horizontal = 16.dp)
+    ) {
+        Text(
+            text = "Salvar",
+            color = Color.Black,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Normal
+        )
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomNavigation() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color(0xFF262626))
+            .background(Color(0xFF262626)) // Cor preta
             .padding(horizontal = 30.dp, vertical = 8.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        BottomNavigationItem(icon = R.drawable.home_icon, label = "Início")
-        BottomNavigationItem(icon = R.drawable.add_icon, label = "Cadastros")
-        BottomNavigationItem(icon = R.drawable.gestao_icon, label = "Gestão")
-        BottomNavigationItem(icon = R.drawable.ajuste_icon, label = "Ajustes")
+        BottomNavigationItem("Início", R.drawable.home_icon)
+        BottomNavigationItem("Cadastros", R.drawable.add_icon)
+        BottomNavigationItem("Gestão", R.drawable.gestao_icon)
+        BottomNavigationItem("Ajustes", R.drawable.ajuste_icon)
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomNavigationItem(icon: Int, label: String) {
+fun BottomNavigationItem(label: String, iconResId: Int) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Image(
-            painter = painterResource(id = icon),
+            painter = painterResource(id = iconResId),
             contentDescription = label,
             modifier = Modifier.size(33.dp)
         )
         Text(
             text = label,
             color = Color.White,
-            fontSize = 12.sp
+            fontSize = 16.sp
         )
     }
 }

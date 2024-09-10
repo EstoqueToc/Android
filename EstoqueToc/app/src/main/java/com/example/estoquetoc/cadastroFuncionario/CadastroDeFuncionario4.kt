@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -16,6 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.estoquetoc.R
+import com.example.estoquetoc.ui.theme.Orange
+import com.example.estoquetoc.ui.theme.StrongOrange
+import com.example.estoquetoc.ui.theme.Yellow
 
 class CadastroDeFuncionario4 {
 
@@ -28,7 +32,6 @@ class CadastroDeFuncionario4 {
                 .background(Color.White)
         ) {
             TopBar()
-            SearchBar()
             NoResultsFound()
             Spacer(modifier = Modifier.weight(1f))
             BottomNavigation()
@@ -37,39 +40,58 @@ class CadastroDeFuncionario4 {
 
     @Composable
     fun TopBar() {
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color(0xFFFD974C))
-                .padding(horizontal = 16.dp, vertical = 10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    painter = painterResource(id = R.drawable.back_icon),
-                    contentDescription = "Back",
-                    modifier = Modifier.size(24.dp)
+                .background(
+                    brush = Brush.horizontalGradient(
+                        colors = listOf(
+                            StrongOrange, Orange, Orange, Yellow, Yellow, Yellow, Yellow
+                        )
+                    )
                 )
-                Spacer(modifier = Modifier.width(8.dp))
+                .padding(horizontal = 16.dp, vertical = 10.dp)
+        ) {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Row(
+                    modifier = Modifier.align(Alignment.CenterStart),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.back_icon),
+                        contentDescription = "Back",
+                        modifier = Modifier.size(24.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = "Voltar",
+                        color = Color.Black,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+
                 Text(
-                    text = "Voltar",
-                    color = Color.White,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold
+                    text = "Funcionários",
+                    color = Color.Black,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier.align(Alignment.Center)
+                )
+
+                Image(
+                    painter = painterResource(id = R.drawable.circle_black_icon),
+                    contentDescription = "Add",
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .size(24.dp)
                 )
             }
-            Text(
-                text = "Funcionários",
-                color = Color.White,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Medium
-            )
-            Image(
-                painter = painterResource(id = R.drawable.adicionar_icon),
-                contentDescription = "Add",
-                modifier = Modifier.size(24.dp)
-            )
+            Spacer(modifier = Modifier.height(10.dp))
+            SearchBar()
         }
     }
 
@@ -78,9 +100,8 @@ class CadastroDeFuncionario4 {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-                .background(Color(0xFFF1F5F4), RoundedCornerShape(4.dp))
-                .padding(8.dp),
+                .background(Color(0xFFFFE0CC), RoundedCornerShape(8.dp))
+                .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
@@ -91,8 +112,9 @@ class CadastroDeFuncionario4 {
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = "Buscar Funcionário",
-                color = Color(0x57000000),
-                fontSize = 14.sp
+                color = Color(0x66A35C5C),
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Normal
             )
         }
     }
@@ -129,48 +151,28 @@ class CadastroDeFuncionario4 {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color(0xFF262626))
-                .padding(horizontal = 24.dp, vertical = 7.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .padding(horizontal = 30.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            BottomNavItem(
-                icon = R.drawable.home_icon,
-                text = "Início",
-                isSelected = false
-            )
-            BottomNavItem(
-                icon = R.drawable.add_icon,
-                text = "Cadastros",
-                isSelected = true
-            )
-            BottomNavItem(
-                icon = R.drawable.gestao_icon,
-                text = "Gestão",
-                isSelected = false
-            )
-            BottomNavItem(
-                icon = R.drawable.ajuste_icon,
-                text = "Ajustes",
-                isSelected = false
-            )
+            BottomNavigationItem("Início", R.drawable.home_icon)
+            BottomNavigationItem("Cadastros", R.drawable.add_icon)
+            BottomNavigationItem("Gestão", R.drawable.gestao_icon)
+            BottomNavigationItem("Ajustes", R.drawable.ajuste_icon)
         }
     }
 
     @Composable
-    fun BottomNavItem(icon: Int, text: String, isSelected: Boolean) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+    fun BottomNavigationItem(label: String, iconResId: Int) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Image(
-                painter = painterResource(id = icon),
-                contentDescription = text,
-                modifier = Modifier.size(24.dp)
+                painter = painterResource(id = iconResId),
+                contentDescription = label,
+                modifier = Modifier.size(33.dp)
             )
             Text(
-                text = text,
+                text = label,
                 color = Color.White,
-                fontSize = 12.sp,
-                fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal
+                fontSize = 16.sp
             )
         }
     }

@@ -21,7 +21,8 @@ import com.example.estoquetoc.ui.theme.Orange
 import com.example.estoquetoc.ui.theme.StrongOrange
 import com.example.estoquetoc.ui.theme.Yellow
 
-class CadastroDeFornecedor1 {
+class CadastroDeFornecedor {
+
     @Composable
     fun NewSupplierScreen() {
         Column(
@@ -49,6 +50,7 @@ class CadastroDeFornecedor1 {
                 )
                 .padding(horizontal = 16.dp, vertical = 10.dp)
         ) {
+            // Ícone de Voltar
             Row(
                 modifier = Modifier.align(Alignment.CenterStart),
                 verticalAlignment = Alignment.CenterVertically
@@ -92,39 +94,33 @@ class CadastroDeFornecedor1 {
                 .fillMaxWidth()
                 .padding(vertical = 22.dp)
         ) {
-            FormFieldFornecedor(label = "Razão Social")
+            FormFieldFornecedor(label = "CEP")
             Spacer(modifier = Modifier.height(32.dp))
-            FormFieldFornecedor(label = "Nome Fantasia")
+            FormFieldFornecedor(label = "Rua")
             Spacer(modifier = Modifier.height(32.dp))
-            FormFieldFornecedor(label = "CNPJ")
+            FormFieldFornecedor(label = "Número")
             Spacer(modifier = Modifier.height(32.dp))
-            FormFieldFornecedor(label = "Email")
-            Spacer(modifier = Modifier.height(32.dp))
-            FormFieldFornecedor(label = "Telefone")
+            FormFieldFornecedor(label = "Cidade")
         }
     }
 
     @Composable
     fun FormFieldFornecedor(label: String) {
-        Column(
+        Text(
+            text = label,
+            color = Color.Black,
+            fontSize = 18.sp,
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+        )
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
+                .height(60.dp)
+                .clip(RoundedCornerShape(3.dp))
+                .background(Color(0xFFF1F5F4))
                 .padding(horizontal = 16.dp)
-        ) {
-            Text(
-                text = label,
-                color = Color.Black,
-                fontSize = 18.sp,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(60.dp)
-                    .clip(RoundedCornerShape(3.dp))
-                    .background(Color(0xFFF1F5F4))
-            )
-        }
+        )
     }
 
     @Composable

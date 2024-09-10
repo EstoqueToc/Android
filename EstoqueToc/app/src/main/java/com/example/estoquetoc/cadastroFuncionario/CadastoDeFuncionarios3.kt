@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -15,6 +16,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.estoquetoc.R
+import com.example.estoquetoc.ui.theme.Orange
+import com.example.estoquetoc.ui.theme.StrongOrange
+import com.example.estoquetoc.ui.theme.Yellow
 
 class CadastroDeFuncionarios3 {
 
@@ -26,11 +30,9 @@ class CadastroDeFuncionarios3 {
                 .background(Color.White)
         ) {
             TopBarFuncionarios()
-            SearchBar()
+            Spacer(modifier = Modifier.height(16.dp))
             EmployeeItem("Raquel Guimarães", "Função")
-            CustomDivider()
             EmployeeItem("Arthur Ciliberti", "Função")
-            CustomDivider()
             Spacer(modifier = Modifier.weight(1f))
             BottomNavigation()
         }
@@ -38,39 +40,58 @@ class CadastroDeFuncionarios3 {
 
     @Composable
     fun TopBarFuncionarios() {
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color(0xFFFD974C))
-                .padding(horizontal = 16.dp, vertical = 10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(
-                    painter = painterResource(id = R.drawable.back_icon),
-                    contentDescription = "Back",
-                    modifier = Modifier.size(24.dp)
+                .background(
+                    brush = Brush.horizontalGradient(
+                        colors = listOf(
+                            StrongOrange, Orange, Orange, Yellow, Yellow, Yellow, Yellow
+                        )
+                    )
                 )
-                Spacer(modifier = Modifier.width(9.dp))
+                .padding(horizontal = 16.dp, vertical = 10.dp)
+        ) {
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Row(
+                    modifier = Modifier.align(Alignment.CenterStart),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.back_icon),
+                        contentDescription = "Back",
+                        modifier = Modifier.size(24.dp)
+                    )
+                    Spacer(modifier = Modifier.width(9.dp))
+                    Text(
+                        text = "Voltar",
+                        color = Color.Black,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+
                 Text(
-                    text = "Voltar",
-                    color = Color.White,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold
+                    text = "Funcionários",
+                    color = Color.Black,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.align(Alignment.Center)
+                )
+
+                Image(
+                    painter = painterResource(id = R.drawable.circle_black_icon),
+                    contentDescription = "Add",
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .size(24.dp)
                 )
             }
-            Text(
-                text = "Funcionários",
-                color = Color.White,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Medium
-            )
-            Image(
-                painter = painterResource(id = R.drawable.adicionar_icon),
-                contentDescription = "Add",
-                modifier = Modifier.size(24.dp)
-            )
+            Spacer(modifier = Modifier.height(12.dp))
+            SearchBar()
         }
     }
 
@@ -79,9 +100,8 @@ class CadastroDeFuncionarios3 {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-                .background(Color(0xFFF1F5F4), RoundedCornerShape(4.dp))
-                .padding(8.dp),
+                .background(Color(0xFFFFE0CC), RoundedCornerShape(8.dp))
+                .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
@@ -92,7 +112,7 @@ class CadastroDeFuncionarios3 {
             Spacer(modifier = Modifier.width(8.dp))
             Text(
                 text = "Buscar Funcionário",
-                color = Color(0x57000000),
+                color = Color(0x66A35C5C),
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Normal
             )
@@ -108,7 +128,7 @@ class CadastroDeFuncionarios3 {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(id = R.drawable.usuario),
+                painter = painterResource(id = R.drawable.funcionario_icon),
                 contentDescription = "Employee Avatar",
                 modifier = Modifier.size(40.dp)
             )
@@ -128,16 +148,6 @@ class CadastroDeFuncionarios3 {
                 )
             }
         }
-    }
-
-    @Composable
-    fun CustomDivider() {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(1.dp)
-                .background(Color.Gray)
-        )
     }
 
     @Composable

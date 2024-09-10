@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -16,6 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.estoquetoc.R
+import com.example.estoquetoc.ui.theme.Orange
+import com.example.estoquetoc.ui.theme.StrongOrange
+import com.example.estoquetoc.ui.theme.Yellow
 
 class CadastroDeFornecedor2 {
 
@@ -34,15 +38,22 @@ class CadastroDeFornecedor2 {
 
     @Composable
     fun TopBar() {
-        Row(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color(0xFFFD974C))
-                .padding(horizontal = 16.dp, vertical = 10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .background(
+                    brush = Brush.horizontalGradient(
+                        colors = listOf(
+                            StrongOrange, Orange, Orange, Yellow, Yellow, Yellow, Yellow
+                        )
+                    )
+                )
+                .padding(horizontal = 16.dp, vertical = 10.dp)
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier.align(Alignment.CenterStart),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Image(
                     painter = painterResource(id = R.drawable.back_icon),
                     contentDescription = "Back",
@@ -51,21 +62,26 @@ class CadastroDeFornecedor2 {
                 Spacer(modifier = Modifier.width(9.dp))
                 Text(
                     text = "Voltar",
-                    color = Color.White,
+                    color = Color.Black,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold
                 )
             }
+
             Text(
                 text = "Fornecedor",
-                color = Color.White,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.SemiBold
+                color = Color.Black,
+                fontSize = 17.sp,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier.align(Alignment.Center)
             )
+
             Image(
-                painter = painterResource(id = R.drawable.delete_icon),
+                painter = painterResource(id = R.drawable.remove_black_icon),
                 contentDescription = "Delete",
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .size(24.dp)
             )
         }
     }
@@ -87,20 +103,9 @@ class CadastroDeFornecedor2 {
             Spacer(modifier = Modifier.height(16.dp))
             FormField(label = "Telefone", value = "119851160228")
 
-            Spacer(modifier = Modifier.weight(1f)) // Push the button down
+            Spacer(modifier = Modifier.weight(1f))
 
-            Button(
-                onClick = { /* TODO: Implement save functionality */ },
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE7670A))
-            ) {
-                Text(
-                    text = "Salvar",
-                    color = Color.White,
-                    fontSize = 20.sp
-                )
-            }
+            SaveButtonLarger()
         }
     }
 
@@ -134,21 +139,21 @@ class CadastroDeFornecedor2 {
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color(0xFF262626))
-                .padding(horizontal = 24.dp, vertical = 8.dp),
+                .padding(horizontal = 30.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            BottomNavigationItem(icon = R.drawable.home_icon, label = "Início")
-            BottomNavigationItem(icon = R.drawable.add_icon, label = "Cadastros")
-            BottomNavigationItem(icon = R.drawable.gestao_icon, label = "Gestão")
-            BottomNavigationItem(icon = R.drawable.ajuste_icon, label = "Ajustes")
+            BottomNavigationItemNovoFornecedor("Início", R.drawable.home_icon)
+            BottomNavigationItemNovoFornecedor("Cadastros", R.drawable.add_icon)
+            BottomNavigationItemNovoFornecedor("Gestão", R.drawable.gestao_icon)
+            BottomNavigationItemNovoFornecedor("Ajustes", R.drawable.ajuste_icon)
         }
     }
 
     @Composable
-    fun BottomNavigationItem(icon: Int, label: String) {
+    fun BottomNavigationItemNovoFornecedor(label: String, iconResId: Int) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Image(
-                painter = painterResource(id = icon),
+                painter = painterResource(id = iconResId),
                 contentDescription = label,
                 modifier = Modifier.size(33.dp)
             )
@@ -156,6 +161,26 @@ class CadastroDeFornecedor2 {
                 text = label,
                 color = Color.White,
                 fontSize = 16.sp
+            )
+        }
+    }
+
+    @Composable
+    fun SaveButtonLarger() {
+        Button(
+            onClick = { /* Handle button click */ },
+            shape = RoundedCornerShape(3.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE7670A)),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(55.dp)
+                .padding(horizontal = 16.dp)
+        ) {
+            Text(
+                text = "Salvar",
+                color = Color.Black,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Normal
             )
         }
     }
