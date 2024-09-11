@@ -181,8 +181,8 @@ fun CompButton(
     Produtos(
         icon = R.drawable.box_icon,
         DescIcon = "Box",
-        DesccriptionProduct = "Produto XX",
-        DesccriptionProduct2 = "Quantidade: 008",
+        DescriptionProduct = "Produto XX",
+        QtdEmEstoque = "Quantidade: 008",
         enable = true,
         valor = "R$ 25,00",
         onClick = {navController.navigate("cadastro_produto")}
@@ -191,11 +191,10 @@ fun CompButton(
 
 @Composable
 fun Produtos(
-
     icon: Int,
     DescIcon: String,
-    DesccriptionProduct: String,
-    DesccriptionProduct2: String,
+    DescriptionProduct: String,
+    QtdEmEstoque: String,
     enable: Boolean = false,
     valor: String = "",
     onClick: () -> Unit
@@ -229,14 +228,14 @@ fun Produtos(
                     Spacer(modifier = Modifier.width(20.dp))
                     Column {
                         Text(
-                            text = DesccriptionProduct,
+                            text = DescriptionProduct,
                             color = Color.Black,
                             fontWeight = FontWeight.Bold,
                             fontSize = 20.sp
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = DesccriptionProduct2,
+                            text = QtdEmEstoque,
                             color = Color.Gray,
                             fontSize = 12.sp
                         )

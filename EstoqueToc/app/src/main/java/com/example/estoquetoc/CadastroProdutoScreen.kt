@@ -48,7 +48,8 @@ import java.util.Locale
 @Composable
 fun CadastroProdutoScreen(
     navController: NavHostController,
-    produtoViewModel: ProdutoViewModel = viewModel()
+//    produtoViewModel: ProdutoViewModel = viewModel()
+    Items: MutableList<Produto>
 ) {
     var nomeProduto by remember { mutableStateOf("") }
     var descricaoProduto by remember { mutableStateOf("") }
@@ -63,7 +64,7 @@ fun CadastroProdutoScreen(
     var listaVisible by remember { mutableStateOf(false) }
     var itemsList by remember { mutableStateOf(listOf<String>()) }
 
-    val produtos = produtoViewModel.listaProduto
+//    val produtos = produtoViewModel.listaProduto
 
     val context = LocalContext.current
     Column {
@@ -278,7 +279,8 @@ fun CadastroProdutoScreen(
                         precoVenda = precoVenda,
                         categoria = categoria
                     )
-                    produtoViewModel.addProduto(novoProduto)
+                    Items.add(novoProduto)
+                    //                    produtoViewModel.addProduto(novoProduto)
                     navController.navigate("produtos_screen")
                     // Limpar campos após o salvamento
                     nomeProduto = ""

@@ -13,7 +13,8 @@ class ProdutoViewModel : ViewModel() {
         listaProduto = listaProduto + produto
     }
 
-    fun setListaProduto(produtos: List<Produto>) {
+    // Renomeie o método para algo como setProdutos
+    fun setProdutos(produtos: List<Produto>) {
         listaProduto = produtos
     }
 }
