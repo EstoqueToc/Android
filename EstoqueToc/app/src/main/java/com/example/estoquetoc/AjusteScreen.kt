@@ -174,5 +174,11 @@ fun AjusteScreen(navController: NavController? = null, userName: String, functio
 @Preview(showBackground = true)
 @Composable
 fun AjusteScreenPreview() {
-    AjusteScreen(navController = null, userName = "Raquel Guimarães", functionName = "Administrador")
+    AjusteScreen(userName = "Raquel Guimarães", functionName = "Administrador")
 }
+
+//@Preview(showBackground = true)
+//@Composable
+//fun AjusteScreenPreview() {
+//    AjusteScreen(navController = null, userName = "Raquel Guimarães", functionName = "Administrador")
+//}

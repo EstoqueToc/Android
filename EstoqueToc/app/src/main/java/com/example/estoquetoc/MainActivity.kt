@@ -47,10 +47,9 @@ fun AppNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    val navController = rememberNavController()
     val items = rememberSaveable { mutableListOf<Produto>() }
-    NavHost(navController = navController, startDestination = "inicial_screeen", modifier = modifier) {
-        composable("inicial_screen") { WelcomeScreen(navController) }
+    NavHost(navController = navController, startDestination = "inicial_screen", modifier = modifier) {
+        composable("inicial_screen") { InicialScreen(navController) }
         composable("login") { LoginScreen(navController) }
         composable("produtos_screen") { ProdutoScreen(navController,items)}
         composable("cadastro_usuario") { CadastroUsuarioScreen(navController) }
@@ -60,13 +59,25 @@ fun AppNavHost(
         composable("relatorios") { RelatoriosScreen(navController) }
         composable("usuario") { UsuarioScreen(navController, "Raquel Guimarães", "Administrador") }
         composable("menu_cadastros") {MenuCadastros(navController)}
+        //composable("ajustes") {AjusteScreen(navController)}
     }
 }
+
+//@Preview(showBackground = true)
+//@Composable
+//fun DefaultPreview() {
+//    EstoqueTocTheme {
+//        MainActivity()
+//    }
+//}
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     EstoqueTocTheme {
-        MainActivity()
+        Surface(modifier = Modifier.fillMaxSize()) {
+            val navController = rememberNavController()
+            AppNavHost(navController = navController, modifier = Modifier)
+        }
     }
 }

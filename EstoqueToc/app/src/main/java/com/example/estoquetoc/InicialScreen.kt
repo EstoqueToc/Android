@@ -38,7 +38,7 @@ val poppins_black = FontFamily(
 )
 
 @Composable
-fun WelcomeScreen(
+fun InicialScreen(
     navController: NavController? = null
 ) {
     Column(
@@ -153,6 +153,6 @@ fun WelcomeScreen(
 @Composable
 fun InicialScreen() {
     EstoqueTocTheme {
-        WelcomeScreen(navController = null)  // Para preview, navController é null
+        InicialScreen(navController = null)  // Para preview, navController é null
     }
 }

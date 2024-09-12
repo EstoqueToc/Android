@@ -206,5 +206,10 @@ fun ColumnInfo(title: String, value: String) {
 @Preview(showBackground = true)
 @Composable
 fun RelatorsScreenPreview() {
-    RelatoriosScreen(navController = null)  // Para preview, navController é null
+    RelatoriosScreen()  // Para preview, navController é null
 }
+//@Preview(showBackground = true)
+//@Composable
+//fun RelatorsScreenPreview() {
+//    RelatoriosScreen(navController = null)  // Para preview, navController é null
+//}
