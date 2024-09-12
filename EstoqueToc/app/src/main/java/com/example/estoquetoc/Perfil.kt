@@ -1,4 +1,4 @@
 package com.example.estoquetoc
 
-class erfil {
+class Perfil {
 }

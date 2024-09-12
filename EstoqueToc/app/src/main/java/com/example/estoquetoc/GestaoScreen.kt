@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.estoquetoc.componentes.BottomBarApp
 
 @Composable
     fun GestaoScreen(navController: NavController? = null) {
@@ -104,13 +105,20 @@ import androidx.navigation.NavController
                         fontSize = 14.sp,
                         color = Color.Gray
                     )
+                    Spacer(modifier = Modifier.height(16.dp))
+//                    // Exibir BottomBarApp apenas se o navController não for nulo
+//                    navController?.let {
+//                        BottomBarApp(navController = it)
+//                    }
                 }
-            }
         }
-    }
+        }
+
+}
+
 
     @Preview(showBackground = true)
     @Composable
     fun GestaoScreenPreview() {
-        GestaoScreen()
+        GestaoScreen(navController = null)  // Para preview, navController é null
     }

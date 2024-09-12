@@ -55,11 +55,10 @@ fun AppNavHost(
         composable("produtos_screen") { ProdutoScreen(navController,items)}
         composable("cadastro_usuario") { CadastroUsuarioScreen(navController) }
         composable("faturamento") { FaturamentoScreen(navController) }
-        composable("dashboard") { DashboardScreen(navController) }
+        composable("gestao") { GestaoScreen(navController) }
         composable("cadastro_produto") { CadastroProdutoScreen(navController, items) }
-        composable("cadastro_fornecedor") { CadastroFornecedorScreen(navController) }
-        composable("cadastro_funcionario") { CadastroFuncionarioScreen(navController) }
-        composable("relatorios") { RelatorioScreen(navController) }
+        composable("relatorios") { RelatoriosScreen(navController) }
+        composable("usuario") { UsuarioScreen(navController, "Raquel Guimarães", "Administrador") }
         composable("menu_cadastros") {MenuCadastros(navController)}
     }
 }

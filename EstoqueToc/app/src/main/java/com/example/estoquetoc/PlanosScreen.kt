@@ -71,12 +71,12 @@ fun getPlanos(): List<Plano> {
             R.drawable.coracao
         ),
         Plano(
-            "Intermediário", "R$ 49,90/mês",
+            "Gold", "R$ 49,90/mês",
             listOf("Gerenciamento de Estoque Completo", "Relatórios Avançados", "Suporte Prioritário", "3 Usuários"),
             R.drawable.estrela
         ),
         Plano(
-            "Avançado", "R$ 99,90/mês",
+            "Diamont", "R$ 99,90/mês",
             listOf("Integração com E-commerce", "Relatórios Detalhados", "Suporte 24/7", "Usuários Ilimitados"),
             R.drawable.diamante
         )

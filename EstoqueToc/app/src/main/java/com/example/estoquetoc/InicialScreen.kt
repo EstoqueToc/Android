@@ -27,9 +27,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
+import com.example.estoquetoc.ui.theme.EstoqueTocTheme
 
 val poppins_black = FontFamily(
     Font(R.font.poppins_black)
@@ -37,7 +39,7 @@ val poppins_black = FontFamily(
 
 @Composable
 fun WelcomeScreen(
-    navController: NavHostController
+    navController: NavController? = null
 ) {
     Column(
         modifier = Modifier
@@ -112,7 +114,7 @@ fun WelcomeScreen(
                         ) {
                             Button(
                                 onClick = {
-                                    navController.navigate("login")
+                                    navController?.navigate("login")
                                 },
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = Color.Black,
@@ -126,7 +128,7 @@ fun WelcomeScreen(
                             }
                             Button(
                                 onClick = {
-                                    navController.navigate("cadastro_usuario")
+                                    navController?.navigate("cadastro_usuario")
                                 },
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = Color.White,
@@ -147,10 +149,10 @@ fun WelcomeScreen(
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun InicialScreen() {
-//    EstoqueTocTheme {
-//        WelcomeScreen(navController = )
-//    }
-//}
+@Preview(showBackground = true)
+@Composable
+fun InicialScreen() {
+    EstoqueTocTheme {
+        WelcomeScreen(navController = null)  // Para preview, navController é null
+    }
+}

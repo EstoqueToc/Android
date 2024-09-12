@@ -38,7 +38,7 @@ fun FaturamentoScreen(navController: NavController? = null) {
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFF3F3F3)),
-            //.padding(16.dp),
+        //.padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
@@ -49,10 +49,10 @@ fun FaturamentoScreen(navController: NavController? = null) {
                 .background(Color(0xFFFFD07D))
                 .padding(16.dp)
         ) {
-            Column (
+            Column(
                 modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-            ){
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center,
@@ -65,7 +65,8 @@ fun FaturamentoScreen(navController: NavController? = null) {
                         colorFilter = ColorFilter.tint(Color(0xFFFFFFFF))
                     )
                     Spacer(
-                        modifier = Modifier.width(300.dp)) // Espaço entre as imagens
+                        modifier = Modifier.width(300.dp)
+                    ) // Espaço entre as imagens
                     Image(
                         painter = painterResource(id = R.drawable.notificacao),
                         contentDescription = "Imagem de um sino",
@@ -101,13 +102,13 @@ fun FaturamentoScreen(navController: NavController? = null) {
                 .fillMaxWidth(0.95f)
                 .background(Color(0xFFFFE4B5), shape = RoundedCornerShape(16.dp))
                 .padding(16.dp)
-        ){
+        ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-               Image(
+                Image(
                     painter = painterResource(id = R.drawable.maoestrelas),
                     contentDescription = "Imagem de uma mão segurando estrelas",
                     modifier = Modifier
@@ -115,8 +116,10 @@ fun FaturamentoScreen(navController: NavController? = null) {
                         .align(Alignment.CenterVertically)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Column (modifier = Modifier
-                    .padding(start = 10.dp)) {
+                Column(
+                    modifier = Modifier
+                        .padding(start = 10.dp)
+                ) {
                     Text(
                         text = "Com o EE Gold, você tem acesso a",
                         fontWeight = FontWeight.SemiBold,
@@ -208,13 +211,16 @@ fun FaturamentoScreen(navController: NavController? = null) {
                 )
             }
         }
-        BottomBarApp(navController = navController!!)
-    }
+        // Exibir BottomBarApp apenas se o navController não for nulo
+        navController?.let {
+            BottomBarApp(navController = it)
+        }
 
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun FaturamentoScreenPreview() {
-    FaturamentoScreen()
+    FaturamentoScreen(navController = null)  // Para preview, navController é null
 }
