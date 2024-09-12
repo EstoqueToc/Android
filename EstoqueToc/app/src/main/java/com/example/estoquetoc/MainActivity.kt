@@ -16,7 +16,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.estoquetoc.componentes.Produto
+import com.example.estoquetoc.atributosCadastro.Produto
 import com.example.estoquetoc.ui.theme.EstoqueTocTheme
 
 class MainActivity : ComponentActivity() {
@@ -49,7 +49,7 @@ fun AppNavHost(
 ) {
     val navController = rememberNavController()
     val items = rememberSaveable { mutableListOf<Produto>() }
-    NavHost(navController = navController, startDestination = "cadastro_produto", modifier = modifier) {
+    NavHost(navController = navController, startDestination = "inicial_screeen", modifier = modifier) {
         composable("inicial_screen") { WelcomeScreen(navController) }
         composable("login") { LoginScreen(navController) }
         composable("produtos_screen") { ProdutoScreen(navController,items)}

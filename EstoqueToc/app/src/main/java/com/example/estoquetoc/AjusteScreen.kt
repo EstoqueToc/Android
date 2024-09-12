@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
+import com.example.estoquetoc.componentes.BottomBarApp
 
 @Composable
 fun AjusteScreen(navController: NavController? = null, userName: String, functionName: String) {

@@ -1,6 +1,4 @@
 package com.example.estoquetoc
-
-
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -36,19 +34,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import com.example.estoquetoc.componentes.Produto
-import com.example.estoquetoc.componentes.ProdutoViewModel
+import com.example.estoquetoc.atributosCadastro.Produto
+import com.example.estoquetoc.componentes.BottomBarApp
+import com.example.estoquetoc.componentes.CompButton
+import com.example.estoquetoc.componentes.TopBarApp
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-//@Preview(showBackground = true)
 @Composable
 fun CadastroProdutoScreen(
     navController: NavHostController,
-//    produtoViewModel: ProdutoViewModel = viewModel()
     Items: MutableList<Produto>
 ) {
     var nomeProduto by remember { mutableStateOf("") }
@@ -63,8 +59,6 @@ fun CadastroProdutoScreen(
     var popUpVisible by remember { mutableStateOf(false) }
     var listaVisible by remember { mutableStateOf(false) }
     var itemsList by remember { mutableStateOf(listOf<String>()) }
-
-//    val produtos = produtoViewModel.listaProduto
 
     val context = LocalContext.current
     Column {
@@ -82,14 +76,14 @@ fun CadastroProdutoScreen(
                 .padding(16.dp)
                 .verticalScroll(rememberScrollState())
         ) {
-            Input(
+            InputFormulario(
                 value = nomeProduto,
                 onValueChange = { nomeProduto = it },
                 labelText = "Nome"
             )
             Spacer(modifier = Modifier.size(16.dp))
 
-            Input(
+            InputFormulario(
                 value = descricaoProduto,
                 onValueChange = { descricaoProduto = it },
                 labelText = "Descrção"
@@ -132,28 +126,28 @@ fun CadastroProdutoScreen(
             }
             Spacer(modifier = Modifier.size(16.dp))
 
-            Input(
+            InputFormulario(
                 value = unidadeMedida,
                 onValueChange = { unidadeMedida = it },
                 labelText = "Unidade de Medida"
             )
             Spacer(modifier = Modifier.size(16.dp))
 
-            Input(
+            InputFormulario(
                 value = qtdEntrada,
                 onValueChange = { qtdEntrada = it },
                 labelText = "Quantidade de Entrada"
             )
             Spacer(modifier = Modifier.size(16.dp))
 
-            Input(
+            InputFormulario(
                 value = precoCompra,
                 onValueChange = { precoCompra = it },
                 labelText = "Preço de Compra"
             )
             Spacer(modifier = Modifier.size(16.dp))
 
-            Input(
+            InputFormulario(
                 value = precoVenda,
                 onValueChange = { precoVenda = it },
                 labelText = "Preço de Venda"
@@ -306,7 +300,7 @@ fun CadastroProdutoScreen(
 }
 
 @Composable
-fun Input(
+fun InputFormulario(
     value: String,
     onValueChange: (String) -> Unit,
     labelText: String

@@ -1,131 +1,145 @@
 package com.example.estoquetoc
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.materialIcon
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.estoquetoc.componentes.BottomBarApp
+import com.example.estoquetoc.componentes.CardComponetizado
+import com.example.estoquetoc.componentes.TopBarApp
 
 @Composable
-fun MenuCadastros(navController: NavController? = null) {
+fun MenuCadastros(navController: NavController) {
+    Column {
+        TopBarApp(
+            FirstImage = R.drawable.back_icon,
+            FirstImageDescription ="Voltar",
+            SecondImage = R.drawable.edit_icon ,
+            SecondImageDescription = "Editar",
+            Titulo = "Cadastros"
+        ) {
+            navController.navigate("produto_screen")
+        }
+        Conteudo(navController = navController)
+    }
+
+}
+
+@Composable
+fun Conteudo( navController: NavController, modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier
-            .fillMaxSize()
-           // .clip(RoundedCornerShape(topStart = 14.dp, topEnd = 14.dp))
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(color = Color(0xFFEAAC47))
-                .padding(16.dp)
-        ) {
-            Text(
-                text = "Cadastros",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                modifier = Modifier.align(Alignment.Center)
-            )
-        }
         Column(
             modifier = Modifier
                 .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
-            CadastroItem(
-                iconId = R.drawable.produto,
-                title = "Produtos",
-                description = "Cadastre seus produtos para controle do seu estoque."
-            )
-            Spacer(modifier = Modifier.height(2.dp))
-            CadastroItem(
-                iconId = R.drawable.funcionario, // Substitua pelo seu ícone
-                title = "Funcionários",
-                description = "Cadastre seus funcionários para gerenciar seus acessos."
-            )
-            Spacer(modifier = Modifier.height(2.dp)) // Espaço entre os itens
-            CadastroItem(
-                iconId = R.drawable.fornecedor, // Substitua pelo seu ícone
-                title = "Fornecedores",
-                description = "Cadastre seus fornecedores para uma melhor gestão."
-            )
-            Spacer(modifier = Modifier.height(2.dp)) // Espaço entre os itens
-            CadastroItem(
-                iconId = R.drawable.categoria, // Substitua pelo seu ícone
-                title = "Categorias",
-                description = "Cadastre categorias para facilitar a visualização dos seus produtos."
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            BottomNavigation(navController)
-        }
-    }
-}
 
-@Composable
-fun BottomNavigation(navController: NavController?) {
-    // Implementação da navegação inferior
-}
+            Column(
+                modifier = Modifier.padding(start = 8.dp, end = 8.dp),
 
-@Composable
-fun CadastroItem(iconId: Int, title: String, description: String) {
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.White, shape = RoundedCornerShape(8.dp)),
-        shape = RoundedCornerShape(8.dp),
-        shadowElevation = 4.dp,
-        color = Color.White
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                painter = painterResource(id = iconId),
-                contentDescription = "Icone de $title",
-                modifier = Modifier.size(48.dp)
-                    .padding(3.dp),
-                tint = Color(0xFFEAAC47)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Column {
-                Text(
-                    text = title,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFF6D4C41)
+                ) {
+                Spacer(modifier = Modifier.size(8.dp))
+                CardComponetizado(
+                    icon = R.drawable.funcionario,
+                    DescIcon = "Funcionário",
+                    DescriptionProduct = "Funcionários",
+                    QtdEmEstoque = "Cadastre seus funcionários para gerenciar seus acessos."
+                ) {
+                    navController.navigate("funcionarios")
+                }
+                CardComponetizado(
+                    icon = R.drawable.produto,
+                    DescIcon = "Produtos",
+                    DescriptionProduct = "Produtos",
+                    QtdEmEstoque = "Cadastre seus produtos para controle do seu estoque.",
+                    onClick = { navController.navigate("produto_screen") }
                 )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = description,
-                    fontSize = 14.sp,
-                    color = Color.Gray
-                )
+                CardComponetizado(
+                    icon = R.drawable.fornecedor,
+                    DescIcon = "Fornecedores",
+                    DescriptionProduct = "Fornecedores",
+                    QtdEmEstoque = "Cadastre seus fornecedores para uma melhor gestão."
+                ) {
+                    navController.navigate("Fornecedores")
+                }
+                CardComponetizado(
+                    icon = R.drawable.categoria,
+                    DescIcon = "Categorias",
+                    DescriptionProduct = "Categorias",
+                    QtdEmEstoque = "Cadastre categorias para facilitar a visualização dos seus produtos."
+                ) {
+                    navController.navigate("Fornecedores")
+                }
+                Spacer(modifier = Modifier.height(16.dp))
             }
+            BottomBarApp(navController = navController)
         }
-      //  BottomBarApp(navController = navController!!)
+
     }
 }
+
+
+//@Composable
+//fun CadastroItem(iconId: Int, title: String, description: String) {
+//    Surface(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .background(Color.White, shape = RoundedCornerShape(8.dp)),
+//        shape = RoundedCornerShape(8.dp),
+//        shadowElevation = 4.dp,
+//        color = Color.White
+//    ) {
+//        Row(
+//            modifier = Modifier
+//                .padding(16.dp)
+//                .fillMaxWidth(),
+//            verticalAlignment = Alignment.CenterVertically
+//        ) {
+//            Icon(
+//                painter = painterResource(id = iconId),
+//                contentDescription = "Icone de $title",
+//                modifier = Modifier
+//                    .size(48.dp)
+//                    .padding(3.dp),
+//                tint = Color(0xFFEAAC47)
+//            )
+//            Spacer(modifier = Modifier.width(8.dp))
+//            Column {
+//                Text(
+//                    text = title,
+//                    fontSize = 18.sp,
+//                    fontWeight = FontWeight.Bold,
+//                    color = Color(0xFF6D4C41)
+//                )
+//                Spacer(modifier = Modifier.height(4.dp))
+//                Text(
+//                    text = description,
+//                    fontSize = 14.sp,
+//                    color = Color.Gray
+//                )
+//            }
+//        }
+//    }
+//}
 
 @Preview(showBackground = true)
 @Composable
 fun MenuCadastroPreview() {
-    MenuCadastros()
+    val navController = rememberNavController()
+    MenuCadastros(navController)
 }

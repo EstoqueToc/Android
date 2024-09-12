@@ -2,7 +2,6 @@ package com.example.estoquetoc
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -15,16 +14,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.estoquetoc.componentes.Produto
+import com.example.estoquetoc.atributosCadastro.Produto
+import com.example.estoquetoc.componentes.BottomBarApp
+import com.example.estoquetoc.componentes.CardComponetizado
+import com.example.estoquetoc.componentes.TopBarApp
 
 @Composable
 fun ProdutoScreen(
     navController: NavHostController,
-//    produtoViewModel: ProdutoViewModel = viewModel()
     Items:MutableList<Produto>
 ) {
-
-//    val listaProdutos by remember { mutableStateOf(produtoViewModel.listaProduto) }
 
     Column(
         Modifier
@@ -64,7 +63,7 @@ fun ProdutoScreen(
                 }
             }else{
                 Items.forEach{produto ->
-                    Produtos(
+                    CardComponetizado(
                         icon = R.drawable.box_icon,
                         DescIcon = produto.nomeProduto,
                         DescriptionProduct = produto.descricaoProduto,
@@ -80,25 +79,5 @@ fun ProdutoScreen(
             }
             BottomBarApp(navController = navController)
         }
-    }
-}
-
-@Composable
-fun ProdutoItem(produto: Produto, onClick: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.LightGray)
-            .padding(16.dp)
-            .clickable { onClick() }
-    ) {
-        Text(text = "Nome: ${produto.nomeProduto}", color = Color.Black)
-        Text(text = "Descrição: ${produto.descricaoProduto}", color = Color.Black)
-        Text(text = "Data de Validade: ${produto.dataValidade}", color = Color.Black)
-        Text(text = "Unidade de Medida: ${produto.unidadeMedida}", color = Color.Black)
-        Text(text = "Quantidade de Entrada: ${produto.qtdEntrada}", color = Color.Black)
-        Text(text = "Preço de Compra: ${produto.precoCompra}", color = Color.Black)
-        Text(text = "Preço de Venda: ${produto.precoVenda}", color = Color.Black)
-        Text(text = "Categoria: ${produto.categoria}", color = Color.Black)
     }
 }
