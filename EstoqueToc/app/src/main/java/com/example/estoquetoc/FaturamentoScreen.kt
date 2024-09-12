@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.estoquetoc.componentes.BottomBarApp
 
+
 @Composable
 fun FaturamentoScreen(navController: NavController? = null) {
     Column(
@@ -40,7 +41,7 @@ fun FaturamentoScreen(navController: NavController? = null) {
             .background(Color(0xFFF3F3F3)),
         //.padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween
+        // verticalArrangement = Arrangement.Center
     ) {
         // Faturamento do Mês
         Box(
@@ -49,10 +50,10 @@ fun FaturamentoScreen(navController: NavController? = null) {
                 .background(Color(0xFFFFD07D))
                 .padding(16.dp)
         ) {
-            Column(
+            Column (
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+            ){
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center,
@@ -65,8 +66,7 @@ fun FaturamentoScreen(navController: NavController? = null) {
                         colorFilter = ColorFilter.tint(Color(0xFFFFFFFF))
                     )
                     Spacer(
-                        modifier = Modifier.width(300.dp)
-                    ) // Espaço entre as imagens
+                        modifier = Modifier.width(300.dp)) // Espaço entre as imagens
                     Image(
                         painter = painterResource(id = R.drawable.notificacao),
                         contentDescription = "Imagem de um sino",
@@ -96,13 +96,15 @@ fun FaturamentoScreen(navController: NavController? = null) {
             }
         }
 
+        Spacer(modifier = Modifier.height(24.dp))
+
         // Ferramentas Exclusivas
         Box(
             modifier = Modifier
                 .fillMaxWidth(0.95f)
                 .background(Color(0xFFFFE4B5), shape = RoundedCornerShape(16.dp))
                 .padding(16.dp)
-        ) {
+        ){
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,
@@ -111,15 +113,12 @@ fun FaturamentoScreen(navController: NavController? = null) {
                 Image(
                     painter = painterResource(id = R.drawable.maoestrelas),
                     contentDescription = "Imagem de uma mão segurando estrelas",
-                    modifier = Modifier
-                        .size(40.dp)
+                    modifier = Modifier.size(40.dp)
                         .align(Alignment.CenterVertically)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Column(
-                    modifier = Modifier
-                        .padding(start = 10.dp)
-                ) {
+                Column (modifier = Modifier
+                    .padding(start = 10.dp)) {
                     Text(
                         text = "Com o EE Gold, você tem acesso a",
                         fontWeight = FontWeight.SemiBold,
@@ -152,7 +151,7 @@ fun FaturamentoScreen(navController: NavController? = null) {
                 }
                 Spacer(modifier = Modifier.weight(1f))
                 Image(
-                    painter = painterResource(id = R.drawable.seta_direita),
+                    painter = painterResource(id = R.drawable.setadireita),
                     contentDescription = null,
                     colorFilter = ColorFilter.tint(Color(0xFFFFFFFF)),
                     modifier = Modifier
@@ -161,6 +160,8 @@ fun FaturamentoScreen(navController: NavController? = null) {
                 )
             }
         }
+
+        Spacer(modifier = Modifier.height(24.dp))
 
         // Precisa de Ajuda?
         Column(
@@ -180,7 +181,7 @@ fun FaturamentoScreen(navController: NavController? = null) {
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(150.dp)
+                    .height(180.dp)
             )
             Spacer(modifier = Modifier.height(24.dp))
             Row(
@@ -210,14 +211,13 @@ fun FaturamentoScreen(navController: NavController? = null) {
                     fontSize = 16.sp
                 )
             }
-        }
-        // Exibir BottomBarApp apenas se o navController não for nulo
-        navController?.let {
-            BottomBarApp(navController = it)
-        }
+            // Exibir BottomBarApp apenas se o navController não for nulo
+            navController?.let {
+                BottomBarApp(navController = it)
+            }
 
+        }
     }
-}
 
 @Preview(showBackground = true)
 @Composable
