@@ -41,7 +41,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.estoquetoc.componentes.BottomBarApp
 
 @Composable
-fun AjusteScreen(navController: NavController? = null, userName: String, functionName: String) {
+fun AjustesScreen(navController: NavController? = null, userName: String, functionName: String) {
     var profileImageUri by remember { mutableStateOf<Uri?>(null) }
 
     // Launcher para abrir a galeria
@@ -174,7 +174,7 @@ fun AjusteScreen(navController: NavController? = null, userName: String, functio
 @Preview(showBackground = true)
 @Composable
 fun AjusteScreenPreview() {
-    AjusteScreen(userName = "Raquel Guimarães", functionName = "Administrador")
+    AjustesScreen(userName = "Raquel Guimarães", functionName = "Administrador")
 }
 
 //@Preview(showBackground = true)

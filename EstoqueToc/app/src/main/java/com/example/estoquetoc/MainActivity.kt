@@ -59,7 +59,7 @@ fun AppNavHost(
         composable("relatorios") { RelatoriosScreen(navController) }
         composable("usuario") { UsuarioScreen(navController, "Raquel Guimarães", "Administrador") }
         composable("menu_cadastros") {MenuCadastros(navController)}
-        //composable("ajustes") {AjusteScreen(navController)}
+        composable("ajustes") {AjustesScreen(navController, "Raquel Guimarães", "Administrador")}
     }
 }
 
