@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.example.estoquetoc.componentes.BottomBarApp
 
 @Composable
 fun AjusteScreen(navController: NavController? = null, userName: String, functionName: String) {
@@ -41,7 +40,6 @@ fun AjusteScreen(navController: NavController? = null, userName: String, functio
             .fillMaxSize()
             .background(color = Color(0xFFF5F5F5))
     ) {
-
         // Header
         Box(
             modifier = Modifier
@@ -149,7 +147,6 @@ fun AjusteScreen(navController: NavController? = null, userName: String, functio
                 colorFilter = ColorFilter.tint(Color(0xFFFFFFFF))
             )
         }
-        BottomBarApp(navController = navController!!)
     }
 }
 

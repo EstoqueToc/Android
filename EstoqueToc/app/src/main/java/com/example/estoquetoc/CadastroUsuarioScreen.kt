@@ -3,10 +3,8 @@ package com.example.estoquetoc
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -21,8 +19,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.compose.material.icons.Icons
-//import androidx.compose.material.icons.filled.Visibility
-//import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
@@ -31,17 +29,15 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.withStyle
 
 @Composable
-fun CadastroUsuarioScreen(navController: NavHostController? = null) {
+fun CadastroUsuarioScreen(navController: NavHostController? = null) { // Tornando navController opcional para pré-visualização
     var nomeFantasia by remember { mutableStateOf("") }
     var cnpj by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
     var senhaVisivel by remember { mutableStateOf(false) }
-
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
     ) {
         Image(
             painter = painterResource(id = R.drawable.background2),
@@ -52,6 +48,7 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
         )
         Column(
             modifier = Modifier
+                //.fillMaxSize()
                 .padding(16.dp)
                 .background(Color.Transparent),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -77,14 +74,12 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
                     color = Color.Black
                 )
             }
-
             Text(
                 text = "Olá,",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
-                modifier = Modifier
-                    .align(Alignment.Start)
+                modifier = Modifier.align(Alignment.Start)
                     .padding(top = 16.dp),
             )
 
@@ -114,7 +109,7 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
                 onValueChange = { cnpj = it },
                 label = { Text("CNPJ") },
                 modifier = Modifier.fillMaxWidth(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -124,7 +119,7 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
                 onValueChange = { email = it },
                 label = { Text("Email Corporativo") },
                 modifier = Modifier.fillMaxWidth(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -136,12 +131,13 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
                 modifier = Modifier.fillMaxWidth(),
                 visualTransformation = if (senhaVisivel) VisualTransformation.None else PasswordVisualTransformation(),
                 trailingIcon = {
-//                    val icon = if (senhaVisivel) Icons.Default.Visibility else Icons.Default.VisibilityOff
+                    val icon =
+                        if (senhaVisivel) Icons.Default.Visibility else Icons.Default.VisibilityOff
                     IconButton(onClick = { senhaVisivel = !senhaVisivel }) {
-//                        Icon(
-//                            imageVector = icon,
-//                            contentDescription = "Alternar visibilidade da senha"
-//                        )
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = "Toggle password visibility"
+                        )
                     }
                 }
             )
@@ -155,7 +151,9 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
                 var isChecked by remember { mutableStateOf(false) }
                 Checkbox(
                     checked = isChecked,
-                    onCheckedChange = { checked -> isChecked = checked },
+                    onCheckedChange = { checked ->
+                        isChecked = checked
+                    },
                     colors = CheckboxDefaults.colors(
                         checkedColor = Color.Green,
                         uncheckedColor = Color.Red,
@@ -178,14 +176,12 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
                 shape = RoundedCornerShape(6.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6F00))
             ) {
-                Text(
-                    text = "Cadastrar",
+                Text(text = "Cadastrar",
                     color = Color.White,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold
                 )
             }
-
             TextButton(
                 onClick = {
                     navController?.navigate("LoginScreen") // Navegar para a tela de login

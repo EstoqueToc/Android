@@ -14,12 +14,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import com.example.estoquetoc.componentes.BottomBarApp
 
 
 @Composable
-fun RelatorioScreen(navController: NavController? = null) {
+fun RelatorioScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -69,7 +67,6 @@ fun RelatorioScreen(navController: NavController? = null) {
                 }
             }
         }
-        BottomBarApp(navController = navController!!)
     }
 }
 
@@ -106,7 +103,6 @@ fun RowInfo(title: String, value: String, description: String) {
             Text(value, fontWeight = FontWeight.Bold)
         }
         Text(description, fontSize = 12.sp, color = Color.Gray)
-
     }
 }
 

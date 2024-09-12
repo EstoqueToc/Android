@@ -22,10 +22,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 
 @Composable
-fun PlanosUI(navController: NavController? = null) {
+fun PlanosUI() {
     // Lista de conteúdos para simular os itens que serão rolados
     LazyColumn(
         modifier = Modifier
@@ -157,7 +156,6 @@ fun PlanoCard(plano: Plano) {
             }
 
         }
-
     }
 }
 
