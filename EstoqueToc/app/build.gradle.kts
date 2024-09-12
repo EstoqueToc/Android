@@ -79,6 +79,8 @@ dependencies {
 
     // Navigation in Compose
     implementation(libs.androidx.navigation.compose)
+   // implementation(libs.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
 
     // Coil for image loading in Compose
     implementation(libs.coil.kt.coil.compose)
@@ -97,5 +99,3 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
-
-// Versões extras de dependências podem ser incluídas no "libs.versions.toml" ou em um arquivo equivalente
