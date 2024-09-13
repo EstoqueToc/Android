@@ -93,50 +93,6 @@ fun Conteudo( navController: NavController, modifier: Modifier = Modifier) {
     }
 }
 
-
-//@Composable
-//fun CadastroItem(iconId: Int, title: String, description: String) {
-//    Surface(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .background(Color.White, shape = RoundedCornerShape(8.dp)),
-//        shape = RoundedCornerShape(8.dp),
-//        shadowElevation = 4.dp,
-//        color = Color.White
-//    ) {
-//        Row(
-//            modifier = Modifier
-//                .padding(16.dp)
-//                .fillMaxWidth(),
-//            verticalAlignment = Alignment.CenterVertically
-//        ) {
-//            Icon(
-//                painter = painterResource(id = iconId),
-//                contentDescription = "Icone de $title",
-//                modifier = Modifier
-//                    .size(48.dp)
-//                    .padding(3.dp),
-//                tint = Color(0xFFEAAC47)
-//            )
-//            Spacer(modifier = Modifier.width(8.dp))
-//            Column {
-//                Text(
-//                    text = title,
-//                    fontSize = 18.sp,
-//                    fontWeight = FontWeight.Bold,
-//                    color = Color(0xFF6D4C41)
-//                )
-//                Spacer(modifier = Modifier.height(4.dp))
-//                Text(
-//                    text = description,
-//                    fontSize = 14.sp,
-//                    color = Color.Gray
-//                )
-//            }
-//        }
-//    }
-//}
-
 @Preview(showBackground = true)
 @Composable
 fun MenuCadastroPreview() {

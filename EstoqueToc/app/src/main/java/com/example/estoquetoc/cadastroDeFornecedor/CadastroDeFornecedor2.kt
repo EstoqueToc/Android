@@ -124,11 +124,11 @@ class CadastroDeFornecedor2 {
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(3.dp)),
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = Color(0xFFF1F5F4),
-                    focusedBorderColor = Color.Transparent,
-                    unfocusedBorderColor = Color.Transparent
-                )
+//                colors = TextFieldDefaults.outlinedTextFieldColors(
+//                    containerColor = Color(0xFFF1F5F4),
+//                    focusedBorderColor = Color.Transparent,
+//                    unfocusedBorderColor = Color.Transparent
+//                )
             )
         }
     }

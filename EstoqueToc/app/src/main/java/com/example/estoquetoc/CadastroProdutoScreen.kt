@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -42,9 +43,10 @@ import com.example.estoquetoc.componentes.TopBarApp
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+
 @Composable
 fun CadastroProdutoScreen(
-    navController: NavHostController,
+    navController: NavHostController?,
     Items: MutableList<Produto>
 ) {
     var nomeProduto by remember { mutableStateOf("") }
@@ -68,7 +70,7 @@ fun CadastroProdutoScreen(
             SecondImage = R.drawable.lixeira_icon,
             "lixeira",
             Titulo = "Produtos",
-            onClick = { navController.navigate("produtos_screen")}
+            onClick = { navController?.navigate("produtos_screen")}
         )
         Column(
             Modifier
@@ -275,7 +277,7 @@ fun CadastroProdutoScreen(
                     )
                     Items.add(novoProduto)
                     //                    produtoViewModel.addProduto(novoProduto)
-                    navController.navigate("produtos_screen")
+                    navController?.navigate("produtos_screen")
                     // Limpar campos após o salvamento
                     nomeProduto = ""
                     descricaoProduto = ""
@@ -295,8 +297,10 @@ fun CadastroProdutoScreen(
             }, text = "Salvar")
 
         }
-        BottomBarApp(navController = navController)
-    }
+//        // Exibir BottomBarApp apenas se o navController não for nulo
+//        navController?.let {
+//            BottomBarApp(navController = it)
+        }
 }
 
 @Composable
@@ -317,4 +321,10 @@ fun InputFormulario(
             )
         }
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CadastroProdutoScreenPreview() {
+    CadastroProdutoScreen(navController = null, mutableListOf())
 }

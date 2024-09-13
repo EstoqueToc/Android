@@ -65,7 +65,8 @@ fun InicialScreen(
             Text(
                 text = "EstoqueToc",
                 fontWeight = FontWeight.SemiBold,
-                fontSize = 24.sp
+                fontSize = 24.sp,
+                color = Color.Black
             )
         }
         Surface(

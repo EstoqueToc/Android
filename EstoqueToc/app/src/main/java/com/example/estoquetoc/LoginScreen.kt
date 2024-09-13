@@ -84,7 +84,7 @@ fun LoginScreen(navController: NavHostController? = null) { // Tornando navContr
             )
 
             Text(
-                text = "Crie uma Conta.",
+                text = "Entre com sua conta.",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = Color.Black,

@@ -124,11 +124,11 @@ fun FormField(label: String, isDatePicker: Boolean = false, isPassword: Boolean 
             .fillMaxWidth()
             .height(60.dp),
         shape = RoundedCornerShape(3.dp),
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            containerColor = Color(0xFFF1F5F4),
-            unfocusedBorderColor = Color.Transparent,
-            focusedBorderColor = Color.Transparent
-        ),
+//        colors = TextFieldDefaults.outlinedTextFieldColors(
+//            containerColor = Color(0xFFF1F5F4),
+//            unfocusedBorderColor = Color.Transparent,
+//            focusedBorderColor = Color.Transparent
+//        ),
         trailingIcon = {
             if (isDatePicker) {
                 Image(

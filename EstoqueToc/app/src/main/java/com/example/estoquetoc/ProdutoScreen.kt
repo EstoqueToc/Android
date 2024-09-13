@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.estoquetoc.atributosCadastro.Produto
@@ -21,7 +22,7 @@ import com.example.estoquetoc.componentes.TopBarApp
 
 @Composable
 fun ProdutoScreen(
-    navController: NavHostController,
+    navController: NavHostController?,
     Items:MutableList<Produto>
 ) {
 
@@ -37,7 +38,7 @@ fun ProdutoScreen(
             SecondImage = R.drawable.edit_icon,
             "Editar",
             Titulo = "Produtos",
-            onClick = { navController.navigate("cadastro_produto") }
+            onClick = { navController?.navigate("cadastro_produto") }
         )
 
         Spacer(modifier = Modifier.size(30.dp))
@@ -71,13 +72,22 @@ fun ProdutoScreen(
                         enable = true,
                         valor = produto.precoVenda,
                         onClick = {
-                            navController.navigate("cadastro_produto")
+                            navController?.navigate("cadastro_produto")
                         }
                     )
                     Spacer(modifier = Modifier.size(8.dp))
                 }
             }
-            BottomBarApp(navController = navController)
+            // Exibir BottomBarApp apenas se o navController não for nulo
+            navController?.let {
+                BottomBarApp(navController = it)
+            }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProdutoScreenPreview(){
+    ProdutoScreen(navController = null, mutableListOf())
 }

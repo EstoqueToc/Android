@@ -159,14 +159,14 @@ fun UsuarioScreen(navController: NavController? = null, userName: String, functi
                         .fillMaxWidth()
                         .background(color = Color.LightGray),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
-                    colors = TextFieldDefaults.textFieldColors(
-                        containerColor = Color.Transparent,
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent,
-                        disabledIndicatorColor = Color.Transparent,
-                        focusedLabelColor = Color.Black,
-                        unfocusedLabelColor = Color.Black
-                    )
+//                    colors = TextFieldDefaults.textFieldColors(
+//                        containerColor = Color.Transparent,
+//                        focusedIndicatorColor = Color.Transparent,
+//                        unfocusedIndicatorColor = Color.Transparent,
+//                        disabledIndicatorColor = Color.Transparent,
+//                        focusedLabelColor = Color.Black,
+//                        unfocusedLabelColor = Color.Black
+                  //  )
                 )
             }
             Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
@@ -184,14 +184,14 @@ fun UsuarioScreen(navController: NavController? = null, userName: String, functi
                         .fillMaxWidth()
                         .background(color = Color.LightGray),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
-                    colors = TextFieldDefaults.textFieldColors(
-                        containerColor = Color.Transparent,
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent,
-                        disabledIndicatorColor = Color.Transparent,
-                        focusedLabelColor = Color.Black,
-                        unfocusedLabelColor = Color.Black
-                    )
+//                    colors = TextFieldDefaults.textFieldColors(
+//                        containerColor = Color.Transparent,
+//                        focusedIndicatorColor = Color.Transparent,
+//                        unfocusedIndicatorColor = Color.Transparent,
+//                        disabledIndicatorColor = Color.Transparent,
+//                        focusedLabelColor = Color.Black,
+//                        unfocusedLabelColor = Color.Black
+//                    )
                 )
             }
             Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
@@ -209,14 +209,14 @@ fun UsuarioScreen(navController: NavController? = null, userName: String, functi
                         .fillMaxWidth()
                         .background(color = Color.LightGray),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
-                    colors = TextFieldDefaults.textFieldColors(
-                        containerColor = Color.Transparent,
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent,
-                        disabledIndicatorColor = Color.Transparent,
-                        focusedLabelColor = Color.Black,
-                        unfocusedLabelColor = Color.Black
-                    )
+//                    colors = TextFieldDefaults.textFieldColors(
+//                        containerColor = Color.Transparent,
+//                        focusedIndicatorColor = Color.Transparent,
+//                        unfocusedIndicatorColor = Color.Transparent,
+//                        disabledIndicatorColor = Color.Transparent,
+//                        focusedLabelColor = Color.Black,
+//                        unfocusedLabelColor = Color.Black
+//                    )
                 )
             }
             Spacer(modifier = Modifier.height(40.dp))
