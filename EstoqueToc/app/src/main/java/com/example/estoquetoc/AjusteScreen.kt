@@ -16,8 +16,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -39,6 +41,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.estoquetoc.componentes.BottomBarApp
+import com.example.estoquetoc.componentes.CardComponetizado
+import com.example.estoquetoc.componentes.TopBarApp
 
 @Composable
 fun AjustesScreen(navController: NavController? = null, userName: String, functionName: String) {
@@ -51,123 +55,139 @@ fun AjustesScreen(navController: NavController? = null, userName: String, functi
         profileImageUri = uri
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = Color(0xFFF5F5F5))
-    ) {
+    Box(modifier = Modifier.fillMaxSize()) {
 
-        // Header
-        Box(
+        Box(modifier = Modifier.align(Alignment.TopCenter)) {
+            TopBarApp(
+                FirstImage = R.drawable.back_icon,
+                "Voltar",
+                SecondImage = R.drawable.adicionar_icon,
+                "Adicionar",
+                Titulo = "Ajustes",
+                onFirstClickImage = { navController?.navigate("menu") },
+                onSecondClickImage = { navController?.navigate("") }
+            )
+        }
+
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(color = Color(0xFFEAAC47))
-                .padding(16.dp)
+                .padding(
+                    top = 90.dp,
+                    bottom = 70.dp,
+                    start = 10.dp,
+                    end = 10.dp
+                )
         ) {
-            Text(
-                text = "Ajustes",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                modifier = Modifier.align(Alignment.Center)
-            )
-        }
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Seção de informações do usuário
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(0.9f)
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(50.dp)
-                    .clip(CircleShape)
-                    .background(Color.White)
-                    .clickable { launcher.launch("image/*") }
+            CardComponetizado(
+                icon = R.drawable.usuario,
+                DescIcon = "Usuario",
+                DescriptionProduct = userName,
+                QtdEmEstoque = functionName
             ) {
-                if (profileImageUri != null) {
-                    Image(
-                        painter = rememberAsyncImagePainter(profileImageUri),
-                        contentDescription = "Imagem do usuário",
-                        modifier = Modifier.size(50.dp),
-                    )
-                } else {
-                    Image(
-                        painter = painterResource(id = R.drawable.usuario),
-                        contentDescription = "Ícone do usuário",
-                        modifier = Modifier.size(50.dp)
-                    )
-                }
+                navController?.navigate("usuario")
             }
 
-            Spacer(modifier = Modifier.width(16.dp))
+            // Seção de informações do usuário
+//            Row(
+//                modifier = Modifier
+//                    .fillMaxWidth(0.9f)
+//                    .padding(16.dp),
+//                verticalAlignment = Alignment.CenterVertically
+//            ) {
+//                Button(
+//                    colors = ButtonDefaults.buttonColors(Color.Transparent),
+//                    onClick = {
+//                    navController?.navigate("usuario")
+//                }) {
+//                    Box(
+//                        modifier = Modifier
+//                            .size(50.dp)
+//                            .clip(CircleShape)
+//                            .background(Color.White)
+//                            .clickable { launcher.launch("image/*") }
+//                    ) {
+//                        if (profileImageUri != null) {
+//                            Image(
+//                                painter = rememberAsyncImagePainter(profileImageUri),
+//                                contentDescription = "Imagem do usuário",
+//                                modifier = Modifier.size(50.dp),
+//                            )
+//                        } else {
+//                            Image(
+//                                painter = painterResource(id = R.drawable.usuario),
+//                                contentDescription = "Ícone do usuário",
+//                                modifier = Modifier.size(50.dp)
+//                            )
+//                        }
+//                    }
+//                }
+//
+//                Spacer(modifier = Modifier.width(16.dp))
+//
+//                Column {
+//                    Text(
+//                        userName,
+//                        fontSize = 20.sp,
+//                        fontWeight = FontWeight.Bold,
+//                        modifier = Modifier.padding(bottom = 4.dp)
+//                    )
+//                    Text(
+//                        functionName,
+//                        fontSize = 14.sp,
+//                        fontWeight = FontWeight.SemiBold,
+//                        color = Color.Gray
+//                    )
+//                }
+//            }
 
-            Column {
-                Text(
-                    userName,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(bottom = 4.dp)
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Seção de botões
+            Button(
+                onClick = { /* Ação de Guia */ },
+                modifier = Modifier
+                    .fillMaxWidth(0.9f)
+                    .height(45.dp)
+                    .align(Alignment.CenterHorizontally),
+                shape = RoundedCornerShape(6.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6F00))
+            ) {
+                Text("Guia", color = Color.White, fontSize = 16.sp)
+                Spacer(modifier = Modifier.width(16.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.interrogacao),
+                    contentDescription = "Ícone de ajuda",
+                    modifier = Modifier.size(24.dp),
+                    colorFilter = ColorFilter.tint(Color(0xFFFFFFFF))
                 )
-                Text(
-                    functionName,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Color.Gray
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
+                onClick = { navController?.navigate("inicial_screen") },
+                modifier = Modifier
+                    .fillMaxWidth(0.9f)
+                    .height(45.dp)
+                    .align(Alignment.CenterHorizontally),
+                shape = RoundedCornerShape(6.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6F00))
+            ) {
+                Text("Sair", color = Color.White, fontSize = 16.sp)
+                Spacer(modifier = Modifier.width(16.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.sair),
+                    contentDescription = "Ícone de sair",
+                    modifier = Modifier.size(24.dp),
+                    colorFilter = ColorFilter.tint(Color(0xFFFFFFFF))
                 )
             }
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Seção de botões
-        Button(
-            onClick = { /* Ação de Guia */ },
-            modifier = Modifier
-                .fillMaxWidth(0.9f)
-                .height(45.dp)
-                .align(Alignment.CenterHorizontally),
-            shape = RoundedCornerShape(6.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6F00))
-        ) {
-            Text("Guia", color = Color.White, fontSize = 16.sp)
-            Spacer(modifier = Modifier.width(16.dp))
-            Image(
-                painter = painterResource(id = R.drawable.interrogacao),
-                contentDescription = "Ícone de ajuda",
-                modifier = Modifier.size(24.dp),
-                colorFilter = ColorFilter.tint(Color(0xFFFFFFFF))
-            )
+        Box(modifier = Modifier.align(Alignment.BottomCenter)) {
+            BottomBarApp(navController = navController!!)
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(
-            onClick = {  navController?.navigate("InicialScreen") },
-            modifier = Modifier
-                .fillMaxWidth(0.9f)
-                .height(45.dp)
-                .align(Alignment.CenterHorizontally),
-            shape = RoundedCornerShape(6.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6F00))
-        ) {
-            Text("Sair", color = Color.White, fontSize = 16.sp)
-            Spacer(modifier = Modifier.width(16.dp))
-            Image(
-                painter = painterResource(id = R.drawable.sair),
-                contentDescription = "Ícone de sair",
-                modifier = Modifier.size(24.dp),
-                colorFilter = ColorFilter.tint(Color(0xFFFFFFFF))
-            )
-        }
-            // Exibir BottomBarApp apenas se o navController não for nulo
-            navController?.let {
-                BottomBarApp(navController = it)
-            }
     }
 }
 
@@ -176,9 +196,3 @@ fun AjustesScreen(navController: NavController? = null, userName: String, functi
 fun AjusteScreenPreview() {
     AjustesScreen(userName = "Raquel Guimarães", functionName = "Administrador")
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun AjusteScreenPreview() {
-//    AjusteScreen(navController = null, userName = "Raquel Guimarães", functionName = "Administrador")
-//}

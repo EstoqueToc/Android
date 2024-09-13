@@ -13,18 +13,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.estoquetoc.Formularios.CadastroFornecedorScreen
-import com.example.estoquetoc.Formularios.CadastroFuncionarioScreen
-import com.example.estoquetoc.Formularios.CadastroProdutoScreen
 import com.example.estoquetoc.LoginInicial.WelcomeScreen
+import com.example.estoquetoc.atributosCadastro.CategoriaAtributos
 import com.example.estoquetoc.atributosCadastro.FornecedorAtributos
 import com.example.estoquetoc.atributosCadastro.FuncionarioAtributo
-import com.example.estoquetoc.atributosCadastro.Produto
+import com.example.estoquetoc.atributosCadastro.ProdutoAtributo
+import com.example.estoquetoc.cadastrados.FuncionariosCadastradoScreen
+import com.example.estoquetoc.formulario.CadastroFornecedores
+import com.example.estoquetoc.formulario.CadastroFuncionarios
+import com.example.estoquetoc.formulario.CadastroProdutos
 import com.example.estoquetoc.ui.theme.EstoqueTocTheme
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,25 +59,52 @@ fun AppNavHost(
     modifier: Modifier = Modifier
 ) {
     val navController = rememberNavController()
-    val produtos = rememberSaveable { mutableListOf<Produto>() }
+    val produtos = rememberSaveable { mutableListOf<ProdutoAtributo>() }
     val funcionarios = remember { mutableListOf<FuncionarioAtributo>() }
     val fornecedores = remember { mutableListOf<FornecedorAtributos>() }
+    val categorias = remember { mutableListOf<CategoriaAtributos>() }
 
-    NavHost(navController = navController, startDestination = "cadastro_funcionario", modifier = modifier) {
+    NavHost(
+        navController = navController,
+        startDestination = "inicial_screen",
+        modifier = modifier
+    ) {
+
+//        TELAS INICIAS
         composable("inicial_screen") { WelcomeScreen(navController) }
         composable("login") { LoginScreen(navController) }
-        composable("produtos_screen") { ProdutoScreen(navController,produtos) }
         composable("cadastro_usuario") { CadastroUsuarioScreen(navController) }
-        composable("faturamento") { FaturamentoScreen(navController) }
-//        composable("dashboard") { DashboardScreen(navController) }
-        composable("cadastro_produto") { CadastroProdutoScreen(navController, produtos) }
-        composable("cadastro_fornecedor") { CadastroFornecedorScreen(navController, fornecedores) }
-        composable("fornecedores") { CadastroFornecedorScreen(navController,fornecedores ) }
-        composable("cadastro_funcionario") { CadastroFuncionarioScreen(navController, funcionarios) }
+
+//        FORMULARIOS DE CADASTRO
+        composable("cadastro_produto") { CadastroProdutos(navController, produtos) }
+        composable("cadastro_fornecedor") { CadastroFornecedores(navController, fornecedores) }
+        composable("cadastro_funcionario") { CadastroFuncionarios(navController, funcionarios) }
+
+//        TELAS DE EXIBIÇÃO DE CADASTRADOS (PRODUTOS, FORNECEDORES, FUNCIONARIOS E CATEGORIAS)
+        composable("fornecedores") { FornecedoresCadastradoScreen(navController,fornecedores ) }
         composable("funcionarios"){ FuncionariosCadastradoScreen(navController, funcionarios) }
-//        composable("relatorios") { RelatorioScreen(navController) }
-        composable("menu_cadastros") {MenuCadastros(navController)}
+        composable("produtos_screen") { ProdutoCadastrados(navController,produtos) }
+        composable("categorias") { CategoriasCadastradoScreen( navController, categorias ) }
+
+//        TELAS ESPECIFICAS
+        composable("faturamento") { FaturamentoScreen(navController) }
+        composable("dashboard") { DashboardScreen(navController) }
+        composable("relatorios") { RelatorioScreen(navController) }
+        composable("menu") {MenuCadastros(navController)}
+        composable("usuario") { Usuario(navController) }
+        composable("gestao") { GestaoScreen(navController = navController) }
+        composable("ajustes") { AjustesScreen(navController,userName = "Admin", functionName = "Admin") }
     }
+}
+
+@Composable
+fun RelatorioScreen(navController: NavHostController) {
+    TODO("Not yet implemented")
+}
+
+@Composable
+fun DashboardScreen(navController: NavController) {
+    TODO("Not yet implemented")
 }
 
 @Preview(showBackground = true)

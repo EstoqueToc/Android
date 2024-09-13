@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.paddingFrom
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,10 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.estoquetoc.R
@@ -42,18 +40,24 @@ fun TopBarApp(
     SecondImage: Int,
     SecondImageDescription: String,
     Titulo: String,
-    enable: Boolean = false,
-    onClick: () -> Unit
+    habilitar: Boolean = false,
+    modifier: Modifier = Modifier,
+    onFirstClickImage: () -> Unit,
+    onSecondClickImage: () -> Unit
 
 ) {
+    val height = if(habilitar) 120 else 70
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .height(height.dp)
             .background(
                 brush = Brush.horizontalGradient(
                     colors = listOf(StrongOrange, Orange, StrongYellow, Yellow)
                 )
-            )
+            ),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     )
     {
 
@@ -66,7 +70,7 @@ fun TopBarApp(
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Button(
-                    onClick = onClick,
+                    onClick = onFirstClickImage,
                     colors = ButtonDefaults.buttonColors(Color.Transparent)
                 ) {
                     Image(
@@ -90,20 +94,27 @@ fun TopBarApp(
                 fontSize = 18.sp,
                 color = Color.Black
             )
-            Image(
-                painter = painterResource(id = SecondImage),
-                contentDescription = SecondImageDescription,
-                colorFilter = ColorFilter.tint(Color.Black),
-                modifier = Modifier.size(22.dp)
-            )
+            Button(
+                modifier = Modifier.padding(horizontal = 2.dp),
+                colors = ButtonDefaults.buttonColors(Color.Transparent),
+                onClick = onSecondClickImage
+            ) {
+                Image(
+                    painter = painterResource(id = SecondImage),
+                    contentDescription = SecondImageDescription,
+                    colorFilter = ColorFilter.tint(Color.Black),
+                    modifier = Modifier.size(22.dp)
+                )
+            }
         }
 
-        AnimatedVisibility(visible = enable) {
+        AnimatedVisibility(visible = habilitar,
+            modifier= Modifier.padding(horizontal = 20.dp)) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(Color(0xFFFFE0CC), RoundedCornerShape(8.dp))
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                    .padding(horizontal = 10.dp, vertical = 10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
@@ -120,14 +131,14 @@ fun TopBarApp(
                 )
             }
         }
-        Column(
-            modifier = Modifier
-                .padding(horizontal = 20.dp, vertical = 8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            SearchBar()
-        }
+//        Column(
+//            modifier = Modifier
+//                .padding(horizontal = 20.dp, vertical = 8.dp),
+//            horizontalAlignment = Alignment.CenterHorizontally,
+//            verticalArrangement = Arrangement.SpaceBetween
+//        ) {
+//            SearchBar()
+//        }
 
     }
 }

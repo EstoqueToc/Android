@@ -1,12 +1,16 @@
 package com.example.estoquetoc
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,15 +25,7 @@ import com.example.estoquetoc.componentes.TopBarApp
 @Composable
 fun MenuCadastros(navController: NavController) {
     Column {
-        TopBarApp(
-            FirstImage = R.drawable.back_icon,
-            FirstImageDescription ="Voltar",
-            SecondImage = R.drawable.edit_icon ,
-            SecondImageDescription = "Editar",
-            Titulo = "Cadastros"
-        ) {
-            navController.navigate("produto_screen")
-        }
+
         Conteudo(navController = navController)
     }
 
@@ -37,21 +33,35 @@ fun MenuCadastros(navController: NavController) {
 
 @Composable
 fun Conteudo( navController: NavController, modifier: Modifier = Modifier) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+    Box(
+        modifier = Modifier.fillMaxSize()
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
+
+        Box(
+            modifier = Modifier.align(Alignment.TopCenter)
         ) {
+            TopBarApp(
+                FirstImage = R.drawable.back_icon,
+                FirstImageDescription ="Voltar",
+                SecondImage = R.drawable.adicionar_icon ,
+                SecondImageDescription = "Editar",
+                Titulo = "Cadastros",
+                onFirstClickImage = {navController.navigate("faturamento")},
+                onSecondClickImage = {navController.navigate("")},
+            )
+        }
+
 
             Column(
-                modifier = Modifier.padding(start = 8.dp, end = 8.dp),
-
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = 120.dp,
+                        bottom = 70.dp,
+                        start = 10.dp,
+                        end = 10.dp
+                    )
+                    .verticalScroll(rememberScrollState())
                 ) {
                 Spacer(modifier = Modifier.size(8.dp))
                 CardComponetizado(
@@ -67,7 +77,7 @@ fun Conteudo( navController: NavController, modifier: Modifier = Modifier) {
                     DescIcon = "Produtos",
                     DescriptionProduct = "Produtos",
                     QtdEmEstoque = "Cadastre seus produtos para controle do seu estoque.",
-                    onClick = { navController.navigate("produto_screen") }
+                    onClick = { navController.navigate("produtos_screen") }
                 )
                 CardComponetizado(
                     icon = R.drawable.fornecedor,
@@ -75,7 +85,7 @@ fun Conteudo( navController: NavController, modifier: Modifier = Modifier) {
                     DescriptionProduct = "Fornecedores",
                     QtdEmEstoque = "Cadastre seus fornecedores para uma melhor gestão."
                 ) {
-                    navController.navigate("Fornecedores")
+                    navController.navigate("fornecedores")
                 }
                 CardComponetizado(
                     icon = R.drawable.categoria,
@@ -83,13 +93,16 @@ fun Conteudo( navController: NavController, modifier: Modifier = Modifier) {
                     DescriptionProduct = "Categorias",
                     QtdEmEstoque = "Cadastre categorias para facilitar a visualização dos seus produtos."
                 ) {
-                    navController.navigate("Fornecedores")
+                    navController.navigate("categorias")
                 }
                 Spacer(modifier = Modifier.height(16.dp))
             }
-            BottomBarApp(navController = navController)
-        }
 
+        Box(modifier = Modifier.align(Alignment.BottomCenter)){
+            BottomBarApp(
+                navController = navController
+            )
+        }
     }
 }
 

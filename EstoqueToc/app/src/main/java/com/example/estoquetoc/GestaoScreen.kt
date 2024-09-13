@@ -1,116 +1,92 @@
 package com.example.estoquetoc
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.estoquetoc.componentes.BottomBarApp
+import com.example.estoquetoc.componentes.CardComponetizado
+import com.example.estoquetoc.componentes.TopBarApp
 
 @Composable
-fun GestaoScreen(navController: NavController? = null) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
+fun GestaoScreen(navController: NavController) {
+    Column {
+
+        ConteudoGestaoScreen(navController = navController)
+    }
+
+}
+
+@Composable
+fun ConteudoGestaoScreen( navController: NavController, modifier: Modifier = Modifier) {
+    Box(
+        modifier = Modifier.fillMaxSize()
     ) {
+
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(color = Color(0xFFEAAC47))
-                .padding(16.dp)
+            modifier = Modifier.align(Alignment.TopCenter)
         ) {
-            Text(
-                text = "Gestão",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                modifier = Modifier.align(Alignment.Center)
+            TopBarApp(
+                FirstImage = R.drawable.back_icon,
+                FirstImageDescription ="Voltar",
+                SecondImage = R.drawable.adicionar_icon ,
+                SecondImageDescription = "Editar",
+                Titulo = "Cadastros",
+                onFirstClickImage = {navController.navigate("faturamento")},
+                onSecondClickImage = {navController.navigate("")},
             )
         }
+
+
         Column(
             modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            GestaoItem(
-                iconId = R.drawable.relatorioprodutos,
-                title = "Consultar Estoque",
-                description = ""
-            )
-            Spacer(modifier = Modifier.height(2.dp))
-            GestaoItem(
-                iconId = R.drawable.relatoriogeral,
-                title = "Relatórios",
-                description = ""
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-            Navigation(navController) // Chama a BottomBarApp
-        }
-    }
-}
-
-@Composable
-fun Navigation(navController: NavController?) {
-    // Implementa a BottomBarApp aqui
-    navController?.let {
-        BottomBarApp(navController = it)
-    }
-}
-
-@Composable
-fun GestaoItem(iconId: Int, title: String, description: String) {
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.White, shape = RoundedCornerShape(8.dp)),
-        shape = RoundedCornerShape(8.dp),
-        shadowElevation = 4.dp,
-        color = Color.White
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                painter = painterResource(id = iconId),
-                contentDescription = "Icone de $title",
-                modifier = Modifier
-                    .size(48.dp)
-                    .padding(3.dp),
-                tint = Color(0xFFEAAC47)
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Spacer(modifier = Modifier.width(8.dp))
-            Column {
-                Text(
-                    text = title,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFF6D4C41)
+                .fillMaxWidth()
+                .padding(
+                    top = 120.dp,
+                    bottom = 70.dp,
+                    start = 10.dp,
+                    end = 10.dp
                 )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = description,
-                    fontSize = 14.sp,
-                    color = Color.Gray
-                )
-                Spacer(modifier = Modifier.height(16.dp))
+                .verticalScroll(rememberScrollState())
+        ) {
+            Spacer(modifier = Modifier.size(8.dp))
+            CardComponetizado(
+                icon = R.drawable.relatorioprodutos,
+                DescIcon = "Fornecedores",
+                DescriptionProduct = "Consulta Estoque",
+                QtdEmEstoque = ""
+            ) {
+                navController.navigate("fornecedores")
             }
+            CardComponetizado(
+                icon = R.drawable.relatorioprodutos ,
+                DescIcon = "Categorias",
+                DescriptionProduct = "Relatórios",
+                QtdEmEstoque = ""
+            ) {
+                navController.navigate("categorias")
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
+        Box(modifier = Modifier.align(Alignment.BottomCenter)){
+            BottomBarApp(
+                navController = navController
+            )
         }
     }
 }
@@ -118,5 +94,6 @@ fun GestaoItem(iconId: Int, title: String, description: String) {
 @Preview(showBackground = true)
 @Composable
 fun GestaoScreenPreview() {
-    GestaoScreen(navController = null)  // Para preview, navController é null
+    val navController = rememberNavController()
+    GestaoScreen(navController)  // Para preview, navController é null
 }

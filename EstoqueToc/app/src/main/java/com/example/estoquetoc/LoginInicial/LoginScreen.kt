@@ -1,5 +1,6 @@
 package com.example.estoquetoc
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -47,13 +48,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.compose.ui.platform.LocalContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navController: NavHostController? = null) { // Tornando navController opcional para pré-visualização
+fun LoginScreen(navController: NavHostController? = null) {
     var email by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
     var senhaVisivel by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -67,7 +71,6 @@ fun LoginScreen(navController: NavHostController? = null) { // Tornando navContr
         )
         Column(
             modifier = Modifier
-                //.fillMaxSize()
                 .padding(16.dp)
                 .background(Color.Transparent),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -98,7 +101,8 @@ fun LoginScreen(navController: NavHostController? = null) { // Tornando navContr
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
-                modifier = Modifier.align(Alignment.Start)
+                modifier = Modifier
+                    .align(Alignment.Start)
                     .padding(top = 32.dp),
             )
 
@@ -122,7 +126,6 @@ fun LoginScreen(navController: NavHostController? = null) { // Tornando navContr
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
             )
 
-
             Spacer(modifier = Modifier.height(10.dp))
 
             OutlinedTextField(
@@ -141,7 +144,6 @@ fun LoginScreen(navController: NavHostController? = null) { // Tornando navContr
                     }
                 }
             )
-
 
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -166,7 +168,15 @@ fun LoginScreen(navController: NavHostController? = null) { // Tornando navContr
             Spacer(modifier = Modifier.height(32.dp))
             Button(
                 onClick = {
-                    navController?.navigate("faturamento")
+                    if (senha.isEmpty() || email.isEmpty()) {
+                        Toast.makeText(
+                            context,
+                            "Preencha todos os campos",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        navController?.navigate("faturamento")
+                    }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -184,13 +194,13 @@ fun LoginScreen(navController: NavHostController? = null) { // Tornando navContr
             Spacer(modifier = Modifier.height(4.dp))
             TextButton(
                 onClick = {
-                    navController?.navigate("cadastroUsuario")
+                    navController?.navigate("cadastro_usuario")
                 }
             ) {
                 Text(
                     text = buildAnnotatedString {
                         withStyle(style = SpanStyle(color = Color(0xFFFF6F00))) {
-                            append("Já tem uma conta. ")
+                            append("Ainda não possui Conta. ")
                         }
                         withStyle(style = SpanStyle(color = Color(0xFF262626))) {
                             append("Clique aqui para criar uma agora.")

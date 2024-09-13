@@ -1,4 +1,5 @@
-package com.example.estoquetoc.Formularios
+package com.example.estoquetoc.formulario
+
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -9,6 +10,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -35,18 +37,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.estoquetoc.R
-import com.example.estoquetoc.atributosCadastro.Produto
+import com.example.estoquetoc.atributosCadastro.ProdutoAtributo
 import com.example.estoquetoc.componentes.BottomBarApp
 import com.example.estoquetoc.componentes.CompButton
 import com.example.estoquetoc.componentes.InputFormulario
 import com.example.estoquetoc.componentes.TopBarApp
+import com.example.estoquetoc.ui.theme.Orange
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 @Composable
-fun CadastroProdutoScreen(
+fun CadastroProdutos(
     navController: NavHostController,
-    Items: MutableList<Produto>
+    items: MutableList<ProdutoAtributo>
 ) {
     var nomeProduto by remember { mutableStateOf("") }
     var descricaoProduto by remember { mutableStateOf("") }
@@ -56,25 +59,44 @@ fun CadastroProdutoScreen(
     var precoCompra by remember { mutableStateOf("") }
     var precoVenda by remember { mutableStateOf("") }
     var categoria by remember { mutableStateOf("") }
-    var novoItem by remember { mutableStateOf("") }
-    var popUpVisible by remember { mutableStateOf(false) }
-    var listaVisible by remember { mutableStateOf(false) }
-    var itemsList by remember { mutableStateOf(listOf<String>()) }
+    var fornecedor by remember { mutableStateOf("") }
+    var novacategoria by remember { mutableStateOf("") }
+    var novoFornecedor by remember { mutableStateOf("") }
+    var popUpVisibleCategoria by remember { mutableStateOf(false) }
+    var popUpVisibleFornecedor by remember { mutableStateOf(false) }
+    var categoriaVisible by remember { mutableStateOf(false) }
+    var fornecedorVisible by remember { mutableStateOf(false) }
+    var categorias by remember { mutableStateOf(listOf<String>()) }
+    var fornecedores by remember { mutableStateOf(listOf<String>()) }
 
     val context = LocalContext.current
-    Column {
-        TopBarApp(
-            FirstImage = R.drawable.back_icon,
-            "Voltar",
-            SecondImage = R.drawable.lixeira_icon,
-            "lixeira",
-            Titulo = "Produtos",
-            onClick = { navController.navigate("produtos_screen")}
-        )
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Box(
+            Modifier.align(Alignment.TopCenter)
+        ) {
+            TopBarApp(
+                FirstImage = R.drawable.back_icon,
+                "Voltar",
+                SecondImage = R.drawable.lixeira_icon,
+                "lixeira",
+                Titulo = "Produtos",
+                false,
+                Modifier.align(Alignment.TopCenter),
+                onFirstClickImage = { navController.navigate("produtos_screen") },
+                onSecondClickImage = { navController.navigate("cadastro_produto") }
+            )
+        }
         Column(
             Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(
+                    top = 120.dp,
+                    bottom = 70.dp,
+                    start = 10.dp,
+                    end = 10.dp
+                )
                 .verticalScroll(rememberScrollState())
         ) {
             InputFormulario(
@@ -166,7 +188,9 @@ fun CadastroProdutoScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
                 Button(
-                    onClick = { listaVisible = !listaVisible }, // Alterna a visibilidade da lista
+                    onClick = {
+                        categoriaVisible = !categoriaVisible
+                    }, // Alterna a visibilidade da lista
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color.Transparent
                     ),
@@ -176,9 +200,9 @@ fun CadastroProdutoScreen(
                 ) {
                     Image(
                         painter = painterResource(
-                            id = if (listaVisible) R.drawable.show_arrow_icon else R.drawable.hide_arrow_icon
+                            id = if (categoriaVisible) R.drawable.show_arrow_icon else R.drawable.hide_arrow_icon
                         ),
-                        contentDescription = if (listaVisible) "Mostrar" else "Esconder",
+                        contentDescription = if (categoriaVisible) "Mostrar" else "Esconder",
                         modifier = Modifier
                             .size(20.dp)
                             .background(Color.Transparent)
@@ -186,15 +210,16 @@ fun CadastroProdutoScreen(
                 }
             }
             AnimatedVisibility(
-                visible = listaVisible,
+                visible = categoriaVisible,
                 enter = fadeIn(tween(500)),
                 exit = fadeOut(tween(500))
             ) {
                 Column(
                     Modifier.padding(16.dp)
                 ) {
-                    itemsList.forEach { item ->
+                    categorias.forEach { item ->
                         Button(
+                            colors = ButtonDefaults.buttonColors(Orange),
                             onClick = { categoria = item },
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -207,11 +232,12 @@ fun CadastroProdutoScreen(
                             )
                         }
                     }
-
                     Spacer(modifier = Modifier.size(16.dp))
-                    Button(onClick = {
-                        popUpVisible = !popUpVisible
-                    }) {
+                    Button(
+                        colors = ButtonDefaults.buttonColors(Orange),
+                        onClick = {
+                            popUpVisibleCategoria = !popUpVisibleCategoria
+                        }) {
                         Text("Adicionar Nova Categoria")
                     }
                 }
@@ -219,7 +245,7 @@ fun CadastroProdutoScreen(
 
 
             AnimatedVisibility(
-                visible = popUpVisible,
+                visible = popUpVisibleCategoria,
                 enter = fadeIn(tween(500)),
                 exit = fadeOut(tween(500))
             ) {
@@ -229,19 +255,20 @@ fun CadastroProdutoScreen(
                         .padding(16.dp)
                 ) {
                     OutlinedTextField(
-                        value = novoItem,
-                        onValueChange = { novoItem = it },
+                        value = novacategoria,
+                        onValueChange = { novacategoria = it },
                         label = { Text("Nova Categoria") },
                         modifier = Modifier.fillMaxWidth()
                     )
                     Button(
                         modifier = Modifier.clip(RoundedCornerShape(16.dp)),
+                        colors = ButtonDefaults.buttonColors(Orange),
                         onClick = {
-                            if (novoItem.isNotBlank()) {
-                                itemsList = itemsList + novoItem
-                                categoria = novoItem // Atualiza a categoria selecionada
-                                novoItem = ""
-                                popUpVisible = false
+                            if (novacategoria.isNotBlank()) {
+                                categorias = categorias + novacategoria
+                                categoria = novacategoria // Atualiza a categoria selecionada
+                                novacategoria = ""
+                                popUpVisibleCategoria = false
                             } else {
                                 Toast.makeText(
                                     context,
@@ -256,6 +283,115 @@ fun CadastroProdutoScreen(
             }
 
             Spacer(modifier = Modifier.height(16.dp))
+//         Seção para fornecedor
+            Box(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                OutlinedTextField(
+                    value = fornecedor,
+                    onValueChange = { fornecedor = it },
+                    label = { Text("Fornecedor") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Button(
+                    onClick = {
+                        fornecedorVisible = !fornecedorVisible
+                    }, // Alterna a visibilidade da lista
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Transparent
+                    ),
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .clip(RoundedCornerShape(16.dp))
+                ) {
+                    Image(
+                        painter = painterResource(
+                            id = if (fornecedorVisible) R.drawable.show_arrow_icon else R.drawable.hide_arrow_icon
+                        ),
+                        contentDescription = if (fornecedorVisible) "Mostrar" else "Esconder",
+                        modifier = Modifier
+                            .size(20.dp)
+                            .background(Color.Transparent)
+                    )
+                }
+            }
+            AnimatedVisibility(
+                visible = fornecedorVisible,
+                enter = fadeIn(tween(500)),
+                exit = fadeOut(tween(500))
+            ) {
+                Column(
+                    Modifier.padding(16.dp)
+                ) {
+                    fornecedores.forEach { fornecedor1 ->
+                        Button(
+                            colors = ButtonDefaults.buttonColors(Orange),
+                            onClick = { fornecedor = fornecedor1 },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(4.dp) // Adiciona um pouco de espaço entre os botões
+                        ) {
+                            Text(
+                                text = fornecedor1,
+                                modifier = Modifier.padding(8.dp),
+                                fontSize = 16.sp
+                            )
+                        }
+                    }
+                    Spacer(modifier = Modifier.size(16.dp))
+                    Button(
+                        colors = ButtonDefaults.buttonColors(Orange),
+                        onClick = {
+                            popUpVisibleFornecedor = !popUpVisibleFornecedor
+                        }) {
+                        Text("Adicionar Novo Fornecedor")
+                    }
+                }
+            }
+
+
+            AnimatedVisibility(
+                visible = popUpVisibleFornecedor,
+                enter = fadeIn(tween(500)),
+                exit = fadeOut(tween(500))
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    OutlinedTextField(
+                        value = novoFornecedor,  // Corrigir para usar novoFornecedor
+                        onValueChange = { novoFornecedor = it },  // Atualizar novoFornecedor
+                        label = { Text("Novo Fornecedor") },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Button(
+                        modifier = Modifier.clip(RoundedCornerShape(16.dp)),
+                        colors = ButtonDefaults.buttonColors(Orange),
+                        onClick = {
+                            if (novoFornecedor.isNotBlank()) {  // Verificar se novoFornecedor não está vazio
+                                fornecedores =
+                                    fornecedores + novoFornecedor  // Adicionar à lista de fornecedores
+                                fornecedor =
+                                    novoFornecedor  // Atualizar o campo fornecedor com o novo valor
+                                novoFornecedor = ""  // Limpar o campo novoFornecedor
+                                popUpVisibleFornecedor = false  // Fechar o pop-up
+                            } else {
+                                Toast.makeText(
+                                    context,
+                                    "Fornecedor não pode ser vazio",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }) {
+                        Text(text = "Salvar")
+                    }
+                }
+            }
+
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             CompButton(onClickAction = {
                 if (nomeProduto.isNotBlank() && descricaoProduto.isNotBlank()) {
@@ -264,7 +400,7 @@ fun CadastroProdutoScreen(
                         "Produto '$nomeProduto' salvo com sucesso!",
                         Toast.LENGTH_SHORT
                     ).show()
-                    val novoProduto = Produto(
+                    val novoProduto = ProdutoAtributo(
                         nomeProduto = nomeProduto,
                         descricaoProduto = descricaoProduto,
                         dataValidade = dataValidade,
@@ -274,7 +410,7 @@ fun CadastroProdutoScreen(
                         precoVenda = precoVenda,
                         categoria = categoria
                     )
-                    Items.add(novoProduto)
+                    items.add(novoProduto)
                     //                    produtoViewModel.addProduto(novoProduto)
                     navController.navigate("produtos_screen")
                     // Limpar campos após o salvamento
@@ -293,10 +429,54 @@ fun CadastroProdutoScreen(
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-            }, text = "Salvar",icon = R.drawable.edit_icon, descIcon = "vazio")
-
+            }, text = "Salvar", icon = R.drawable.edit_icon, descIcon = "vazio")
         }
-        BottomBarApp(navController = navController)
+        Box(
+            Modifier.align(Alignment.BottomCenter)
+        ) {
+            BottomBarApp(navController = navController)
+        }
+
     }
 }
 
+
+////@Preview(showBackground = true)
+//@Composable
+//fun CadastroProdutoScreenPreview(
+//    navController: NavHostController,
+//    items: MutableList<ProdutoAtributo>
+//) {
+////    val navController = rememberNavController()
+////    val items = remember { mutableListOf<ProdutoAtributo>() }
+//
+//    Box(modifier = Modifier.fillMaxSize()){
+//        TopBarApp(
+//            FirstImage = R.drawable.back_icon,
+//            "Voltar",
+//            SecondImage = R.drawable.lixeira_icon,
+//            "lixeira",
+//            Titulo = "Produtos",
+//            false,
+//            onClick = { navController.navigate("produtos_screen") }
+//        )
+//
+//        Column(
+//            modifier = Modifier
+//                .fillMaxSize()
+//                .padding(vertical = 56.dp)
+//                .verticalScroll(rememberScrollState())
+//                .background(Color.Black)
+//        ) {
+//            CadastroProdutoScreen(
+//                navController = navController,
+//                items = items
+//            )
+//        }
+//
+//        Box(modifier = Modifier.align(Alignment.BottomCenter)){
+//            BottomBarApp(navController = navController, modifier = Modifier.align(Alignment.BottomCenter))
+//        }
+//
+//    }
+//}

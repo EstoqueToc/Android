@@ -1,33 +1,53 @@
 package com.example.estoquetoc
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
-//import androidx.compose.material.icons.filled.Visibility
-//import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.withStyle
-import com.example.estoquetoc.R
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun CadastroUsuarioScreen(navController: NavHostController? = null) {
@@ -36,6 +56,8 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
     var email by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
     var senhaVisivel by remember { mutableStateOf(false) }
+    var isChecked by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Box(
         modifier = Modifier
@@ -135,12 +157,8 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
                 modifier = Modifier.fillMaxWidth(),
                 visualTransformation = if (senhaVisivel) VisualTransformation.None else PasswordVisualTransformation(),
                 trailingIcon = {
-//                    val icon = if (senhaVisivel) Icons.Default.Visibility else Icons.Default.VisibilityOff
                     IconButton(onClick = { senhaVisivel = !senhaVisivel }) {
-//                        Icon(
-//                            imageVector = icon,
-//                            contentDescription = "Alternar visibilidade da senha"
-//                        )
+                        // Icon for visibility toggle can be added here
                     }
                 }
             )
@@ -151,7 +169,6 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(top = 8.dp)
             ) {
-                var isChecked by remember { mutableStateOf(false) }
                 Checkbox(
                     checked = isChecked,
                     onCheckedChange = { checked -> isChecked = checked },
@@ -161,6 +178,7 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
                         checkmarkColor = Color.White
                     )
                 )
+                Spacer(modifier = Modifier.width(8.dp))
                 Text(text = "Concordo com os Termos de Serviço.")
             }
 
@@ -168,7 +186,16 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
 
             Button(
                 onClick = {
-                    navController?.navigate("LoginScreen")
+                    if (nomeFantasia.isEmpty() || cnpj.isEmpty() || email.isEmpty() || senha.isEmpty() || !isChecked) {
+                        Toast.makeText(
+                            context,
+                            "Preencha todos os campos e aceite os termos.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        // Adicione a lógica para cadastrar o usuário aqui
+                        navController?.navigate("login")
+                    }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -187,7 +214,7 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
 
             TextButton(
                 onClick = {
-                    navController?.navigate("LoginScreen") // Navegar para a tela de login
+                    navController?.navigate("login") // Navegar para a tela de login
                 }
             ) {
                 Text(

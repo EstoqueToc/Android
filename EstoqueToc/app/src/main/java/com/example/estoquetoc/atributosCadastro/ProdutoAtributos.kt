@@ -1,6 +1,6 @@
 package com.example.estoquetoc.atributosCadastro
 
-data class Produto (
+data class ProdutoAtributo (
     val nomeProduto: String,
     val descricaoProduto: String,
     val dataValidade: String,

@@ -1,8 +1,10 @@
-package com.example.estoquetoc.Formularios
+package com.example.estoquetoc.formulario
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -14,10 +16,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.estoquetoc.R
 import com.example.estoquetoc.atributosCadastro.FornecedorAtributos
 import com.example.estoquetoc.componentes.BottomBarApp
@@ -26,7 +31,7 @@ import com.example.estoquetoc.componentes.InputFormulario
 import com.example.estoquetoc.componentes.TopBarApp
 
 @Composable
-fun CadastroFornecedorScreen(
+fun CadastroFornecedores(
     navController: NavHostController,
     Items: MutableList<FornecedorAtributos>
 ) {
@@ -42,19 +47,29 @@ fun CadastroFornecedorScreen(
     var cidade by remember { mutableStateOf("") }
 
     val context = LocalContext.current
-    Column {
-        TopBarApp(
-            FirstImage = R.drawable.back_icon,
-            "Voltar",
-            SecondImage = R.drawable.lixeira_icon,
-            "lixeira",
-            Titulo = "Produtos",
-            onClick = { navController.navigate("produtos_screen") }
-        )
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Box(modifier = Modifier.align(Alignment.TopCenter)) {
+            TopBarApp(
+                FirstImage = R.drawable.back_icon,
+                "Voltar",
+                SecondImage = R.drawable.adicionar_icon,
+                "lixeira",
+                Titulo = "Produtos",
+                onFirstClickImage = { navController.navigate("fornecedores") },
+                onSecondClickImage = {navController.navigate("cadastro_fornecedor")}
+            )
+        }
         Column(
             Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(
+                    top = 120.dp,
+                    bottom = 70.dp,
+                    start = 10.dp,
+                    end = 10.dp
+                )
                 .verticalScroll(rememberScrollState())
         ) {
             InputFormulario(
@@ -118,15 +133,13 @@ fun CadastroFornecedorScreen(
             )
             Spacer(modifier = Modifier.size(16.dp))
 
-//         Seção para categoria
-
             Spacer(modifier = Modifier.height(16.dp))
 
             CompButton(onClickAction = {
                 if (razaoSocial.isNotBlank() && nomeFantasia.isNotBlank()) {
                     Toast.makeText(
                         context,
-                        "Produto '$razaoSocial' salvo com sucesso!",
+                        "Fornecedor '$razaoSocial' salvo com sucesso!",
                         Toast.LENGTH_SHORT
                     ).show()
                     val novoFornecedor = FornecedorAtributos(
@@ -142,7 +155,7 @@ fun CadastroFornecedorScreen(
                         cidadeFornecedor = cidade
                     )
                     Items.add(novoFornecedor)
-                    navController.navigate("produtos_screen")
+                    navController.navigate("fornecedores")
                     razaoSocial = ""
                     nomeFantasia = ""
                     cnpj = ""
@@ -162,7 +175,24 @@ fun CadastroFornecedorScreen(
                 }
             }, text = "Salvar", icon = R.drawable.edit_icon, descIcon = "vazio")
 
+
         }
-        BottomBarApp(navController = navController)
+        Box(modifier = Modifier.align(Alignment.BottomCenter)) {
+            BottomBarApp(
+                navController = navController
+            )
+        }
+
+
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun preview() {
+    val navController = rememberNavController()
+    val items = remember {
+        mutableListOf<FornecedorAtributos>()
+    }
+    CadastroFornecedores(navController, items)
 }

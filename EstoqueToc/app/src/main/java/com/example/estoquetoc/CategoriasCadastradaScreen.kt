@@ -1,4 +1,4 @@
-package com.example.estoquetoc.cadastrados
+package com.example.estoquetoc
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,16 +15,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.estoquetoc.R
-import com.example.estoquetoc.atributosCadastro.FuncionarioAtributo
+import com.example.estoquetoc.atributosCadastro.CategoriaAtributos
 import com.example.estoquetoc.componentes.BottomBarApp
 import com.example.estoquetoc.componentes.CardComponetizado
 import com.example.estoquetoc.componentes.TopBarApp
 
 @Composable
-fun FuncionariosCadastradoScreen(
+fun CategoriasCadastradoScreen(
     navController: NavHostController,
-    Items: MutableList<FuncionarioAtributo>
+    Items:MutableList<CategoriaAtributos>
 ) {
 
     Column(
@@ -41,42 +40,42 @@ fun FuncionariosCadastradoScreen(
                 "Voltar",
                 SecondImage = R.drawable.adicionar_icon,
                 "Editar",
-                Titulo = "Funcionários",
+                Titulo = "Categorias",
                 true,
                 onFirstClickImage = { navController.navigate("menu") },
-                onSecondClickImage = {navController.navigate("cadastro_funcionario")}
+                onSecondClickImage = {navController.navigate("cadasstro_categoria")}
             )
             Spacer(modifier = Modifier.size(30.dp))
             Column(
                 modifier = Modifier.fillMaxSize(),
                 Arrangement.SpaceBetween
             ) {
-                if (Items.isEmpty()) {
+                if(Items.isEmpty()){
                     Column {
                         Image(
-                            painter = painterResource(id = R.drawable.no_item_founded),
+                            painter = painterResource(id = R.drawable.nenhum_registro_encontrado),
                             contentDescription = "No Item Founded",
                             modifier = Modifier.size(500.dp)
                         )
                         Spacer(modifier = Modifier.size(8.dp))
                         Text(
                             modifier = Modifier.fillMaxWidth(),
-                            text = "Nenhum Funcionario Cadastrado",
+                            text = "Nenhuma Categoria Cadastrada",
                             color = Color.Black,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center
                         )
                     }
-                } else {
-                    Items.forEach { funcionario ->
+                }else{
+                    Items.forEach{categoria ->
                         CardComponetizado(
                             icon = R.drawable.box_icon,
-                            DescIcon = funcionario.nome,
-                            DescriptionProduct = funcionario.nome,
-                            QtdEmEstoque = funcionario.funcao,
-                            valor = funcionario.funcao,
+                            DescIcon = categoria.nomeCategoria,
+                            DescriptionProduct = categoria.nomeCategoria,
+                            QtdEmEstoque =categoria.nomeCategoria,
+                            valor = categoria.nomeCategoria,
                             onClick = {
-                                navController.navigate("cadastro_produto")
+                                navController.navigate("cadastro_fornecedor")
                             }
                         )
                         Spacer(modifier = Modifier.size(8.dp))

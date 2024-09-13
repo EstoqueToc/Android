@@ -48,10 +48,10 @@ fun Usuario(navController: NavController,modifier: Modifier = Modifier) {
                 FirstImageDescription = "Voltar",
                 SecondImage = R.drawable.usuario,
                 SecondImageDescription = "Salvar",
-                Titulo = "Usuário"
-            ) {
-                navController.navigate("produto_screen")
-            }
+                Titulo = "Usuário",
+                onFirstClickImage = {navController.navigate("ajustes")},
+                onSecondClickImage = {navController.navigate("")}
+            )
             Column(
                 modifier = Modifier.padding(start = 8.dp, end = 8.dp)
             ) {
@@ -74,7 +74,7 @@ fun Usuario(navController: NavController,modifier: Modifier = Modifier) {
                 Spacer(modifier = Modifier.size(20.dp))
 
                 CompButton(
-                    onClickAction = { /*TODO*/ },
+                    onClickAction = { navController.navigate("inicial_screen") },
                     text = "Deletar Conta",
                     icon = R.drawable.delete_icon,
                     descIcon = "Deletar",
@@ -83,7 +83,9 @@ fun Usuario(navController: NavController,modifier: Modifier = Modifier) {
             }
         }
 
-        BottomBarApp(navController = navController)
+        BottomBarApp(
+            navController = navController
+        )
         
     }
 }

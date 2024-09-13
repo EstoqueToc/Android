@@ -18,7 +18,6 @@ import androidx.navigation.NavHostController
 import com.example.estoquetoc.atributosCadastro.FornecedorAtributos
 import com.example.estoquetoc.componentes.BottomBarApp
 import com.example.estoquetoc.componentes.CardComponetizado
-import com.example.estoquetoc.componentes.SearchBar
 import com.example.estoquetoc.componentes.TopBarApp
 
 @Composable
@@ -42,9 +41,10 @@ fun FornecedoresCadastradoScreen(
                 SecondImage = R.drawable.adicionar_icon,
                 "Editar",
                 Titulo = "Fornecedores",
-                onClick = { navController.navigate("cadastro_fornecedor") }
+                true,
+                onFirstClickImage = { navController.navigate("menu") },
+                onSecondClickImage = {navController.navigate("cadastro_fornecedor")}
             )
-            SearchBar()
             Spacer(modifier = Modifier.size(30.dp))
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -60,7 +60,7 @@ fun FornecedoresCadastradoScreen(
                         Spacer(modifier = Modifier.size(8.dp))
                         Text(
                             modifier = Modifier.fillMaxWidth(),
-                            text = "Nenhum Registro encontrado",
+                            text = "Nenhum Fornecedor Cadastrado",
                             color = Color.Black,
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center
@@ -83,6 +83,8 @@ fun FornecedoresCadastradoScreen(
                 }
             }
         }
-        BottomBarApp(navController = navController)
+        BottomBarApp(
+            navController = navController
+        )
     }
 }
