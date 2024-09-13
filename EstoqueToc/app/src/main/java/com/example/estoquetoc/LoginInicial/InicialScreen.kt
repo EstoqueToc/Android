@@ -1,4 +1,4 @@
-package com.example.estoquetoc
+package com.example.estoquetoc.LoginInicial
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -30,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.estoquetoc.R
 
 val poppins_black = FontFamily(
     Font(R.font.poppins_black)

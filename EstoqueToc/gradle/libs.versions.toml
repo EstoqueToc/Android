@@ -1,7 +1,7 @@
 [versions]
 accompanistCoil = "<versão>"
 activityComposeVersion = "1.7.2"
-agp = "8.5.0"
+agp = "8.5.2"
 androidxWebkit = "1.4.0"
 coilComposeVersion = "2.1.0"
 coreKtxVersion = "1.12.0"

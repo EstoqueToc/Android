@@ -1,4 +1,4 @@
-package com.example.estoquetoc
+package com.example.estoquetoc.Formularios
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -31,13 +31,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.estoquetoc.R
 import com.example.estoquetoc.atributosCadastro.Produto
 import com.example.estoquetoc.componentes.BottomBarApp
 import com.example.estoquetoc.componentes.CompButton
+import com.example.estoquetoc.componentes.InputFormulario
 import com.example.estoquetoc.componentes.TopBarApp
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -292,29 +293,10 @@ fun CadastroProdutoScreen(
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-            }, text = "Salvar")
+            }, text = "Salvar",icon = R.drawable.edit_icon, descIcon = "vazio")
 
         }
         BottomBarApp(navController = navController)
     }
 }
 
-@Composable
-fun InputFormulario(
-    value: String,
-    onValueChange: (String) -> Unit,
-    labelText: String
-) {
-    OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
-        value = value,
-        onValueChange = onValueChange,
-        label = {
-            Text(
-                text = labelText,
-                textAlign = TextAlign.Start,
-                fontSize = 14.sp
-            )
-        }
-    )
-}

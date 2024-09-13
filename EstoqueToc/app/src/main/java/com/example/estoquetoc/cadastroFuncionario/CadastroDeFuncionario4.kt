@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.estoquetoc.R
+import com.example.estoquetoc.componentes.SearchBar
 import com.example.estoquetoc.ui.theme.Orange
 import com.example.estoquetoc.ui.theme.StrongOrange
 import com.example.estoquetoc.ui.theme.Yellow
@@ -95,29 +96,7 @@ class CadastroDeFuncionario4 {
         }
     }
 
-    @Composable
-    fun SearchBar() {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(0xFFFFE0CC), RoundedCornerShape(8.dp))
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.buscar_icon),
-                contentDescription = "Search",
-                modifier = Modifier.size(18.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = "Buscar Funcionário",
-                color = Color(0x66A35C5C),
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Normal
-            )
-        }
-    }
+
 
     @Composable
     fun NoResultsFound() {
