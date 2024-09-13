@@ -1,13 +1,11 @@
-package com.example.estoquetoc.LoginInicial
+package com.example.estoquetoc
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,10 +14,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,163 +33,177 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.estoquetoc.R
-import com.example.estoquetoc.ui.theme.EstoqueTocTheme
 
-//@Preview
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(
-    navController: NavHostController? = null,
-    modifier: Modifier = Modifier)  {
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var loginMessage by remember { mutableStateOf("") }
-
-    Column(
-        modifier = modifier
+fun LoginScreen(navController: NavHostController? = null) { // Tornando navController opcional para pré-visualização
+    var email by remember { mutableStateOf("") }
+    var senha by remember { mutableStateOf("") }
+    var senhaVisivel by remember { mutableStateOf(false) }
+    Box(
+        modifier = Modifier
             .fillMaxSize()
-            .background(color = Color(0xFFEAAC47))
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(
+        Image(
+            painter = painterResource(id = R.drawable.background2),
+            contentDescription = "Imagem de Fundo com círculos",
             modifier = Modifier
-                .size(100.dp)
-                .align(Alignment.CenterHorizontally)
-                .background(
-                    Color.Transparent,
-                    shape = RoundedCornerShape(16.dp)
-                ),
+                .fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+        Column(
+            modifier = Modifier
+                //.fillMaxSize()
+                .padding(16.dp)
+                .background(Color.Transparent),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = "Logo",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
-            )
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(
-                    width = 1.dp,
-                    color = Color.LightGray,
-                    shape = RoundedCornerShape(10.dp)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, bottom = 36.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.logo_semfundo),
+                    contentDescription = "Logo Estoquetoc",
+                    modifier = Modifier.size(56.dp)
                 )
-                .clip(RoundedCornerShape(16.dp)) // Garantir que o conteúdo interno siga o arredondamento
-                .background(Color.White)
-        ) {
-            TextField(
-                value = username,
-                onValueChange = { username = it },
-                colors = TextFieldDefaults.colors(
-                    focusedIndicatorColor = Color.Green,
-                ),
-                label = {
-                    Text("Digite seu e-mail")
+                Spacer(modifier = Modifier.width(12.dp))
+                Text(
+                    text = "Estoquetoc",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+            }
+            Text(
+                text = "Olá,",
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                modifier = Modifier.align(Alignment.Start)
+                    .padding(top = 32.dp),
+            )
+
+            Text(
+                text = "Entre com sua conta.",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.Black,
+                modifier = Modifier
+                    .align(Alignment.Start)
+                    .padding(top = 8.dp, bottom = 16.dp),
+            )
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            OutlinedTextField(
+                value = email,
+                onValueChange = { email = it },
+                label = { Text("Email") },
+                modifier = Modifier.fillMaxWidth(),
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
+            )
+
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            OutlinedTextField(
+                value = senha,
+                onValueChange = { senha = it },
+                label = { Text("Senha") },
+                modifier = Modifier.fillMaxWidth(),
+                visualTransformation = if (senhaVisivel) VisualTransformation.None else PasswordVisualTransformation(),
+                trailingIcon = {
+                    val icon = if (senhaVisivel) Icons.Default.Visibility else Icons.Default.VisibilityOff
+                    IconButton(onClick = { senhaVisivel = !senhaVisivel }) {
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = "Toggle password visibility"
+                        )
+                    }
+                }
+            )
+
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Column(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                TextButton(
+                    onClick = {
+                        navController?.navigate("CadastroUsuarioScreen")
+                    }
+                ) {
+                    Text(
+                        text = buildAnnotatedString {
+                            withStyle(style = SpanStyle(color = Color(0xFF262626))) {
+                                append("Esqueci minha senha")
+                            }
+                        }
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
+            Button(
+                onClick = {
+                    navController?.navigate("faturamento")
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(
-                        color = Color.White
-                    )
-            )
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(
-                    width = 1.dp,
-                    color = Color.LightGray,
-                    shape = RoundedCornerShape(10.dp)
+                    .height(50.dp)
+                    .align(Alignment.CenterHorizontally),
+                shape = RoundedCornerShape(6.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6F00))
+            ) {
+                Text(text = "Entrar",
+                    color = Color.White,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold
                 )
-                .clip(RoundedCornerShape(16.dp)) // Garantir que o conteúdo interno siga o arredondamento
-                .background(Color.White)
-        ) {
-            TextField(
-                value = password,
-                onValueChange = { password = it },
-                label = { Text("Digite sua senha") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(
-                        color = Color.White
-                    ),
-                visualTransformation = PasswordVisualTransformation()
-            )
-        }
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(
-            onClick = {
-                if (username == "" && password == "") {
-                    loginMessage = "Login realizado"
-                    navController?.navigate("faturamento")
-                } else {
-                    loginMessage = "E-mail ou senha inválido(s)"
-                }
-            },
-            modifier = Modifier
-                .width(150.dp)
-                .align(Alignment.CenterHorizontally)
-        ) {
-            Text("Entrar")
-        }
-
-        Spacer(modifier = Modifier.height(4.dp))
-        ForgotPasswordLink()
-
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(text = loginMessage)
-    }
-}
-
-@Composable
-fun ForgotPasswordLink() {
-    var isHovered by remember { mutableStateOf(false) }
-
-    Text(
-        text = "Esqueci a senha",
-        color = Color.Blue,
-        style = TextStyle(
-            fontWeight = FontWeight.Light,
-            textDecoration = if (isHovered) TextDecoration.Underline else TextDecoration.None
-        ),
-        modifier = Modifier
-            .clickable {
-                // redireciona para tela de cadastro
             }
-            .padding(8.dp)
-            .pointerInput(Unit) {
-                detectTapGestures(
-                    onPress = {
-                        isHovered = true
-                        tryAwaitRelease()
-                        isHovered = false
+            Spacer(modifier = Modifier.height(4.dp))
+            TextButton(
+                onClick = {
+                    navController?.navigate("cadastroUsuario")
+                }
+            ) {
+                Text(
+                    text = buildAnnotatedString {
+                        withStyle(style = SpanStyle(color = Color(0xFFFF6F00))) {
+                            append("Já tem uma conta. ")
+                        }
+                        withStyle(style = SpanStyle(color = Color(0xFF262626))) {
+                            append("Clique aqui para criar uma agora.")
+                        }
                     }
                 )
             }
-    )
+        }
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    EstoqueTocTheme {
-        LoginScreen()
-    }
+    LoginScreen()
 }

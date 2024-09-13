@@ -1,4 +1,4 @@
-package com.example.estoquetoc.Formularios
+package com.example.estoquetoc
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

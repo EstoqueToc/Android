@@ -20,8 +20,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.estoquetoc.Formularios.CadastroFornecedorScreen
 import com.example.estoquetoc.Formularios.CadastroFuncionarioScreen
 import com.example.estoquetoc.Formularios.CadastroProdutoScreen
-import com.example.estoquetoc.Formularios.CadastroUsuarioScreen
-import com.example.estoquetoc.LoginInicial.LoginScreen
 import com.example.estoquetoc.LoginInicial.WelcomeScreen
 import com.example.estoquetoc.atributosCadastro.FornecedorAtributos
 import com.example.estoquetoc.atributosCadastro.FuncionarioAtributo
@@ -67,13 +65,13 @@ fun AppNavHost(
         composable("produtos_screen") { ProdutoScreen(navController,produtos) }
         composable("cadastro_usuario") { CadastroUsuarioScreen(navController) }
         composable("faturamento") { FaturamentoScreen(navController) }
-        composable("dashboard") { DashboardScreen(navController) }
+//        composable("dashboard") { DashboardScreen(navController) }
         composable("cadastro_produto") { CadastroProdutoScreen(navController, produtos) }
         composable("cadastro_fornecedor") { CadastroFornecedorScreen(navController, fornecedores) }
         composable("fornecedores") { CadastroFornecedorScreen(navController,fornecedores ) }
         composable("cadastro_funcionario") { CadastroFuncionarioScreen(navController, funcionarios) }
         composable("funcionarios"){ FuncionariosCadastradoScreen(navController, funcionarios) }
-        composable("relatorios") { RelatorioScreen(navController) }
+//        composable("relatorios") { RelatorioScreen(navController) }
         composable("menu_cadastros") {MenuCadastros(navController)}
     }
 }
