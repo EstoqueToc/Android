@@ -155,21 +155,21 @@ fun CadastroFuncionarios(
 
             CompButton(onClickAction = {
                 if (nomeFuncionario.isNotBlank() && cpf.isNotBlank()) {
-                    viewModel.cadastrarFuncionario(
-                        context = context,
-                        nome = nomeFuncionario,
-                        cpf = cpf,
-                        email = email,
-                        senha = senha,
-                        dataNascimento = dtNascimento,
-                        funcao = funcao,
-                        ativo = 1,
-                        acesso = 1,
-                        empresa = EmpresaUsuario(
-                            id = 2
-                        )
-                    ) {success ->
-                        if (success) {
+//                    viewModel.cadastrarFuncionario(
+//                        context = context,
+//                        nome = nomeFuncionario,
+//                        cpf = cpf,
+//                        email = email,
+//                        senha = senha,
+//                        dataNascimento = dtNascimento,
+//                        funcao = funcao,
+//                        ativo = 1,
+//                        acesso = 1,
+//                        empresa = EmpresaUsuario(
+//                            id = 2
+//                        )
+//                    ) {success ->
+//                        if (success) {
                         Toast.makeText(
                             context,
                             "Funcionario '$nomeFuncionario' salvo com sucesso!",
@@ -198,8 +198,8 @@ fun CadastroFuncionarios(
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-                }
-            }
+//                }
+//            }
             }, text = "Salvar", icon = R.drawable.edit_icon, descIcon = "vazio")
 
         }
