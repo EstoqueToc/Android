@@ -84,7 +84,7 @@ fun CadastroProdutos(
                 Titulo = "Produtos",
                 false,
                 Modifier.align(Alignment.TopCenter),
-                onFirstClickImage = { navController.navigate("produtos_screen") },
+                onFirstClickImage = { navController.navigate("menu") },
                 onSecondClickImage = { navController.navigate("cadastro_produto") }
             )
         }

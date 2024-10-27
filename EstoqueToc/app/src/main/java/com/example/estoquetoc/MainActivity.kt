@@ -28,11 +28,17 @@ import com.example.estoquetoc.formulario.CadastroFornecedores
 import com.example.estoquetoc.formulario.CadastroFuncionarios
 import com.example.estoquetoc.formulario.CadastroProdutos
 import com.example.estoquetoc.ui.theme.EstoqueTocTheme
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        startKoin {
+            androidContext(this@MainActivity)
+            modules(appModule)
+        }
         setContent {
             EstoqueTocTheme {
                 Surface(

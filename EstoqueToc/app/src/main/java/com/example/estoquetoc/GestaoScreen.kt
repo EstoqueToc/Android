@@ -78,7 +78,7 @@ fun ConteudoGestaoScreen( navController: NavController, modifier: Modifier = Mod
                 DescriptionProduct = "Relatórios",
                 QtdEmEstoque = ""
             ) {
-                navController.navigate("categorias")
+                navController.navigate("relatorios")
             }
             Spacer(modifier = Modifier.height(16.dp))
         }

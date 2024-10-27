@@ -1,10 +1,12 @@
 package com.example.estoquetoc
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,6 +20,7 @@ import androidx.navigation.NavHostController
 import com.example.estoquetoc.atributosCadastro.CategoriaAtributos
 import com.example.estoquetoc.componentes.BottomBarApp
 import com.example.estoquetoc.componentes.CardComponetizado
+import com.example.estoquetoc.componentes.InputFormulario
 import com.example.estoquetoc.componentes.TopBarApp
 
 @Composable
@@ -86,5 +89,24 @@ fun CategoriasCadastradoScreen(
         BottomBarApp(
             navController = navController
         )
+    }
+}
+
+@Composable
+fun cadastroCategoria(modifier: Modifier = Modifier) {
+    var categoria by remember { mutableStateOf("") }
+    var visualizar by remember { mutableStateOf(false) }
+
+    AnimatedVisibility(visible = visualizar) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            Text(text = "Informe o nome da Categoria", fontWeight = FontWeight.Bold)
+            InputFormulario(value = categoria, onValueChange = {categoria = it}, labelText = "Categoria")
+            Button(onClick = { /*TODO*/ }) {
+                Text(text ="Salvar", fontWeight = FontWeight.Bold, color = Color.White)
+            }
+        }
     }
 }

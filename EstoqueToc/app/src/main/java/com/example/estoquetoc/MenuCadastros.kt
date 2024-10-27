@@ -70,14 +70,14 @@ fun Conteudo( navController: NavController, modifier: Modifier = Modifier) {
                     DescriptionProduct = "Funcionários",
                     QtdEmEstoque = "Cadastre seus funcionários para gerenciar seus acessos."
                 ) {
-                    navController.navigate("funcionarios")
+                    navController.navigate("cadastro_funcionario")
                 }
                 CardComponetizado(
                     icon = R.drawable.produto,
                     DescIcon = "Produtos",
                     DescriptionProduct = "Produtos",
                     QtdEmEstoque = "Cadastre seus produtos para controle do seu estoque.",
-                    onClick = { navController.navigate("produtos_screen") }
+                    onClick = { navController.navigate("cadastro_produto") }
                 )
                 CardComponetizado(
                     icon = R.drawable.fornecedor,
@@ -85,7 +85,7 @@ fun Conteudo( navController: NavController, modifier: Modifier = Modifier) {
                     DescriptionProduct = "Fornecedores",
                     QtdEmEstoque = "Cadastre seus fornecedores para uma melhor gestão."
                 ) {
-                    navController.navigate("fornecedores")
+                    navController.navigate("cadastro_fornecedor")
                 }
                 CardComponetizado(
                     icon = R.drawable.categoria,

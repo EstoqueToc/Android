@@ -32,6 +32,11 @@ import com.example.estoquetoc.componentes.BottomBarApp
 import com.example.estoquetoc.componentes.CompButton
 import com.example.estoquetoc.componentes.InputFormulario
 import com.example.estoquetoc.componentes.TopBarApp
+import com.example.estoquetoc.service.EmpresaUsuario
+import com.example.estoquetoc.viewModel.FornecedorViewModel
+import com.example.estoquetoc.viewModel.FuncionarioViewModel
+import com.example.estoquetoc.viewModel.LoginViewModel
+import org.koin.compose.viewmodel.koinViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -47,11 +52,11 @@ fun CadastroFuncionarios(
     var senha by remember { mutableStateOf("") }
     var funcao by remember { mutableStateOf("") }
 
+    val viewModel = koinViewModel<FuncionarioViewModel>()
+
     val context = LocalContext.current
     Box(
-        modifier = Modifier.fillMaxSize(),
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//        verticalArrangement = Arrangement.SpaceBetween
+        modifier = Modifier.fillMaxSize()
     ) {
         Box(modifier = Modifier.align(Alignment.TopCenter)) {
             TopBarApp(
@@ -60,7 +65,7 @@ fun CadastroFuncionarios(
                 SecondImage = R.drawable.adicionar_icon,
                 "Adicionar",
                 Titulo = "Funcionários",
-                onFirstClickImage = { navController.navigate("funcionarios") },
+                onFirstClickImage = { navController.navigate("menu") },
                 onSecondClickImage = {navController.navigate("cadastro_funcionario")}
             )
         }
@@ -106,11 +111,11 @@ fun CadastroFuncionarios(
                                 format.isLenient = false
                                 format.parse(input)
                             } catch (e: Exception) {
-                                Toast.makeText(
-                                    context,
-                                    "Por favor, insira uma data válida no formato dd/MM/yyyy",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+//                                Toast.makeText(
+//                                    context,
+////                                    "Por favor, insira uma data válida no formato dd/MM/yyyy",
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
                             }
                         }
                     },
@@ -150,34 +155,51 @@ fun CadastroFuncionarios(
 
             CompButton(onClickAction = {
                 if (nomeFuncionario.isNotBlank() && cpf.isNotBlank()) {
-                    Toast.makeText(
-                        context,
-                        "Funcionario '$nomeFuncionario' salvo com sucesso!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    val novoFuncionario = FuncionarioAtributo(
+                    viewModel.cadastrarFuncionario(
+                        context = context,
                         nome = nomeFuncionario,
                         cpf = cpf,
-                        dtNascimento = dtNascimento,
-                        emailFuncionario = email,
+                        email = email,
                         senha = senha,
-                        funcao = funcao
-                    )
-                    Items.add(novoFuncionario)
-                    navController.navigate("funcionarios")
-                    nomeFuncionario = ""
-                    cpf = ""
-                    dtNascimento = ""
-                    email = ""
-                    senha = ""
-                    funcao = ""
-                } else {
-                    Toast.makeText(
-                        context,
-                        "Por favor, preencha todos os campos.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        dataNascimento = dtNascimento,
+                        funcao = funcao,
+                        ativo = 1,
+                        acesso = 1,
+                        empresa = EmpresaUsuario(
+                            id = 2
+                        )
+                    ) {success ->
+                        if (success) {
+                        Toast.makeText(
+                            context,
+                            "Funcionario '$nomeFuncionario' salvo com sucesso!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        val novoFuncionario = FuncionarioAtributo(
+                            nome = nomeFuncionario,
+                            cpf = cpf,
+                            dtNascimento = dtNascimento,
+                            emailFuncionario = email,
+                            senha = senha,
+                            funcao = funcao
+                        )
+                        Items.add(novoFuncionario)
+                        navController.navigate("funcionarios")
+                        nomeFuncionario = ""
+                        cpf = ""
+                        dtNascimento = ""
+                        email = ""
+                        senha = ""
+                        funcao = ""
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "Por favor, preencha todos os campos.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
+            }
             }, text = "Salvar", icon = R.drawable.edit_icon, descIcon = "vazio")
 
         }

@@ -1,21 +1,10 @@
 package com.example.estoquetoc.formulario
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -29,6 +18,9 @@ import com.example.estoquetoc.componentes.BottomBarApp
 import com.example.estoquetoc.componentes.CompButton
 import com.example.estoquetoc.componentes.InputFormulario
 import com.example.estoquetoc.componentes.TopBarApp
+import com.example.estoquetoc.service.Logradouro
+import com.example.estoquetoc.viewModel.FornecedorViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun CadastroFornecedores(
@@ -47,6 +39,7 @@ fun CadastroFornecedores(
     var cidade by remember { mutableStateOf("") }
 
     val context = LocalContext.current
+    val viewModel = koinViewModel<FornecedorViewModel>()
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -56,9 +49,9 @@ fun CadastroFornecedores(
                 "Voltar",
                 SecondImage = R.drawable.adicionar_icon,
                 "lixeira",
-                Titulo = "Produtos",
-                onFirstClickImage = { navController.navigate("fornecedores") },
-                onSecondClickImage = {navController.navigate("cadastro_fornecedor")}
+                Titulo = "Fornecedor",
+                onFirstClickImage = { navController.navigate("menu") },
+                onSecondClickImage = { navController.navigate("cadastro_fornecedor") }
             )
         }
         Column(
@@ -137,35 +130,59 @@ fun CadastroFornecedores(
 
             CompButton(onClickAction = {
                 if (razaoSocial.isNotBlank() && nomeFantasia.isNotBlank()) {
-                    Toast.makeText(
-                        context,
-                        "Fornecedor '$razaoSocial' salvo com sucesso!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    val novoFornecedor = FornecedorAtributos(
-                        razaoSocial = razaoSocial,
-                        nomeFantasia = nomeFantasia,
-                        cnpj = cnpj,
-                        emailFornecedor = email,
-                        telefoneFornecedor = telefone,
-                        cepFornecedor = cep,
-                        logradouroFornecedor = logradouro,
-                        bairroFornecedor = bairro,
-                        numeroFornecedor = numero,
-                        cidadeFornecedor = cidade
+                    val logradouroObj = Logradouro(
+                        ruaLogradouro = logradouro,
+                        numeroLogradouro = numero,
+                        cidadeLogradouro = cidade,
+                        cepLogradouro = cep
                     )
-                    Items.add(novoFornecedor)
-                    navController.navigate("fornecedores")
-                    razaoSocial = ""
-                    nomeFantasia = ""
-                    cnpj = ""
-                    email = ""
-                    telefone = ""
-                    cep = ""
-                    logradouro = ""
-                    bairro = ""
-                    numero = ""
-                    cidade = ""
+                    viewModel.cadastrarFornecedor(
+                        context = context,
+                        nomeFantasia = nomeFantasia,
+                        razaoSocial = razaoSocial,
+                        telefone = telefone,
+                        email = email,
+                        cnpj = cnpj,
+                        Logradouro = logradouroObj
+                    ) { success ->
+                        if (success) {
+                            Toast.makeText(
+                                context,
+                                "Fornecedor '$razaoSocial' salvo com sucesso!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            val novoFornecedor = FornecedorAtributos(
+                                razaoSocial = razaoSocial,
+                                nomeFantasia = nomeFantasia,
+                                cnpj = cnpj,
+                                emailFornecedor = email,
+                                telefoneFornecedor = telefone,
+                                cepFornecedor = cep,
+                                logradouroFornecedor = logradouro,
+                                bairroFornecedor = bairro,
+                                numeroFornecedor = numero,
+                                cidadeFornecedor = cidade
+                            )
+                            Items.add(novoFornecedor)
+                            navController.navigate("fornecedores")
+                            razaoSocial = ""
+                            nomeFantasia = ""
+                            cnpj = ""
+                            email = ""
+                            telefone = ""
+                            cep = ""
+                            logradouro = ""
+                            bairro = ""
+                            numero = ""
+                            cidade = ""
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "Falha ao salvar fornecedor.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
                 } else {
                     Toast.makeText(
                         context,
@@ -174,16 +191,12 @@ fun CadastroFornecedores(
                     ).show()
                 }
             }, text = "Salvar", icon = R.drawable.edit_icon, descIcon = "vazio")
-
-
         }
         Box(modifier = Modifier.align(Alignment.BottomCenter)) {
             BottomBarApp(
                 navController = navController
             )
         }
-
-
     }
 }
 

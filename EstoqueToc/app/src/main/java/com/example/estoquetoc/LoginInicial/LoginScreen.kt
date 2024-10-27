@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -49,6 +50,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.compose.ui.platform.LocalContext
+//import com.example.estoquetoc.viewModel.LoginState
+import com.example.estoquetoc.viewModel.LoginViewModel
+import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,6 +61,7 @@ fun LoginScreen(navController: NavHostController? = null) {
     var senha by remember { mutableStateOf("") }
     var senhaVisivel by remember { mutableStateOf(false) }
     val context = LocalContext.current
+    val viewModel = koinViewModel<LoginViewModel>()
 
     Box(
         modifier = Modifier
@@ -175,7 +180,17 @@ fun LoginScreen(navController: NavHostController? = null) {
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
-                        navController?.navigate("faturamento")
+                        viewModel.fazerLogin(context, email, senha) { success ->
+                            if (success) {
+                                navController?.navigate("faturamento")
+                            } else {
+                                Toast.makeText(
+                                    context,
+                                    "Login falhou",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
                     }
                 },
                 modifier = Modifier
@@ -185,12 +200,14 @@ fun LoginScreen(navController: NavHostController? = null) {
                 shape = RoundedCornerShape(6.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6F00))
             ) {
-                Text(text = "Entrar",
+                Text(
+                    text = "Entrar",
                     color = Color.White,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold
                 )
             }
+
             Spacer(modifier = Modifier.height(4.dp))
             TextButton(
                 onClick = {

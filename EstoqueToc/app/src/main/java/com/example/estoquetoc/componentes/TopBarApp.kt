@@ -84,7 +84,7 @@ fun TopBarApp(
                         text = FirstImageDescription,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.SemiBold,
-                        color = Color.Black
+                        color = Color.White
                     )
                 }
             }
@@ -92,7 +92,7 @@ fun TopBarApp(
                 text = Titulo,
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
-                color = Color.Black
+                color = Color.White
             )
             Button(
                 modifier = Modifier.padding(horizontal = 2.dp),
@@ -131,14 +131,5 @@ fun TopBarApp(
                 )
             }
         }
-//        Column(
-//            modifier = Modifier
-//                .padding(horizontal = 20.dp, vertical = 8.dp),
-//            horizontalAlignment = Alignment.CenterHorizontally,
-//            verticalArrangement = Arrangement.SpaceBetween
-//        ) {
-//            SearchBar()
-//        }
-
     }
 }
