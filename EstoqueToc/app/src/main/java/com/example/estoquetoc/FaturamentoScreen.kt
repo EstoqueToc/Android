@@ -83,7 +83,7 @@ fun FaturamentoScreen(navController: NavController? = null) {
                         modifier = Modifier.padding(top = 4.dp)
                     )
                     Text(
-                        text = "R\$7542,00",
+                        text = "R$ 9.343,67",
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFFFFFFFF),
                         fontSize = 24.sp,
