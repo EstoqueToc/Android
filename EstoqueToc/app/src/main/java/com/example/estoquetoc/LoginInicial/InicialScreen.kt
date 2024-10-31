@@ -81,7 +81,7 @@ fun WelcomeScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Bem Vindo!",
+                    text = "Bem-Vindo(a)!",
                     fontSize = 42.sp,
                     //fontFamily = poppins_black,
                     fontFamily = FontFamily.Serif,
