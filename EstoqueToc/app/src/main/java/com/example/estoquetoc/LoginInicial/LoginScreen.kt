@@ -35,6 +35,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
@@ -49,6 +51,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextDecoration
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -103,7 +107,7 @@ fun LoginScreen(navController: NavHostController? = null) {
                 color = Color.Black,
                 modifier = Modifier
                     .align(Alignment.Start)
-                    .padding(top = 32.dp),
+                    .padding(top = 38.dp),
             )
 
             Text(
@@ -116,14 +120,14 @@ fun LoginScreen(navController: NavHostController? = null) {
                     .padding(top = 8.dp, bottom = 16.dp),
             )
 
-            Spacer(modifier = Modifier.height(32.dp))
-
+            Spacer(modifier = Modifier.height(24.dp))
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
                 label = { Text("Email") },
                 modifier = Modifier.fillMaxWidth(),
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
+                textStyle = TextStyle(color = Color.DarkGray)
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -135,7 +139,8 @@ fun LoginScreen(navController: NavHostController? = null) {
                 modifier = Modifier.fillMaxWidth(),
                 visualTransformation = if (senhaVisivel) VisualTransformation.None else PasswordVisualTransformation(),
                 trailingIcon = {
-                    val icon = if (senhaVisivel) Icons.Default.Visibility else Icons.Default.VisibilityOff
+                    val icon =
+                        if (senhaVisivel) Icons.Default.Visibility else Icons.Default.VisibilityOff
                     IconButton(onClick = { senhaVisivel = !senhaVisivel }) {
                         Icon(
                             imageVector = icon,
@@ -185,7 +190,8 @@ fun LoginScreen(navController: NavHostController? = null) {
                 shape = RoundedCornerShape(6.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6F00))
             ) {
-                Text(text = "Entrar",
+                Text(
+                    text = "Entrar",
                     color = Color.White,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.SemiBold
@@ -197,16 +203,27 @@ fun LoginScreen(navController: NavHostController? = null) {
                     navController?.navigate("cadastro_usuario")
                 }
             ) {
-                Text(
-                    text = buildAnnotatedString {
-                        withStyle(style = SpanStyle(color = Color(0xFFFF6F00))) {
-                            append("Ainda não possui Conta. ")
+                Row(modifier = Modifier.padding(3.dp)) {
+                    Text(
+
+                        text = buildAnnotatedString {
+                            withStyle(style = SpanStyle(color = Color(0xFF262626))) {
+                                append("Não possui Conta?")
+                            }
+                            append(" ")
+                            withStyle(
+                                style = SpanStyle(
+                                    color = Color(0xFFFF6F00),
+                                    textDecoration = TextDecoration.Underline,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            ) {
+                                append("Clique aqui para criar uma agora.")
+                               Modifier.pointerHoverIcon(PointerIcon.Hand)
+                            }
                         }
-                        withStyle(style = SpanStyle(color = Color(0xFF262626))) {
-                            append("Clique aqui para criar uma agora.")
-                        }
-                    }
-                )
+                    )
+                }
             }
         }
     }

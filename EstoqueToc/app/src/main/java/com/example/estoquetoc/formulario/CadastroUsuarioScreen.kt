@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -34,6 +35,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
@@ -48,6 +51,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextDecoration
 
 @Composable
 fun CadastroUsuarioScreen(navController: NavHostController? = null) {
@@ -125,7 +130,8 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
                 value = nomeFantasia,
                 onValueChange = { nomeFantasia = it },
                 label = { Text("Nome Fantasia") },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                textStyle = TextStyle(color = Color.DarkGray)
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -135,7 +141,8 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
                 onValueChange = { cnpj = it },
                 label = { Text("CNPJ") },
                 modifier = Modifier.fillMaxWidth(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                textStyle = TextStyle(color = Color.DarkGray)
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -145,7 +152,8 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
                 onValueChange = { email = it },
                 label = { Text("Email Corporativo") },
                 modifier = Modifier.fillMaxWidth(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                textStyle = TextStyle(color = Color.DarkGray)
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -217,19 +225,28 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
                     navController?.navigate("login") // Navegar para a tela de login
                 }
             ) {
-                Text(
-                    text = buildAnnotatedString {
-                        withStyle(style = SpanStyle(color = Color(0xFFFF6F00))) {
-                            append("Já tem uma conta? ")
-                        }
-                        withStyle(style = SpanStyle(color = Color(0xFF262626))) {
-                            append("Entre aqui.")
-                        }
-                    }
-                )
+                Box {
+                    Text(
+                        text = buildAnnotatedString {
+                            withStyle(style = SpanStyle(color = Color(0xFF262626))) {
+                                append("Já tem uma conta?")
+                            }
+                            append(" ")
+                            withStyle(
+                                style = SpanStyle(
+                                    color = Color(0xFFFF6F00),
+                                    fontWeight = FontWeight.Bold
+                                )
+                            ) {
+                                append("Entre aqui.")
+                            }
+                        },
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
+                    )
+                }
             }
         }
-    }
+            }
 }
 
 @Preview(showBackground = true)

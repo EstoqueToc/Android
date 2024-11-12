@@ -64,7 +64,8 @@ fun WelcomeScreen(
             Text(
                 text = "EstoqueToc",
                 fontWeight = FontWeight.SemiBold,
-                fontSize = 24.sp
+                fontSize = 24.sp,
+                color = Color.DarkGray
             )
         }
         Surface(
@@ -97,12 +98,12 @@ fun WelcomeScreen(
                         verticalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = "Somos o toc que faltava na sua vida.",
-                            fontSize = 16.sp,
+                            text = "Somos o TOC que faltava na sua vida.",
+                            fontSize = 14.sp,
                             fontFamily = FontFamily.Serif,
                             fontWeight = FontWeight.SemiBold,
                             color = Color.Black,
-                            modifier = Modifier.padding(bottom = 8.dp)
+                            modifier = Modifier.padding(8.dp)
                         )
 
                         Spacer(modifier = Modifier.height(32.dp))
