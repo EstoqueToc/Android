@@ -33,7 +33,10 @@ Nosso objetivo é oferecer soluções eficientes e personalizadas para otimizar 
 
 
 ## Face do projeto
-<img width="100%" src="#"/>![HOME](https://github.com/EstoqueToc/Front-End/assets/125396288/11e37eb7-ff22-4102-bde0-a7825b2c28e2)
+<p align="center">
+  <img width="30%" src="https://github.com/EstoqueToc/Android/blob/main/LoginEstoqueToc.png" alt="LOGIN">
+  <img width="30%" src="https://github.com/EstoqueToc/Android/blob/main/inicialEstoqueToc.png" alt="HOME">
+</p>
 
 
 ## Instalação e Configuração
