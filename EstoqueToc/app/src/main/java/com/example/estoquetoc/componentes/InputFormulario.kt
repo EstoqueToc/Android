@@ -1,6 +1,7 @@
 package com.example.estoquetoc.componentes
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -12,7 +13,9 @@ import androidx.compose.ui.unit.sp
 fun InputFormulario(
     value: String,
     onValueChange: (String) -> Unit,
-    labelText: String
+    labelText: String,
+    modifier: Modifier,
+    keyboardOptions: KeyboardOptions
 ) {
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),

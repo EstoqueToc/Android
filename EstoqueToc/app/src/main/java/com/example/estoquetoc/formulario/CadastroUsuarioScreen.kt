@@ -242,7 +242,7 @@ fun CadastroUsuarioScreen(navController: NavHostController? = null) {
                             }
                         },
                         modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
-                    )git 
+                    )
                 }
             }
         }

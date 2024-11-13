@@ -119,7 +119,7 @@ fun AppNavHost(
         composable("dashboard") { DashboardScreen(navController) }
         composable("relatorios") { RelatorioScreen(navController) }
         composable("menu") { MenuCadastros(navController) }
-        composable("usuario") { Usuario(navController) }
+        composable("usuario") { UsuarioScreen(navController) }
         composable("gestao") { GestaoScreen(navController = navController) }
         composable("ajustes") { AjustesScreen(navController, userName = "Admin", functionName = "Admin") }
 

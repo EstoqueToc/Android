@@ -18,18 +18,20 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
+import com.example.estoquetoc.componentes.BottomBarApp
+import com.example.estoquetoc.componentes.InputFormulario
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UsuarioScreen(navController: NavController? = null, userName: String, functionName: String) {
+fun UsuarioScreen(navController: NavController, modifier: Modifier = Modifier) {
     var profileImageUri by remember { mutableStateOf<Uri?>(null) }
     var email by remember { mutableStateOf("") }
     var nome by remember { mutableStateOf("") }
@@ -44,35 +46,37 @@ fun UsuarioScreen(navController: NavController? = null, userName: String, functi
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
             .background(color = Color(0xFFF5F5F5)),
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .background(color = Color(0xFFEAAC47))
+                .background(color = Color(0xFFEAAC47)),
+            contentAlignment = Alignment.Center
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier.fillMaxWidth()
+                    .padding(start = 8.dp, end = 8.dp)
             ) {
+                Spacer(modifier = Modifier.size(20.dp))
+
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    modifier = Modifier.fillMaxWidth().padding(8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.voltar),
+                        painter = painterResource(id = R.drawable.back_icon),
                         contentDescription = "seta de voltar",
                         modifier = Modifier
-                            .size(80.dp)
-                            .clickable { navController?.navigate("AjusteScreen") },
+                            .size(28.dp)
+                            .clickable { navController.navigate("AjusteScreen") },
                         colorFilter = ColorFilter.tint(Color.White)
                     )
                     Text(
                         text = "Usuário",
-                        fontSize = 24.sp,
+                        fontSize = 28.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.White,
                         modifier = Modifier
@@ -80,12 +84,11 @@ fun UsuarioScreen(navController: NavController? = null, userName: String, functi
                     )
                     Text(
                         text = "Salvar",
-                        fontSize = 13.sp,
+                        fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold,
                         color = Color.White,
                         modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .clickable { navController?.navigate("LoginScreen") }
+                            .clickable { navController.navigate("LoginScreen") }
                     )
                 }
             }
@@ -104,21 +107,19 @@ fun UsuarioScreen(navController: NavController? = null, userName: String, functi
                     .size(50.dp)
                     .clip(CircleShape)
                     .background(Color.White)
-                    .clickable {
-                        launcher.launch("image/*")
-                    }
+                    .clickable { launcher.launch("image/*") }
             ) {
                 if (profileImageUri != null) {
                     Image(
                         painter = rememberAsyncImagePainter(profileImageUri),
                         contentDescription = "Imagem do usuário",
-                        modifier = Modifier.size(50.dp),
+                        modifier = Modifier.size(54.dp)
                     )
                 } else {
                     Image(
                         painter = painterResource(id = R.drawable.usuario),
                         contentDescription = "Ícone do usuário",
-                        modifier = Modifier.size(50.dp)
+                        modifier = Modifier.size(54.dp)
                     )
                 }
             }
@@ -126,16 +127,16 @@ fun UsuarioScreen(navController: NavController? = null, userName: String, functi
             Spacer(modifier = Modifier.width(16.dp))
 
             Column {
+                // Exibe "Perfil" se funcao estiver vazio
                 Text(
-                    functionName,
-                    fontSize = 14.sp,
+                    text = if (funcao.isEmpty()) "Perfil do usuário" else funcao,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = Color.Gray
+                    color = Color.Black
                 )
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
         Column(
             modifier = Modifier
                 .fillMaxWidth(0.9f)
@@ -151,99 +152,72 @@ fun UsuarioScreen(navController: NavController? = null, userName: String, functi
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
-                TextField(
+                InputFormulario(
                     value = nome,
                     onValueChange = { nome = it },
-                    label = { Text("xxx xxx xxx") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(color = Color.LightGray),
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
-//                    colors = TextFieldDefaults.textFieldColors(
-//                        containerColor = Color.Transparent,
-//                        focusedIndicatorColor = Color.Transparent,
-//                        unfocusedIndicatorColor = Color.Transparent,
-//                        disabledIndicatorColor = Color.Transparent,
-//                        focusedLabelColor = Color.Black,
-//                        unfocusedLabelColor = Color.Black
-                  //  )
+                    labelText = "xxx xxx xxx",
+                    modifier = Modifier.fillMaxWidth().background(color = Color.LightGray),
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
                 )
-            }
-            Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+
+                Spacer(modifier = Modifier.size(8.dp))
                 Text(
                     text = "E-mail",
                     color = Color.Black,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
-                TextField(
+                InputFormulario(
                     value = email,
                     onValueChange = { email = it },
-                    label = { Text("xxxx@gmail.com") },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(color = Color.LightGray),
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
-//                    colors = TextFieldDefaults.textFieldColors(
-//                        containerColor = Color.Transparent,
-//                        focusedIndicatorColor = Color.Transparent,
-//                        unfocusedIndicatorColor = Color.Transparent,
-//                        disabledIndicatorColor = Color.Transparent,
-//                        focusedLabelColor = Color.Black,
-//                        unfocusedLabelColor = Color.Black
-//                    )
+                    labelText = "Email",
+                    modifier = Modifier.fillMaxWidth().background(color = Color.LightGray),
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
                 )
-            }
-            Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+
+                Spacer(modifier = Modifier.size(8.dp))
                 Text(
                     text = "Função",
                     color = Color.Black,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
-                TextField(
+                InputFormulario(
                     value = funcao,
                     onValueChange = { funcao = it },
-                    label = { Text("xxxx") },
+                    labelText = "Função",
+                    modifier = Modifier.fillMaxWidth().background(color = Color.LightGray),
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
+                )
+
+                Spacer(modifier = Modifier.height(40.dp))
+
+                Button(
+                    onClick = { navController.navigate("inicial_screen") },
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .background(color = Color.LightGray),
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email),
-//                    colors = TextFieldDefaults.textFieldColors(
-//                        containerColor = Color.Transparent,
-//                        focusedIndicatorColor = Color.Transparent,
-//                        unfocusedIndicatorColor = Color.Transparent,
-//                        disabledIndicatorColor = Color.Transparent,
-//                        focusedLabelColor = Color.Black,
-//                        unfocusedLabelColor = Color.Black
-//                    )
-                )
-            }
-            Spacer(modifier = Modifier.height(40.dp))
-            // Seção de botões
-            Button(
-                onClick = { /* Ação de Deletar */ },
-                modifier = Modifier
-                    .fillMaxWidth(0.9f)
-                    .height(45.dp)
-                    .align(Alignment.CenterHorizontally),
-                shape = RoundedCornerShape(6.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6F00))
-            ) {
-                Text("Deletar Conta", color = Color.White, fontSize = 16.sp)
-                Spacer(modifier = Modifier.width(16.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.lixeira),
-                    contentDescription = "Ícone de lixeira",
-                    modifier = Modifier.size(24.dp),
-                    colorFilter = ColorFilter.tint(Color(0xFFFFFFFF))
-                )
+                        .fillMaxWidth(0.9f)
+                        .height(45.dp),
+                    shape = RoundedCornerShape(6.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6F00))
+                ) {
+                    Text("Deletar Conta", color = Color.White, fontSize = 16.sp)
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.lixeira),
+                        contentDescription = "Ícone de lixeira",
+                        modifier = Modifier.size(24.dp),
+                        colorFilter = ColorFilter.tint(Color.White)
+                    )
+                }
             }
         }
+        BottomBarApp(navController = navController)
     }
 }
-        @Preview(showBackground = true)
-        @Composable
-        fun UsuarioScreenPreview() {
-            UsuarioScreen(userName = "Raquel Guimarães", functionName = "Administrador")
-        }
+
+@Preview(showBackground = true)
+@Composable
+private fun UsuarioScreenPreview() {
+    val navController = rememberNavController()
+    UsuarioScreen(navController = navController)
+}

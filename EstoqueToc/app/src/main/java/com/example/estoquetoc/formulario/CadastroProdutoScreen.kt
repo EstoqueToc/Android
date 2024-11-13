@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -17,8 +18,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.estoquetoc.R
 import com.example.estoquetoc.atributosCadastro.ProdutoAtributo
 import com.example.estoquetoc.componentes.BottomBarApp
@@ -85,14 +90,34 @@ fun CadastroProdutos(
             InputFormulario(
                 value = nomeProduto,
                 onValueChange = { nomeProduto = it },
-                labelText = "Nome"
+                labelText = "Nome",
+                modifier = Modifier.fillMaxWidth().background(color = Color.LightGray),
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
             )
             Spacer(modifier = Modifier.size(16.dp))
+
+            @Composable
+            fun InputFormulario(
+                value: String,
+                onValueChange: (String) -> Unit,
+                labelText: String,
+                textStyle: TextStyle = TextStyle.Default // Valor padrão
+            ) {
+                OutlinedTextField(
+                    value = value,
+                    onValueChange = onValueChange,
+                    label = { Text(labelText) },
+                    textStyle = textStyle, // Aplicando o textStyle aqui
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
 
             InputFormulario(
                 value = descricaoProduto,
                 onValueChange = { descricaoProduto = it },
-                labelText = "Descrição"
+                labelText = "Descrição",
+                textStyle = TextStyle(color = Color.DarkGray)
             )
             Spacer(modifier = Modifier.size(16.dp))
 
@@ -208,4 +233,12 @@ fun CadastroProdutos(
             BottomBarApp(navController = navController)
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CadastroProdutosPreview() {
+    val navController = rememberNavController()
+    val items = remember { mutableStateListOf<ProdutoAtributo>() }
+    CadastroProdutos(navController = navController, items = items)
 }
