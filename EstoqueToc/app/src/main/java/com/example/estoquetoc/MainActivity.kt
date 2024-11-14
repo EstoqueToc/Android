@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -75,11 +74,19 @@ class MainActivity : ComponentActivity() {
                 // Permissão já concedida
                 Toast.makeText(this, "Permissão já concedida", Toast.LENGTH_SHORT).show()
             }
+            shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
+            showToast("A permissão da câmera é necessária para escanear códigos de barra.")
+            requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+        }
             else -> {
                 // Solicitar permissão de câmera
                 requestCameraPermissionLauncher.launch(Manifest.permission.CAMERA)
             }
         }
+    }
+    // Método para exibir Toasts
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
 
@@ -88,11 +95,13 @@ fun AppNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
+    // Dados compartilhados entre as telas
     val produtos = rememberSaveable { mutableListOf<ProdutoAtributo>() }
-    val funcionarios = remember { mutableListOf<FuncionarioAtributo>() }
-    val fornecedores = remember { mutableListOf<FornecedorAtributos>() }
-    val categorias = remember { mutableListOf<CategoriaAtributos>() }
+    val funcionarios = rememberSaveable  { mutableListOf<FuncionarioAtributo>() }
+    val fornecedores = rememberSaveable  { mutableListOf<FornecedorAtributos>() }
+    val categorias = rememberSaveable  { mutableListOf<CategoriaAtributos>() }
 
+    // Configuração de navegação
     NavHost(
         navController = navController,
         startDestination = "inicial_screen",
@@ -122,11 +131,44 @@ fun AppNavHost(
         composable("usuario") { UsuarioScreen(navController) }
         composable("gestao") { GestaoScreen(navController = navController) }
         composable("ajustes") { AjustesScreen(navController, userName = "Admin", functionName = "Admin") }
+        composable("planos") { PlanosScreen(navController) }
+        composable("ajuda") { AjudaScreen(navController) }
 
         // Tela do Scanner de Código de Barras
         composable("barcode_scanner") { BarcodeScannerScreen() }
     }
 }
+
+@Composable
+fun AjudaScreen(navController: NavHostController) {
+    TODO("Not yet implemented")
+
+}
+
+@Composable
+fun PlanosScreen(navController: NavHostController) {
+    TODO("Not yet implemented")
+
+//    Column(
+//        modifier = Modifier.fillMaxSize(),
+//        horizontalAlignment = Alignment.CenterHorizontally,
+//        verticalArrangement = Arrangement.Center
+//    ) {
+//        Button(
+//            onClick = { navController?.navigate("planos") }
+//        ) {
+//            Text("Ir para Faturamento")
+//        }
+//
+//        Spacer(modifier = Modifier.height(16.dp))
+//
+//        Button(onClick = { navController.popBackStack() }) {
+//            Text("Voltar")
+//        }
+//    }
+}
+
+
 
 @Composable
 fun RelatorioScreen(navController: NavHostController) {
