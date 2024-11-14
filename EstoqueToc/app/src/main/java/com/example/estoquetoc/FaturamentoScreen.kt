@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -134,7 +135,7 @@ fun FaturamentoMesSection() {
 }
 
 @Composable
-fun FerramentasExclusivasSection(navController: NavController) {
+fun FerramentasExclusivasSection(navController: NavController? = null) {
     Box(
         modifier = Modifier
             .fillMaxWidth(0.95f)
@@ -177,36 +178,28 @@ fun FerramentasExclusivasSection(navController: NavController) {
                     fontSize = 12.sp,
                 )
                 Spacer(modifier = Modifier.height(6.dp))
-                Button(
-            onClick = { navController?.navigate("planos") }
-        ) {
-            Text("Conheça nossos planos!")
-        }
-//                Text(
-//                    text = "Conheça nossos planos!",
-//                    fontWeight = FontWeight.Light,
-//                    color = Color(0xFFB37C00),
-//                    fontSize = 14.sp,
-//                    textAlign = TextAlign.Justify,
-//                    modifier = Modifier.clickable {
-//                        try {
-//                            navController!!.navigate("planos")
-//                        } catch (e: Exception) {
-//                            Log.e("Erro na navegação", "Erro ao tentar navegar: ${e.message}")
-//                        }
-//                    }
-//                )
+                Text(
+                    text = "Conheça nossos planos!",
+                    fontWeight = FontWeight.Light,
+                    color = Color(0xFFB37C00),
+                    fontSize = 14.sp,
+                    textAlign = TextAlign.Justify,
+                    textDecoration = TextDecoration.Underline,
+                    modifier = Modifier.clickable(onClick = {
+                        try {
+                            navController?.navigate("planos")
+                        } catch (e: Exception) {
+                            Log.e("Erro na navegação", "Erro ao tentar navegar: ${e.message}")
+                        }
+                    })
+                )
             }
-            Spacer(modifier = Modifier.weight(1f))
-            Image(
-                painter = painterResource(id = R.drawable.seta_direita),
-                contentDescription = null,
-                colorFilter = ColorFilter.tint(Color(0xFFFFFFFF)),
-                modifier = Modifier.size(24.dp)
-            )
+
+            }
+
         }
     }
-}
+
 
 @Composable
 fun PrecisaDeAjudaSection(navController: NavController? = null) {
@@ -245,7 +238,7 @@ fun PrecisaDeAjudaSection(navController: NavController? = null) {
         }
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { navController?.navigate("AjudaScreen") },
+            onClick = { navController?.navigate("ajuda") },
             shape = RoundedCornerShape(6.dp),
             modifier = Modifier.fillMaxWidth(0.9f),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF7D00))

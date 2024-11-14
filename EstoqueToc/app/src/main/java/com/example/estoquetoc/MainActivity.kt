@@ -31,6 +31,7 @@ import com.example.estoquetoc.formulario.CadastroFornecedores
 import com.example.estoquetoc.formulario.CadastroFuncionarios
 import com.example.estoquetoc.formulario.CadastroProdutos
 import com.example.estoquetoc.ui.theme.EstoqueTocTheme
+import kotlinx.serialization.Serializable
 
 class MainActivity : ComponentActivity() {
 
@@ -138,6 +139,9 @@ fun AppNavHost(
         composable("barcode_scanner") { BarcodeScannerScreen() }
     }
 }
+
+@Serializable
+object LoginScreen
 
 @Composable
 fun AjudaScreen(navController: NavHostController) {
