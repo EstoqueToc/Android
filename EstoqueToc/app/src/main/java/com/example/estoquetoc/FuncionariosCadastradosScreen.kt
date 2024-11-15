@@ -44,7 +44,8 @@ fun FuncionariosCadastradoScreen(
                 Titulo = "Funcionários",
                 true,
                 onFirstClickImage = { navController.navigate("menu") },
-                onSecondClickImage = {navController.navigate("cadastro_funcionario")}
+                onSecondClickImage = {navController.navigate("cadastro_funcionario")},
+                Search = "Buscar Funcionario"
             )
             Spacer(modifier = Modifier.size(30.dp))
             Column(

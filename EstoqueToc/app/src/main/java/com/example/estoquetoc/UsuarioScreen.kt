@@ -30,6 +30,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.estoquetoc.componentes.BottomBarApp
 import com.example.estoquetoc.componentes.InputFormulario
+import com.example.estoquetoc.componentes.TopBarApp
 
 @Composable
 fun UsuarioScreen(navController: NavController) {
@@ -47,53 +48,21 @@ fun UsuarioScreen(navController: NavController) {
 
     Column(
         modifier = Modifier
+            .fillMaxSize()
             .background(color = Color(0xFFF5F5F5))
             .verticalScroll(rememberScrollState()), // Habilita a rolagem
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Box(
-            modifier = Modifier
-                .background(color = Color(0xFFEAAC47)),
-            contentAlignment = Alignment.Center
-        ) {
-            Column(
-                modifier = Modifier.fillMaxWidth()
-                    .padding(8.dp)
-            ) {
-
-                Row(
-                    modifier = Modifier.fillMaxWidth().padding(8.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.back_icon),
-                        contentDescription = "seta de voltar",
-                        modifier = Modifier
-                            .size(28.dp)
-                            .clickable { navController.navigate("AjusteScreen") },
-                        colorFilter = ColorFilter.tint(Color.White)
-                    )
-                    Text(
-                        text = "Usuário",
-                        fontSize = 28.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White,
-                        modifier = Modifier
-                            .padding(16.dp)
-                    )
-                    Text(
-                        text = "Salvar",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = Color.White,
-                        modifier = Modifier
-                            .clickable { navController.navigate("LoginScreen") }
-                    )
-                }
-            }
-        }
+        TopBarApp(
+            FirstImage = R.drawable.back_icon,
+            "Voltar",
+            SecondImage = R.drawable.ic_salvar,
+            "Editar",
+            Titulo = "Usuário",
+            onFirstClickImage = { navController.navigate("ajustes") },
+            onSecondClickImage = {navController.navigate("Ajustes")}
+        )
         Spacer(modifier = Modifier.height(16.dp))
 
         // Seção de informações do usuário
@@ -157,7 +126,10 @@ fun UsuarioScreen(navController: NavController) {
                     value = nome,
                     onValueChange = { nome = it },
                     labelText = "xxx xxx xxx",
-                    modifier = Modifier.fillMaxWidth().background(color = Color.LightGray).padding(bottom = 8.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = Color.LightGray)
+                        .padding(bottom = 8.dp),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
                 )
 
@@ -172,7 +144,10 @@ fun UsuarioScreen(navController: NavController) {
                     value = email,
                     onValueChange = { email = it },
                     labelText = "Email",
-                    modifier = Modifier.fillMaxWidth().background(color = Color.LightGray).padding(bottom = 8.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = Color.LightGray)
+                        .padding(bottom = 8.dp),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
                 )
 
@@ -187,7 +162,10 @@ fun UsuarioScreen(navController: NavController) {
                     value = funcao,
                     onValueChange = { funcao = it },
                     labelText = "Função",
-                    modifier = Modifier.fillMaxWidth().background(color = Color.LightGray).padding(bottom = 8.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = Color.LightGray)
+                        .padding(bottom = 8.dp),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Email)
                 )
 
@@ -216,27 +194,7 @@ fun UsuarioScreen(navController: NavController) {
                             colorFilter = ColorFilter.tint(Color.White)
                         )
                     }
-
-                    Button(
-                        onClick = { navController.navigate("faturamento") },
-                        modifier = Modifier
-                            .weight(1f)
-                            .height(45.dp),
-                        shape = RoundedCornerShape(6.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6F00))
-                    ) {
-                        Text("Salvar Conta", color = Color.White, fontSize = 12.sp)
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_salvar),
-                            contentDescription = "Ícone de salvar",
-                            modifier = Modifier.size(16.dp),
-                            tint = Color.White
-                        )
-                    }
                 }
-
-
             }
         }
         BottomBarApp(navController = navController)

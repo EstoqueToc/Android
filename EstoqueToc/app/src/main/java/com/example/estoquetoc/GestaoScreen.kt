@@ -43,11 +43,8 @@ fun ConteudoGestaoScreen( navController: NavController, modifier: Modifier = Mod
             TopBarApp(
                 FirstImage = R.drawable.back_icon,
                 FirstImageDescription ="Voltar",
-                SecondImage = R.drawable.adicionar_icon ,
-                SecondImageDescription = "Editar",
-                Titulo = "Cadastros",
-                onFirstClickImage = {navController.navigate("faturamento")},
-                onSecondClickImage = {navController.navigate("")},
+                Titulo = "Gestão",
+                onFirstClickImage = {navController.navigate("faturamento")}
             )
         }
 
@@ -78,7 +75,7 @@ fun ConteudoGestaoScreen( navController: NavController, modifier: Modifier = Mod
                 DescriptionProduct = "Relatórios",
                 QtdEmEstoque = ""
             ) {
-                navController.navigate("categorias")
+                navController.navigate("relatorios")
             }
             Spacer(modifier = Modifier.height(16.dp))
         }

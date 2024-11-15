@@ -43,7 +43,8 @@ fun CategoriasCadastradoScreen(
                 Titulo = "Categorias",
                 true,
                 onFirstClickImage = { navController.navigate("menu") },
-                onSecondClickImage = {navController.navigate("cadasstro_categoria")}
+                onSecondClickImage = {navController.navigate("cadasstro_categoria")},
+                Search = "Buscar Categoria"
             )
             Spacer(modifier = Modifier.size(30.dp))
             Column(

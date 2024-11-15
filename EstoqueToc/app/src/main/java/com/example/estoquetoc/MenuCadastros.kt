@@ -43,15 +43,10 @@ fun Conteudo( navController: NavController, modifier: Modifier = Modifier) {
             TopBarApp(
                 FirstImage = R.drawable.back_icon,
                 FirstImageDescription ="Voltar",
-                SecondImage = R.drawable.adicionar_icon ,
-                SecondImageDescription = "Editar",
                 Titulo = "Cadastros",
-                onFirstClickImage = {navController.navigate("faturamento")},
-                onSecondClickImage = {navController.navigate("")},
+                onFirstClickImage = {navController.navigate("faturamento")}
             )
         }
-
-
             Column(
                 modifier = Modifier
                     .fillMaxWidth()

@@ -43,7 +43,8 @@ fun FornecedoresCadastradoScreen(
                 Titulo = "Fornecedores",
                 true,
                 onFirstClickImage = { navController.navigate("menu") },
-                onSecondClickImage = {navController.navigate("cadastro_fornecedor")}
+                onSecondClickImage = {navController.navigate("cadastro_fornecedor")},
+                Search = "Buscar Fornecedor"
             )
             Spacer(modifier = Modifier.size(30.dp))
             Column(

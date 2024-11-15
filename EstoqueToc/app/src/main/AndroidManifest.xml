@@ -8,10 +8,15 @@
         android:required="false" />
 
     <!-- Permissões necessárias -->
+    <!-- Permissão para leitura de armazenamento em dispositivos até Android 12 -->
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
+    <!-- Permissão para leitura de mídia em dispositivos Android 13 ou superior -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <!-- Permissão para uso da câmera -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <!-- Permissão para acesso à Internet -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application

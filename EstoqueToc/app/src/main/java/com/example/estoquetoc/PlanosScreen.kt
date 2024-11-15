@@ -16,69 +16,76 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.estoquetoc.componentes.BottomBarApp
 
 @Composable
-fun PlanosUI(navController: NavController? = null) {
-    // Lista de conteúdos para simular os itens que serão rolados
-    LazyColumn(
+fun PlanosUI(navController: NavController) {
+    // Tela principal com espaçamento e alinhamento
+    Column(
         modifier = Modifier
             .fillMaxSize()
-           .padding(4.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .background(Color.Black)
     ) {
-        // Primeiro item com o banner
-        item {
-            Text(
-                text = "Escolha seu Plano Ideal",
-                fontWeight = FontWeight.Bold,
-                fontSize = 24.sp,
-                color = Color.White,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+        // Título no topo
+        Text(
+            text = "Escolha seu Plano Ideal",
+            fontWeight = FontWeight.Bold,
+            fontSize = 24.sp,
+            color = Color.White,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
                 .background(
-                        Brush.horizontalGradient(
-                            listOf(Color(0xFFEAAC47), Color(0xFFEAAC58))
-                        ),
-                    shape = RoundedCornerShape(6.dp)
+                    Brush.horizontalGradient(
+                        listOf(Color(0xFFEAAC47), Color(0xFFEAAC58))
+                    ),
+                    shape = RoundedCornerShape(8.dp)
                 )
-                   .padding(16.dp)
-            )
+                .padding(16.dp)
+        )
+        Spacer(modifier = Modifier.padding(40.dp))
+        // Lista de planos (área rolável)
+        LazyColumn(
+            modifier = Modifier
+                .weight(1f) // Permite que a lista ocupe o espaço restante
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp), // Espaçamento entre itens
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            items(getPlanos()) { plano ->
+                PlanoCard(plano)
+            }
         }
-        // Lista de planos
-        items(getPlanos()) { plano ->
-            PlanoCard(plano)
-        }
+
+        // Barra inferior fixada no final da tela
+        BottomBarApp(navController = navController)
     }
 }
+
 
 data class Plano(val nome: String, val preco: String, val recursos: List<String>, val imagemResId: Int)
 
 fun getPlanos(): List<Plano> {
     return listOf(
         Plano(
-            "Básico", "R$ 29,90/mês",
-            listOf("Gerenciamento de Estoque Básico", "Relatórios Simples", "1 Usuário"),
-            R.drawable.coracao
-        ),
-        Plano(
-            "Gold", "R$ 49,90/mês",
-            listOf("Gerenciamento de Estoque Completo", "Relatórios Avançados", "Suporte Prioritário", "3 Usuários"),
+            "Gold", "\n1° Mês Gratuito \n\nA partir do seguindo mês no valor de \n\nR$ 49,90/mês\n",
+            listOf(
+                "Gerenciamento de Estoque Completo",
+                "Cadastro de Produto opr Codigo de Barras",
+                "Relatórios Avançados", "Suporte Prioritário",
+                "Suporte 24/7",
+                "Usuários Ilimitados"
+            ),
             R.drawable.estrela
-        ),
-        Plano(
-            "Diamont", "R$ 99,90/mês",
-            listOf("Integração com E-commerce", "Relatórios Detalhados", "Suporte 24/7", "Usuários Ilimitados"),
-            R.drawable.diamante
         )
     )
 }
@@ -88,82 +95,56 @@ fun PlanoCard(plano: Plano) {
     Card(
         shape = RoundedCornerShape(8.dp),
         modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
             .clickable { /* Lógica de compra ou detalhes do plano */ }
-            .padding(4.dp)
     ) {
         Column(
             modifier = Modifier
                 .background(Color.White)
-                .padding(8.dp)
+                .padding(16.dp)
         ) {
             Text(
-                text = "OFERTA LIMITADA",
+                text = plano.nome,
+                fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color(0xFFE0A000),
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
-        Row(
-            modifier = Modifier
-                .background(Color.White)
-                .padding(6.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Image(
-                painter = painterResource(id = plano.imagemResId),
-                contentDescription = "Imagem do plano ${plano.nome}",
-                modifier = Modifier
-                    .size(64.dp)
-                    .padding(end = 20.dp)
+                color = Color.Black,
+                modifier = Modifier.padding(bottom = 8.dp)
             )
 
-            // Nome e informações do plano
-            Column(modifier = Modifier.weight(0.9f)) {
-                Text(
-                    text = plano.nome,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
+            Text(
+                text = plano.preco,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
 
+            plano.recursos.forEach { recurso ->
                 Text(
-                    text = plano.preco,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(bottom = 8.dp)
+                    text = "- $recurso",
+                    fontSize = 14.sp,
+                    color = Color.DarkGray,
+                    modifier = Modifier.padding(bottom = 4.dp)
                 )
-
-                plano.recursos.forEach { recurso ->
-                    Text(
-                        text = "- $recurso",
-                        fontSize = 14.sp,
-                        modifier = Modifier.padding(bottom = 10.dp)
-                    )
-                }
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Button(
-                        onClick = { /* Lógica para a compra */ },
-                        colors = ButtonDefaults.buttonColors(Color(0xFFE0A000)),
-                        modifier = Modifier.fillMaxWidth(0.9f)
-                            .padding(8.dp)
-                    ) {
-                        Text(text = "APROVEITE AGORA", color = Color.White)
-                    }
-                }
             }
 
+            Button(
+                onClick = { /* Lógica para a compra */ },
+                colors = ButtonDefaults.buttonColors(Color(0xFFE0A000)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp)
+            ) {
+                Text(text = "APROVEITE AGORA", color = Color.White)
+            }
         }
-
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
 fun PlanosScreenPreview() {
-    PlanosUI()
+    val navController = rememberNavController() // Criação de um NavController válido
+    PlanosUI(navController = navController)
 }

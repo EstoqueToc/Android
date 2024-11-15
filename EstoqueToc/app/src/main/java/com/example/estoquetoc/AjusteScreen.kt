@@ -1,6 +1,8 @@
 package com.example.estoquetoc
 
+import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -33,6 +35,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,7 +48,12 @@ import com.example.estoquetoc.componentes.CardComponetizado
 import com.example.estoquetoc.componentes.TopBarApp
 
 @Composable
-fun AjustesScreen(navController: NavController? = null, userName: String, functionName: String) {
+fun AjustesScreen(
+    navController: NavController? = null,
+    userName: String,
+    functionName: String
+) {
+    val context = LocalContext.current
     var profileImageUri by remember { mutableStateOf<Uri?>(null) }
 
     // Launcher para abrir a galeria
@@ -89,64 +97,11 @@ fun AjustesScreen(navController: NavController? = null, userName: String, functi
                 navController?.navigate("usuario")
             }
 
-            // Seção de informações do usuário
-//            Row(
-//                modifier = Modifier
-//                    .fillMaxWidth(0.9f)
-//                    .padding(16.dp),
-//                verticalAlignment = Alignment.CenterVertically
-//            ) {
-//                Button(
-//                    colors = ButtonDefaults.buttonColors(Color.Transparent),
-//                    onClick = {
-//                    navController?.navigate("usuario")
-//                }) {
-//                    Box(
-//                        modifier = Modifier
-//                            .size(50.dp)
-//                            .clip(CircleShape)
-//                            .background(Color.White)
-//                            .clickable { launcher.launch("image/*") }
-//                    ) {
-//                        if (profileImageUri != null) {
-//                            Image(
-//                                painter = rememberAsyncImagePainter(profileImageUri),
-//                                contentDescription = "Imagem do usuário",
-//                                modifier = Modifier.size(50.dp),
-//                            )
-//                        } else {
-//                            Image(
-//                                painter = painterResource(id = R.drawable.usuario),
-//                                contentDescription = "Ícone do usuário",
-//                                modifier = Modifier.size(50.dp)
-//                            )
-//                        }
-//                    }
-//                }
-//
-//                Spacer(modifier = Modifier.width(16.dp))
-//
-//                Column {
-//                    Text(
-//                        userName,
-//                        fontSize = 20.sp,
-//                        fontWeight = FontWeight.Bold,
-//                        modifier = Modifier.padding(bottom = 4.dp)
-//                    )
-//                    Text(
-//                        functionName,
-//                        fontSize = 14.sp,
-//                        fontWeight = FontWeight.SemiBold,
-//                        color = Color.Gray
-//                    )
-//                }
-//            }
-
             Spacer(modifier = Modifier.height(16.dp))
 
             // Seção de botões
             Button(
-                onClick = { /* Ação de Guia */ },
+                onClick = {TODO("Not yet implemented")},
                 modifier = Modifier
                     .fillMaxWidth(0.9f)
                     .height(45.dp)
@@ -163,6 +118,7 @@ fun AjustesScreen(navController: NavController? = null, userName: String, functi
                     colorFilter = ColorFilter.tint(Color(0xFFFFFFFF))
                 )
             }
+
 
             Spacer(modifier = Modifier.height(16.dp))
 

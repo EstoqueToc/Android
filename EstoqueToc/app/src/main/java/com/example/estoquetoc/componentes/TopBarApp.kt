@@ -24,6 +24,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.estoquetoc.R
@@ -32,25 +34,24 @@ import com.example.estoquetoc.ui.theme.StrongOrange
 import com.example.estoquetoc.ui.theme.StrongYellow
 import com.example.estoquetoc.ui.theme.Yellow
 
-
 @Composable
 fun TopBarApp(
     FirstImage: Int,
     FirstImageDescription: String,
-    SecondImage: Int,
-    SecondImageDescription: String,
+    SecondImage: Int? = null, // Parâmetro opcional para a segunda imagem
+    SecondImageDescription: String? = null, // Descrição opcional
     Titulo: String,
     habilitar: Boolean = false,
     modifier: Modifier = Modifier,
     onFirstClickImage: () -> Unit,
-    onSecondClickImage: () -> Unit
-
+    onSecondClickImage: (() -> Unit)? = null, // Função opcional para o clique na segunda imagem
+    Search: String? = null
 ) {
-    val height = if(habilitar) 120 else 70
+    val height = if (habilitar) 120.dp else 70.dp
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .height(height.dp)
+            .height(height)
             .background(
                 brush = Brush.horizontalGradient(
                     colors = listOf(StrongOrange, Orange, StrongYellow, Yellow)
@@ -58,9 +59,7 @@ fun TopBarApp(
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
-    )
-    {
-
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -68,48 +67,56 @@ fun TopBarApp(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Button(
-                    onClick = onFirstClickImage,
-                    colors = ButtonDefaults.buttonColors(Color.Transparent)
-                ) {
-                    Image(
-                        painter = painterResource(id = FirstImage),
-                        contentDescription = FirstImageDescription,
-                        colorFilter = ColorFilter.tint(Color.Black),
-                        modifier = Modifier.size(16.dp)
-                    )
-                    Spacer(modifier = Modifier.width(9.dp))
-                    Text(
-                        text = FirstImageDescription,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = Color.Black
-                    )
-                }
+            // Primeira imagem (obrigatória)
+            Button(
+                onClick = onFirstClickImage,
+                colors = ButtonDefaults.buttonColors(Color.Transparent)
+            ) {
+                Image(
+                    painter = painterResource(id = FirstImage),
+                    contentDescription = FirstImageDescription,
+                    colorFilter = ColorFilter.tint(Color.Black),
+                    modifier = Modifier.size(16.dp)
+                )
+                Spacer(modifier = Modifier.width(9.dp))
+                Text(
+                    text = FirstImageDescription,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.Black
+                )
             }
+
+            // Centraliza o título, ajustando o espaçamento dinamicamente
             Text(
                 text = Titulo,
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
-                color = Color.Black
+                color = Color.Black,
+                modifier = Modifier.weight(1f), // Centraliza o texto
+                textAlign = TextAlign.Center
             )
-            Button(
-                modifier = Modifier.padding(horizontal = 2.dp),
-                colors = ButtonDefaults.buttonColors(Color.Transparent),
-                onClick = onSecondClickImage
-            ) {
-                Image(
-                    painter = painterResource(id = SecondImage),
-                    contentDescription = SecondImageDescription,
-                    colorFilter = ColorFilter.tint(Color.Black),
-                    modifier = Modifier.size(22.dp)
-                )
+
+            // Segunda imagem ou um Spacer para manter o título centralizado
+            if (SecondImage != null) {
+                Button(
+                    onClick = { onSecondClickImage?.invoke() },
+                    colors = ButtonDefaults.buttonColors(Color.Transparent)
+                ) {
+                    Image(
+                        painter = painterResource(id = SecondImage),
+                        contentDescription = SecondImageDescription ?: "",
+                        colorFilter = ColorFilter.tint(Color.Black),
+                        modifier = Modifier.size(22.dp)
+                    )
+                }
+            } else {
+                Spacer(modifier = Modifier.width(40.dp)) // Ajuste a largura conforme necessário
             }
         }
 
-        AnimatedVisibility(visible = habilitar,
-            modifier= Modifier.padding(horizontal = 20.dp)) {
+        // Exibe a barra de busca opcional
+        AnimatedVisibility(visible = habilitar, modifier = Modifier.padding(horizontal = 20.dp)) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -124,21 +131,25 @@ fun TopBarApp(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "Buscar Fornecedor",
+                    text = Search ?: "Buscar Fornecedor", // Texto padrão caso Search seja nulo
                     color = Color(0x66A35C5C),
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Normal
                 )
             }
         }
-//        Column(
-//            modifier = Modifier
-//                .padding(horizontal = 20.dp, vertical = 8.dp),
-//            horizontalAlignment = Alignment.CenterHorizontally,
-//            verticalArrangement = Arrangement.SpaceBetween
-//        ) {
-//            SearchBar()
-//        }
-
     }
+}
+
+@Preview
+@Composable
+private fun TopBarPreview() {
+    TopBarApp(
+        FirstImage = R.drawable.back_icon,
+        FirstImageDescription = "Voltar",
+        Titulo = "Cadastros",
+        habilitar = true,
+        onFirstClickImage = { /* Ação do primeiro clique */ },
+        Search = "deu certo"
+    )
 }

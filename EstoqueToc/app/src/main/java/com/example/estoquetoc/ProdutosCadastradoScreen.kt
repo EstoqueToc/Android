@@ -1,6 +1,7 @@
 package com.example.estoquetoc
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -26,7 +27,7 @@ fun ProdutoCadastrados(
 ) {
 
     Box(
-        Modifier.fillMaxSize()
+        Modifier.fillMaxSize().background(Color.White)
     ) {
         Box(
             modifier = Modifier.align(Alignment.TopCenter)
@@ -39,7 +40,8 @@ fun ProdutoCadastrados(
                 Titulo = "Produtos",
                 true,
                 onFirstClickImage = { navController.navigate("menu") },
-                onSecondClickImage = {navController.navigate("cadastro_produto")}
+                onSecondClickImage = {navController.navigate("cadastro_produto")},
+                Search = "Buscar Produto"
             )
         }
         Column(

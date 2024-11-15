@@ -132,45 +132,19 @@ fun AppNavHost(
         composable("usuario") { UsuarioScreen(navController) }
         composable("gestao") { GestaoScreen(navController = navController) }
         composable("ajustes") { AjustesScreen(navController, userName = "Admin", functionName = "Admin") }
-        composable("planos") { PlanosScreen(navController) }
         composable("ajuda") { AjudaScreen(navController) }
 
         // Tela do Scanner de Código de Barras
         composable("barcode_scanner") { BarcodeScannerScreen() }
+
+        // Tela de Planos
+        composable("planos") { PlanosUI(navController) }
+        composable("relatorios"){ RelatoriosScreen(navController)}
     }
 }
 
 @Serializable
 object LoginScreen
-
-@Composable
-fun AjudaScreen(navController: NavHostController) {
-    TODO("Not yet implemented")
-
-}
-
-@Composable
-fun PlanosScreen(navController: NavHostController) {
-    TODO("Not yet implemented")
-
-//    Column(
-//        modifier = Modifier.fillMaxSize(),
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//        verticalArrangement = Arrangement.Center
-//    ) {
-//        Button(
-//            onClick = { navController?.navigate("planos") }
-//        ) {
-//            Text("Ir para Faturamento")
-//        }
-//
-//        Spacer(modifier = Modifier.height(16.dp))
-//
-//        Button(onClick = { navController.popBackStack() }) {
-//            Text("Voltar")
-//        }
-//    }
-}
 
 
 
