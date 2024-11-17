@@ -74,8 +74,8 @@ fun ProdutoCadastrados(
                 Items.forEach { produto ->
                     CardComponetizado(
                         icon = R.drawable.box_icon,
-                        DescIcon = produto.nomeProduto,
-                        DescriptionProduct = produto.descricaoProduto,
+                        DescIcon = produto.descricaoProduto,
+                        DescriptionProduct = produto.nomeProduto,
                         QtdEmEstoque = produto.qtdEntrada,
                         enable = true,
                         valor = produto.precoVenda,

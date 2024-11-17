@@ -6,6 +6,11 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
 }
 
+tasks.register("cleanRebuild") {
+    dependsOn("clean", "assembleDebug") // Para builds de debug
+    // Use "assembleRelease" em vez de "assembleDebug" se precisar de um build de release
+}
+
 android {
     namespace = "com.example.estoquetoc"
     compileSdk = 34

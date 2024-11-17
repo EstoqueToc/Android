@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 
 object Rest {
 
-    val baseUrl = "http://54.234.195.255/api/"
+    val baseUrl = "http://10.0.2.2/api/"
 
     private val api by lazy {
         Retrofit.Builder()
