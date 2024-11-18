@@ -110,4 +110,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("io.coil-kt:coil-compose:2.6.0")
+
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation(kotlin("script-runtime"))
+    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
 }
