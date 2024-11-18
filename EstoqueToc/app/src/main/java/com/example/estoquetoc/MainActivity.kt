@@ -108,11 +108,13 @@ fun AppNavHost(
         startDestination = "inicial_screen",
         modifier = modifier
     ) {
-        // Telas Iniciais
+      // Telas Iniciais
         composable("inicial_screen") { WelcomeScreen(navController) }
-        composable("login") { LoginScreen(navController) }
+        composable("login") {
+            val loginViewModel: LoginViewModel = viewModel() // Obtenha uma instância do ViewModel
+            LoginScreen(viewModel = loginViewModel, navController = navController)
+        }        
         composable("cadastro_usuario") { CadastroUsuarioScreen(navController) }
-
         // Formulários de Cadastro
         composable("cadastro_produto") { CadastroProdutos(navController, produtos) }
         composable("cadastro_fornecedor") { CadastroFornecedores(navController, fornecedores) }
