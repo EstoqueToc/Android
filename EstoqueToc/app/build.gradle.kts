@@ -56,68 +56,46 @@ android {
 
 dependencies {
 
+    // ZXing para leitura de código de barras
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("com.google.zxing:core:3.5.0")
 
-    implementation("androidx.compose.ui:ui:1.5.0")
-    implementation("androidx.compose.material3:material3:1.1.0")
-    implementation("androidx.navigation:navigation-compose:2.6.0")
-    implementation("androidx.activity:activity-compose:1.8.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
-
-    implementation ("androidx.compose.ui:ui:1.5.0")
-    implementation ("androidx.compose.material3:material3:1.1.0")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
-    implementation ("androidx.activity:activity-compose:1.8.0")
-
-
-    implementation("io.coil-kt:coil-compose:2.0.0")
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-
-    // Jetpack Compose libraries
-    implementation(platform(libs.androidx.compose.bom)) // Compose BOM (Bill of Materials)
-    implementation(libs.androidx.ui)                     // UI core components
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)      // Preview support
-    implementation(libs.androidx.activity.compose)        // Activity with Compose
-
-    // Material 3 components for Compose
+    // Jetpack Compose e Material Design 3
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.material.icons.extended)
+    implementation(libs.androidx.activity.compose)
 
-    // Navigation in Compose
+    // Navigation Compose
     implementation(libs.androidx.navigation.compose)
-   // implementation(libs.navigation.compose)
-    implementation(libs.kotlinx.serialization.json)
 
-    // Coil for image loading in Compose
-    implementation(libs.coil.kt.coil.compose)
+    // Coil para carregamento de imagens
+    implementation("io.coil-kt:coil-compose:2.6.0")
 
-    // WebView
-    implementation (libs.androidx.webkit.v140)
+    // Retrofit e OkHttp
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
 
+    // DataStore Preferences
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation(libs.androidx.junit.ktx)
+    implementation(libs.androidx.ui.test.junit4.android)
+    implementation(libs.ui.text.google.fonts)
 
-
-    // Testing dependencies
+    // Testes
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
 
-    // Debugging tools
+    // Ferramentas de depuração e testes de UI
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.7.5")
+    implementation ("androidx.compose.animation:animation:1.7.5" )
 
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
-    implementation("io.coil-kt:coil-compose:2.6.0")
 
-    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2")
-    implementation("androidx.datastore:datastore-preferences:1.1.1")
-    implementation(kotlin("script-runtime"))
-    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
 }

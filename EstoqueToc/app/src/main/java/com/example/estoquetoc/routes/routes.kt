@@ -1,6 +1,5 @@
 package com.example.estoquetoc.routes
 
-import kotlinx.serialization.Serializable
 //
 //
 //@Serializable

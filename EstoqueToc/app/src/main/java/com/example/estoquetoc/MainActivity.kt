@@ -31,7 +31,6 @@ import com.example.estoquetoc.formulario.CadastroFornecedores
 import com.example.estoquetoc.formulario.CadastroFuncionarios
 import com.example.estoquetoc.formulario.CadastroProdutos
 import com.example.estoquetoc.ui.theme.EstoqueTocTheme
-import kotlinx.serialization.Serializable
 
 class MainActivity : ComponentActivity() {
 
@@ -110,11 +109,10 @@ fun AppNavHost(
     ) {
       // Telas Iniciais
         composable("inicial_screen") { WelcomeScreen(navController) }
-        composable("login") {
-            val loginViewModel: LoginViewModel = viewModel() // Obtenha uma instância do ViewModel
-            LoginScreen(viewModel = loginViewModel, navController = navController)
+        composable("login") {LoginScreen(navController = navController)
         }        
         composable("cadastro_usuario") { CadastroUsuarioScreen(navController) }
+
         // Formulários de Cadastro
         composable("cadastro_produto") { CadastroProdutos(navController, produtos) }
         composable("cadastro_fornecedor") { CadastroFornecedores(navController, fornecedores) }
@@ -144,11 +142,6 @@ fun AppNavHost(
         composable("relatorios"){ RelatoriosScreen(navController)}
     }
 }
-
-@Serializable
-object LoginScreen
-
-
 
 @Composable
 fun RelatorioScreen(navController: NavHostController) {

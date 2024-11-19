@@ -22,6 +22,11 @@ runtimeLivedata = "1.7.1"
 uiTextGoogleFonts = "compose-ui"
 uiToolingPreview = "1.7.1"
 webkit = "1.11.0"
+navigationTesting = "2.8.4"
+monitor = "1.7.2"
+junitKtx = "1.2.1"
+uiTestJunit4Android = "1.7.5"
+uiTextGoogleFontsVersion = "1.7.5"
 
 [libraries]
 accompanist-coil = { module = "com.google.accompanist:accompanist-coil", version.ref = "accompanistCoil" }
@@ -52,6 +57,11 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+androidx-navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "navigationTesting" }
+androidx-monitor = { group = "androidx.test", name = "monitor", version.ref = "monitor" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
+androidx-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "uiTestJunit4Android" }
+ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFontsVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

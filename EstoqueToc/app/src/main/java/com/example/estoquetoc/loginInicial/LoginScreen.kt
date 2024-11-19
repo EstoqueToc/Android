@@ -17,8 +17,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -132,23 +131,45 @@ fun LoginScreen(navController: NavHostController? = null) {
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            OutlinedTextField(
-                value = senha,
-                onValueChange = { senha = it },
-                label = { Text("Senha") },
-                modifier = Modifier.fillMaxWidth(),
-                visualTransformation = if (senhaVisivel) VisualTransformation.None else PasswordVisualTransformation(),
-                trailingIcon = {
-                    val icon =
-                        if (senhaVisivel) Icons.Default.Visibility else Icons.Default.VisibilityOff
-                    IconButton(onClick = { senhaVisivel = !senhaVisivel }) {
-                        Icon(
-                            imageVector = icon,
-                            contentDescription = "Toggle password visibility"
-                        )
+            // Use AnimatedVisibility to toggle password visibility with animation
+            AnimatedVisibility(visible = senhaVisivel) {
+                OutlinedTextField(
+                    value = senha,
+                    onValueChange = { senha = it },
+                    label = { Text("Senha") },
+                    modifier = Modifier.fillMaxWidth(),
+                    visualTransformation = VisualTransformation.None, // Password visible
+                    trailingIcon = {
+                       // val icon = if (senhaVisivel) Icons.Default.Visibility else Icons.Default.VisibilityOff
+                        IconButton(onClick = { senhaVisivel = !senhaVisivel }) {
+//                            Icon(
+//                                imageVector = icon,
+//                                contentDescription = "Toggle password visibility"
+//                            )
+                        }
                     }
-                }
-            )
+                )
+            }
+
+            // Use AnimatedVisibility for the password with hidden characters
+            AnimatedVisibility(visible = !senhaVisivel) {
+                OutlinedTextField(
+                    value = senha,
+                    onValueChange = { senha = it },
+                    label = { Text("Senha") },
+                    modifier = Modifier.fillMaxWidth(),
+                    visualTransformation = PasswordVisualTransformation(), // Password hidden
+                    trailingIcon = {
+//                        val icon = if (senhaVisivel) Icons.Default.Visibility else Icons.Default.VisibilityOff
+                        IconButton(onClick = { senhaVisivel = !senhaVisivel }) {
+//                            Icon(
+//                                imageVector = icon,
+//                                contentDescription = "Toggle password visibility"
+//                            )
+                        }
+                    }
+                )
+            }
 
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -205,7 +226,6 @@ fun LoginScreen(navController: NavHostController? = null) {
             ) {
                 Row(modifier = Modifier.padding(3.dp)) {
                     Text(
-
                         text = buildAnnotatedString {
                             withStyle(style = SpanStyle(color = Color(0xFF262626))) {
                                 append("Não possui Conta?")
@@ -219,7 +239,7 @@ fun LoginScreen(navController: NavHostController? = null) {
                                 )
                             ) {
                                 append("Clique aqui para criar uma agora.")
-                               Modifier.pointerHoverIcon(PointerIcon.Hand)
+                                Modifier.pointerHoverIcon(PointerIcon.Hand)
                             }
                         }
                     )
