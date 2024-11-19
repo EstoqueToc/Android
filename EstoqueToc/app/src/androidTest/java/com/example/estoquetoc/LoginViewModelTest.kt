@@ -1,98 +1,118 @@
-package com.example.estoquetoc
+package com.example.aula_2609
 
-import androidx.compose.ui.test.*
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.navigation.testing.TestNavHostController
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
+
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
+import com.example.aula_2609.home.IObterMusicasUseCase
+import com.example.aula_2609.home.presentation.stateholders.MainStateHolder
+import com.example.aula_2609.home.presentation.viewmodels.MainViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
+import org.junit.Assert
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.kotlin.whenever
 import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
-@RunWith(AndroidJUnit4::class)
-class LoginScreenTest {
+@RunWith(MockitoJUnitRunner::class)
+class MainViewModelTest {
 
     @get:Rule
-    val composeTestRule = createComposeRule()
+    val instantExecutorRole = InstantTaskExecutorRule()
 
-    @Test
-    fun testInitialElementsDisplayed() {
-        composeTestRule.setContent {
-            LoginScreen(navController = null)
-        }
+    private val testDispatcher = StandardTestDispatcher()
 
-        // Verifica se o logo e o texto inicial são exibidos corretamente
-        composeTestRule.onNodeWithContentDescription("Logo Estoquetoc").assertExists()
-        composeTestRule.onNodeWithText("Estoquetoc").assertExists()
-        composeTestRule.onNodeWithText("Olá,").assertExists()
-        composeTestRule.onNodeWithText("Entre com sua conta.").assertExists()
+    @Mock
+    private lateinit var observer: Observer<MainStateHolder>
 
-        // Verifica se os campos de texto estão visíveis
-        composeTestRule.onNodeWithText("Email").assertExists()
-        composeTestRule.onNodeWithText("Senha").assertExists()
+    private lateinit var viewModel: MainViewModel
+
+    @Mock
+    private lateinit var obterMusicasUseCase: IObterMusicasUseCase
+
+    @Before
+    fun setup() {
+        Dispatchers.setMain(testDispatcher)
+        viewModel = MainViewModel(
+            obterMusicasUseCase = obterMusicasUseCase
+        )
+        viewModel.uiState.observeForever(observer)
+    }
+
+    @After
+    fun tearDown() {
+        viewModel.uiState.removeObserver(observer)
+        Dispatchers.resetMain()
     }
 
     @Test
-    fun testEmailAndPasswordInput() {
-        composeTestRule.setContent {
-            LoginScreen(navController = null)
-        }
-
-        // Insere texto no campo de email
-        val emailNode = composeTestRule.onNodeWithText("Email")
-        emailNode.performTextInput("teste@exemplo.com")
-        emailNode.assertTextEquals("teste@exemplo.com")
-
-        // Insere texto no campo de senha
-        val passwordNode = composeTestRule.onNodeWithText("Senha")
-        passwordNode.performTextInput("123456")
-        passwordNode.assertTextEquals("123456")
+    fun `Ao carregar as musicas o estado deve deixar de ser Loadind`() = runTest {
+        viewModel.carregarLista()
+        Assert.assertTrue(viewModel.uiState.value !is MainStateHolder.Loading)
     }
 
     @Test
-    fun testTogglePasswordVisibility() {
-        composeTestRule.setContent {
-            LoginScreen(navController = null)
-        }
+    fun `Ao carregar as musicas o estado deve deixar de ser Loading`() = runTest {
+        // Mockando a resposta do UseCase
+        whenever(obterMusicasUseCase()).thenReturn(Result.success(emptyList()))
 
-        // Clica no ícone de visibilidade
-        val visibilityToggleNode = composeTestRule.onNodeWithContentDescription("Toggle password visibility")
-        visibilityToggleNode.performClick()
+        // Carregando a lista
+        viewModel.carregarLista()
+        advanceUntilIdle()
 
-        // Verifica se a senha agora está visível
-        composeTestRule.onNodeWithText("Senha").assert(hasText("123456", substring = true))
+        // Verificando se o estado não é mais "Loading"
+        Assert.assertTrue(viewModel.uiState.value !is MainStateHolder.Loading)
     }
 
     @Test
-    fun testButtonNavigation() {
-        val navController = TestNavHostController(InstrumentationRegistry.getInstrumentation().targetContext)
+    fun `Ao carregar as musicas o estado deve ser Content`() = runTest {
+        // Mockando o UseCase para retornar uma lista de músicas
+        whenever(obterMusicasUseCase()).thenReturn(Result.success(emptyList()))
 
-        composeTestRule.setContent {
-            LoginScreen(navController = navController)
-        }
+        // Carregando a lista
+        viewModel.carregarLista()
+        advanceUntilIdle()
 
-        // Insere email e senha para ativar o botão
-        composeTestRule.onNodeWithText("Email").performTextInput("teste@exemplo.com")
-        composeTestRule.onNodeWithText("Senha").performTextInput("123456")
-
-        // Clica no botão "Entrar"
-        composeTestRule.onNodeWithText("Entrar").performClick()
-
-        // Verifica se a navegação foi acionada corretamente
-        assert(navController.currentBackStackEntry?.destination?.route == "faturamento")
+        // Verificando se o estado é Content
+        Assert.assertTrue(viewModel.uiState.value is MainStateHolder.Content)
     }
 
     @Test
-    fun testEmptyFieldsToastMessage() {
-        composeTestRule.setContent {
-            LoginScreen(navController = null)
-        }
+    fun `Ao falhar ao carregar as musicas o estado deve ser Error`() = runTest {
+        // Simulando falha na obtenção das músicas
+        whenever(obterMusicasUseCase()).thenReturn(Result.failure(Exception("Erro ao carregar músicas")))
 
-        // Clica no botão sem preencher campos
-        composeTestRule.onNodeWithText("Entrar").performClick()
+        // Carregando as músicas
+        viewModel.carregarLista()
+        advanceUntilIdle()
 
-        // A verificação do Toast geralmente exige bibliotecas de testes de UI instrumentados
-        // (não é possível diretamente com Jetpack Compose Testing).
+        // Verificando se o estado da UI é Error e a mensagem é a esperada
+        val errorState = viewModel.uiState.value as? MainStateHolder.Error
+        Assert.assertEquals("Deu ruim ...", errorState?.message)
     }
+
+    @Test
+    fun `Ao carregar lista vazia o estado deve ser Content com lista vazia`() = runTest {
+        // Simulando o retorno de uma lista vazia
+        whenever(obterMusicasUseCase()).thenReturn(Result.success(emptyList()))
+
+        // Carregando a lista
+        viewModel.carregarLista()
+        advanceUntilIdle()
+
+        // Verificando se o estado é Content e a lista está vazia
+        val contentState = viewModel.uiState.value as MainStateHolder.Content
+        Assert.assertTrue(contentState.data.isEmpty())
+    }
+
 }
+
