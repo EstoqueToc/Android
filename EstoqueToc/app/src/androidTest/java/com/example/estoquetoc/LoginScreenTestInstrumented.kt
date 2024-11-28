@@ -8,13 +8,15 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.ar.core.Config
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
+
+@RunWith(AndroidJUnit4::class)
+//@Config(manifest = Config.NONE)
 class LoginScreenTestInstrumented {
 
     @get:Rule
