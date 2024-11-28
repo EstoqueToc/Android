@@ -192,32 +192,53 @@ fun LoginScreen(navController: NavHostController? = null) {
             }
 
             Spacer(modifier = Modifier.height(32.dp))
+            var errorMessage by remember { mutableStateOf("") }
+
             Button(
                 onClick = {
                     if (senha.isEmpty() || email.isEmpty()) {
-                        Toast.makeText(
-                            context,
-                            "Preencha todos os campos",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        errorMessage = "Preencha todos os campos"
                     } else {
                         navController?.navigate("faturamento")
                     }
                 },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp)
-                    .align(Alignment.CenterHorizontally),
-                shape = RoundedCornerShape(6.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6F00))
+                modifier = Modifier.fillMaxWidth().height(50.dp)
             ) {
-                Text(
-                    text = "Entrar",
-                    color = Color.White,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
+                Text("Entrar")
             }
+
+            if (errorMessage.isNotEmpty()) {
+                Snackbar(
+                    modifier = Modifier.padding(16.dp)
+                ) { Text(errorMessage) }
+            }
+
+//            Button(
+//                onClick = {
+//                    if (senha.isEmpty() || email.isEmpty()) {
+//                        Toast.makeText(
+//                            context,
+//                            "Preencha todos os campos",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    } else {
+//                        navController?.navigate("faturamento")
+//                    }
+//                },
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .height(50.dp)
+//                    .align(Alignment.CenterHorizontally),
+//                shape = RoundedCornerShape(6.dp),
+//                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF6F00))
+//            ) {
+//                Text(
+//                    text = "Entrar",
+//                    color = Color.White,
+//                    fontSize = 16.sp,
+//                    fontWeight = FontWeight.SemiBold
+//                )
+//            }
             Spacer(modifier = Modifier.height(4.dp))
             TextButton(
                 onClick = {
@@ -247,6 +268,11 @@ fun LoginScreen(navController: NavHostController? = null) {
             }
         }
     }
+}
+
+@Composable
+fun Snackbar(modifier: Modifier, content: @Composable () -> Unit) {
+
 }
 
 @Preview(showBackground = true)

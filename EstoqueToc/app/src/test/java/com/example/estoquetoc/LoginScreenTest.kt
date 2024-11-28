@@ -3,9 +3,12 @@ package com.example.estoquetoc
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.testing.TestNavHostController
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertThat
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -33,21 +36,35 @@ class LoginScreenTest {
         senhaField.assertTextEquals("senha123")
     }
 
+//    @Test
+//    fun `botao entrar deve mostrar toast ao clicar com campos vazios`() {
+//        composeTestRule.setContent {
+//            LoginScreen(navController = rememberNavController())
+//        }
+//
+//        val botaoEntrar = composeTestRule.onNodeWithText("Entrar")
+//
+//        botaoEntrar.performClick()
+//    }
+
     @Test
-    fun `botao entrar deve mostrar toast ao clicar com campos vazios`() {
+    fun `botao entrar deve mostrar snackbar ao clicar com campos vazios`() {
         composeTestRule.setContent {
             LoginScreen(navController = rememberNavController())
         }
 
         val botaoEntrar = composeTestRule.onNodeWithText("Entrar")
-
         botaoEntrar.performClick()
+
+        composeTestRule.onNodeWithText("Preencha todos os campos").assertIsDisplayed()
     }
 
     @Test
-    fun `botao entrar deve navegar ao preencher campos corretamente`() = runTest  {
+    fun `botao entrar deve navegar ao preencher campos corretamente`() {
+        val navController = TestNavHostController(ApplicationProvider.getApplicationContext())
+
         composeTestRule.setContent {
-            val navController = rememberNavController()
+            navController.setGraph(R.navigation.nav_graph)
             LoginScreen(navController = navController)
         }
 
@@ -58,7 +75,10 @@ class LoginScreenTest {
         emailField.performTextInput("usuario@exemplo.com")
         senhaField.performTextInput("senha123")
         botaoEntrar.performClick()
+
+        //assertThat(navController.currentDestination?.route).isEqualTo("faturamento")
     }
+
 
     @Test
     fun `botao esqueci minha senha deve navegar para tela de cadastro`() = runTest {

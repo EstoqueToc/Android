@@ -82,6 +82,8 @@ dependencies {
     implementation(libs.androidx.junit.ktx)
     implementation(libs.androidx.ui.test.junit4.android)
     implementation(libs.ui.text.google.fonts)
+    implementation(libs.androidx.navigation.testing)
+    implementation(libs.core)
 
     // Testes
     testImplementation(libs.junit)
@@ -89,13 +91,22 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.test.manifest)
+
 
     // Ferramentas de depuração e testes de UI
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.7.5")
+    androidTestImplementation("androidx.compose.ui:ui-test-manifest:1.7.5")
     implementation ("androidx.compose.animation:animation:1.7.5" )
+    testImplementation ("org.robolectric:robolectric:4.10.3")
 
+    //Testes instrumentados
+    androidTestImplementation(libs.mockwebserver)
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation(libs.gson)
+    testImplementation ("org.robolectric:robolectric:4.10.3")
 
 }
