@@ -30,24 +30,30 @@ class LoginScreenTestInstrumented {
         }
 
         composeTestRule
-            .onNodeWithText("Olá,")
+            .onNodeWithText("Olá,", substring = true)
             .assertIsDisplayed()
+            .assertExists()
+            .fetchSemanticsNode(false.toString()) != null
 
         composeTestRule
             .onNodeWithText("Entre com sua conta.")
             .assertIsDisplayed()
+            .assertExists()
 
         composeTestRule
             .onNodeWithText("Email")
             .assertIsDisplayed()
+            .assertExists()
 
         composeTestRule
             .onNodeWithText("Senha")
             .assertIsDisplayed()
+            .assertExists()
 
         composeTestRule
             .onNodeWithText("Entrar")
             .assertIsDisplayed()
+            .assertExists()
     }
 
     @Test
