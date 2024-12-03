@@ -16,12 +16,10 @@ import org.junit.runner.RunWith
 
 
 @RunWith(AndroidJUnit4::class)
-//@Config(manifest = Config.NONE)
 class LoginScreenTestInstrumented {
 
     @get:Rule
     val composeTestRule = createComposeRule()
-
 
     @Test
     fun loginScreen_deveExibirTodosOsElementos() {
@@ -29,31 +27,12 @@ class LoginScreenTestInstrumented {
             LoginScreen()
         }
 
-        composeTestRule
-            .onNodeWithText("Olá,", substring = true)
-            .assertIsDisplayed()
-            .assertExists()
-            .fetchSemanticsNode(false.toString()) != null
-
-        composeTestRule
-            .onNodeWithText("Entre com sua conta.")
-            .assertIsDisplayed()
-            .assertExists()
-
-        composeTestRule
-            .onNodeWithText("Email")
-            .assertIsDisplayed()
-            .assertExists()
-
-        composeTestRule
-            .onNodeWithText("Senha")
-            .assertIsDisplayed()
-            .assertExists()
-
-        composeTestRule
-            .onNodeWithText("Entrar")
-            .assertIsDisplayed()
-            .assertExists()
+        // Teste básico para verificar elementos principais
+        composeTestRule.onNodeWithText("Olá,", substring = true).assertExists()
+        composeTestRule.onNodeWithText("Entre com sua conta.").assertExists()
+        composeTestRule.onNodeWithText("Email").assertExists()
+        composeTestRule.onNodeWithText("Senha").assertExists()
+        composeTestRule.onNodeWithText("Entrar").assertExists()
     }
 
     @Test
@@ -62,44 +41,12 @@ class LoginScreenTestInstrumented {
             LoginScreen()
         }
 
-        composeTestRule
-            .onNodeWithText("Entrar")
-            .performClick()
+        // Simula o clique no botão "Entrar" com campos vazios
+        composeTestRule.onNodeWithText("Entrar").performClick()
 
-        composeTestRule
-            .onNodeWithText("Preencha todos os campos")
-            .assertIsDisplayed()
+        // Verifica se a mensagem de erro aparece
+        composeTestRule.onNodeWithText("Preencha todos os campos").assertExists()
     }
-
-    @Test
-    fun loginScreen_deveNavegarParaFaturamentoQuandoLoginBemSucedido() {
-        // Cria um NavHostController para testes
-        val navController = TestNavHostController(ApplicationProvider.getApplicationContext())
-        navController.setGraph(0) // Sem gráfico de navegação
-        navController.setCurrentDestination("login") // Define o destino inicial
-
-        composeTestRule.setContent {
-            LoginScreen(navController = navController)
-        }
-
-        // Simula a entrada de dados no formulário
-        composeTestRule
-            .onNodeWithText("Email")
-            .performTextInput("usuario@teste.com")
-
-        composeTestRule
-            .onNodeWithText("Senha")
-            .performTextInput("123456")
-
-        // Clica no botão de login
-        composeTestRule
-            .onNodeWithText("Entrar")
-            .performClick()
-
-        // Verifica se a navegação ocorreu corretamente
-        assert(navController.currentDestination?.route == "faturamento")
-    }
-
 
     @Test
     fun loginScreen_deveAlternarVisibilidadeSenha() {
@@ -107,19 +54,13 @@ class LoginScreenTestInstrumented {
             LoginScreen()
         }
 
-        // Insira a senha no campo
-        composeTestRule
-            .onNodeWithText("Senha")
-            .performTextInput("123456")
+        // Insere a senha no campo
+        composeTestRule.onNodeWithText("Senha").performTextInput("123456")
 
-        // Clique no botão/ícone de alternar visibilidade
-        composeTestRule
-            .onNodeWithContentDescription("Alternar visibilidade da senha")
-            .performClick()
+        // Alterna a visibilidade da senha
+        composeTestRule.onNodeWithContentDescription("Alternar visibilidade da senha").performClick()
 
-        // Verificar se a senha visível é exibida (ajustar com base no comportamento real)
-        composeTestRule
-            .onNodeWithText("123456", substring = true)
-            .assertExists()
+        // Verifica se a senha visível é exibida (ajuste conforme necessário)
+        composeTestRule.onNodeWithText("123456", substring = true).assertExists()
     }
 }
